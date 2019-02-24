@@ -2,6 +2,10 @@
 <html>
 <head></head>
 <body>
-<h1>About</h1>
+<h1>About</h1><br>
+{% for d in data %}
+	<h2>{{ d.login }}</h2><br>
+	<h2>{{ d.total }}</h2><br>
+{%endfor%}
 </body>
 </html>
