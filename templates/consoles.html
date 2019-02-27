@@ -57,11 +57,11 @@ div.desc {
 <body>
 
 <div class="topnav">
-  <a href="file:home.html">Home</a>
-  <a class="active" href="file:consoles.html">Consoles</a>
-  <a href="file:games.html">Games</a>
-  <a href="file:rating.html">Rating</a>
-  <a href="file:about.html"">About</a>
+  <a href="{{ url_for('home') }}">Home</a>
+  <a class="active" href="{{ url_for('consoles') }}">Consoles</a>
+  <a href="{{ url_for('games') }}">Games</a>
+  <a href="{{ url_for('rating') }}">Rating</a>
+  <a href="{{ url_for('about') }}">About</a>
 </div>
 
 <div style="padding-left:16px">
@@ -71,35 +71,35 @@ div.desc {
 
 <div class="gallery">
   <a target="_blank" href="file:///Users/yinghongliu/Desktop/static_web/console1.html">
-    <img src="file:image/Microsoft Xbox One X.jpg" width="700" height="400">
+    <img src="{{ url_for('static',filename='image/Microsoft Xbox One X.jpg') }}" width="700" height="400">
   </a>
   <div class="desc"> Microsoft Xbox One X </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="file:///Users/yinghongliu/Desktop/static_web/console2.html">
-    <img src="file:image/Microsoft Xbox One S.jpg" width="600" height="400">
+    <img src="{{ url_for('static',filename='image/Microsoft Xbox One S.jpg') }}" width="600" height="400">
   </a>
   <div class="desc"> Microsoft Xbox One S </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="file:///Users/yinghongliu/Desktop/static_web/console3.html">
-    <img src="file:image/Nintendo Switch With Gray Joy.jpg" width="600" height="400">
+    <img src="{{ url_for('static',filename='image/Nintendo Switch With Gray Joy.jpg') }}" width="600" height="400">
   </a>
   <div class="desc"> Nintendo Switch With Gray Joy </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="file:///Users/yinghongliu/Desktop/static_web/console4.html">
-    <img src="file:image/Sony PlayStation 4 Pro.jpg" width="600" height="400">
+    <img src="{{ url_for('static',filename='image/Sony PlayStation 4 Pro.jpg') }}" width="600" height="400">
   </a>
   <div class="desc"> Sony PlayStation 4 Pro </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="file:///Users/yinghongliu/Desktop/static_web/console5.html">
-    <img src="file:image/Sony PlayStation 4 Slim.jpg" width="600" height="400">
+    <img src="{{ url_for('static',filename='image/Sony PlayStation 4 Slim.jpg') }}" width="600" height="400">
   </a>
   <div class="desc"> Sony PlayStation 4 Slim </div>
 </div>
