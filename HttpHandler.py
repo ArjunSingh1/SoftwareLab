@@ -1,33 +1,46 @@
-# importing the requests library 
-import requests 
-  
-#get json file from api at given url
-#uses GET requests
-def api_request(URL):
-	# sending get request and saving the response as response object 
-	r = requests.get(url = URL) 
-  
-	# extracting data in json format 
-	data = r.json() 
-	return data
+import urllib2, json
 
-def get_contributer_statistics():
-	# api-endpoint 
-	URL = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/stats/contributors"
+table = {'blake': 0, 'rabia': 0, 'arjun': 0, 'yinghong': 0, 'wenran': 0, 'total': 0}
+issue = {'blake': 0, 'rabia': 0, 'arjun': 0, 'yinghong': 0, 'wenran': 0, 'total': 0}
 
- 	data = api_request(URL = URL)
-	
-  	# extract login and total contributions data 
-  	extractedData = [
-  		{
-  			'login' : data[0]['author']['login'],
-			'total' : data[0]['total']
-  		}
-  	]
+def get_issues_statistics():
+    url = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/issues"
+    r = urllib2.Request(url)
+    opener = urllib2.build_opener()
+    data = opener.open(r)
+    result = json.loads(data.read())
+    for i in range(0, len(result)):
+        if result[i]['user']['login'] == 'Bgardner4':
+            issue['blake'] +=1
+        elif result[i]['user']['login'] == 'YinghongLIU':
+            issue['yinghong'] +=1
+        elif result[i]['user']['login'] == 'ArjunSingh1':
+            issue['arjun'] +=1
+        elif result[i]['user']['login'] == 'wenranlu':
+            issue['wenran'] +=1
+        elif result[i]['user']['login'] == 'rabiakhan713':
+            issue['rabia'] +=1
 
+    issue['total'] = len(result)
+    return issue
 
-  	return extractedData
-	
-	
+def get_contributors_statistics():
+    url = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/contributors"
+    r = urllib2.Request(url)
+    opener = urllib2.build_opener()
+    data = opener.open(r)
+    result = json.loads(data.read())
+    for i in range(0,len(result)):
+        if result[i]['login'] =='Bgardner4':
+            table['blake'] = result[i]['contributions']
+        elif result[i]['login'] =='YinghongLIU':
+            table['yinghong'] = result[i]['contributions']
+        elif result[i]['login'] =='ArjunSingh1':
+            table['arjun'] = result[i]['contributions']
+        elif result[i]['login'] =='wenranlu':
+            table['wenran'] = result[i]['contributions']
+        elif result[i]['login'] =='rabiakhan713':
+            table['rabia'] = result[i]['contributions']
 
-get_contributer_statistics()
+        table['total'] = table['rabia']+ table['wenran'] + table['blake'] + table['yinghong'] + table['arjun']
+    return table

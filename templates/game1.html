@@ -36,18 +36,18 @@ body {
 <body>
 
 <div class="topnav">
-  <a href="file:home.html">Home</a>
-  <a href="file:consoles.html">Consoles</a>
-  <a class="active" href="file:games.html">Games</a>
-  <a href="file:rating.html">Rating</a>
-  <a href="file:about.html"">About</a>
+<a href="{{url_for('home')}}">Home</a>
+  <a href="{{url_for('consoles')}}">Consoles</a>
+  <a class="active" href="{{url_for('games')}}">Games</a>
+  <a href="{{url_for('rating')}}">Rating</a>
+  <a href="{{url_for('about')}}">About</a>
 </div>
 
 <div style="padding-left:16px">
   <h2>New Super Mario Bros. U Deluxe</h2>
 </div>
 
-<img src="file:image/New Super Mario Bros. U Deluxe.png" alt="New Super Mario Bros. U Deluxe" width="500" height="600">
+<img src="{{ url_for('static',filename='image/New Super Mario Bros. U Deluxe.png') }}" alt="New Super Mario Bros. U Deluxe" width="500" height="600">
 
 </body>
 </html>

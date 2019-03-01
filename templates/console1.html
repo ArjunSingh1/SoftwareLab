@@ -36,18 +36,18 @@ body {
 <body>
 
 <div class="topnav">
-  <a href="home.html">Home</a>
-  <a class="active" href="consoles.html">Consoles</a>
-  <a href="file:games.html">Games</a>
-  <a href="file:rating.html">Rating</a>
-  <a href="file:about.html"">About</a>
+<a href="{{url_for('home')}}">Home</a>
+  <a class="active" href="{{url_for('consoles')}}">Consoles</a>
+  <a href="{{url_for('games')}}">Games</a>
+  <a href="{{url_for('rating')}}">Rating</a>
+  <a href="{{url_for('about')}}">About</a>
 </div>
 
 <div style="padding-left:16px">
   <h2>Microsoft Xbox One X</h2>
 </div>
 
-<img src="file:image/Microsoft Xbox One X.jpg" alt="Microsoft Xbox One X" width="500" height="600">
+<img src="{{ url_for('static',filename='image/Microsoft Xbox One X.jpg')}}" alt="Microsoft Xbox One S" width="500" height="600">
 
 </body>
 </html>

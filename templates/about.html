@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About</title>
 <style>
 body {
   margin: 0;
@@ -36,23 +38,79 @@ body {
 <body>
 
 <div class="topnav">
-  <a href="{{ url_for('home') }}">Home</a>
-  <a href="{{ url_for('consoles') }}">Consoles</a>
-  <a href="{{ url_for('games') }}">Games</a>
-  <a href="{{ url_for('rating') }}">Rating</a>
-  <a class="active" href="{{ url_for('about') }}">About</a>
+  <a href="{{url_for('home')}}">Home</a>
+  <a href="{{url_for('consoles')}}">Consoles</a>
+  <a href="{{url_for('games')}}">Games</a>
+  <a href="{{url_for('rating')}}">Rating</a>
+  <a class="active" href="{{url_for('about')}}">About</a>
 </div>
 
 <div style="padding-left:16px">
-  <h2>About Us</h2>
-  <p>Introduction of our team!</p>
-</div>
-<br>
+    <h1>About us</h1>
+    <br>
 
-{% for d in data %}
-  <h2>{{ d.login }}</h2><br>
-  <h2>{{ d.total }}</h2><br>
-{%endfor%}
+    <h2>Team Copper</h2>
+    <br>
+    <h3>Arjun Singh</h3>
+    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" width="100" height="100">
+    <h4>bio: I am Arjun Singh</h4>
+    <h4>major: ECE</h4>
+    <h4>responsibilities: engagement metric, design </h4>
+    <h4>commits: {{ data['arjun']}}</h4>
+    <h4>issues: {{ stats['arjun'] }}</h4>
+    <h4>unit tests:</h4>
+    <h3>Blake Gardner</h3>
+    <img src="{{ url_for('static',filename='image/blake.jpg') }}" width="100" height="100">
+    <h4>bio: I am an Electrical Engineering major at the University of Texas</h4>
+    <h4>major: ECE</h4>
+    <h4>responsibilities: about page, unit tests</h4>
+    <h4>commits: {{ data['blake']}}</h4>
+    <h4>issues: {{ stats['blake'] }}</h4>
+    <h4>unit tests:</h4>
+    <h3>Rabia Khan</h3>
+    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" width="100" height="100">
+    <h4>bio: When I am not coding, I like going hiking</h4>
+    <h4>major: ECE</h4>
+    <h4>responsibilities: project lead for phase I, user stories, 3 instances</h4>
+    <h4>commits: {{ data['rabia']}}</h4>
+    <h4>issues: {{ stats['rabia'] }}</h4>
+    <h4>unit tests:</h4>
+    <h3>Yinghong Liu</h3>
+    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" width="100" height="100">
+    <h4>bio: I am Yinghong Liu</h4>
+    <h4>major: ME</h4>
+    <h4>responsibilities: 15 static pages on GCP</h4>
+    <h4>commits: {{ data['yinghong']}}</h4>
+    <h4>issues: {{ stats['yinghong'] }}</h4>
+    <h4>unit tests:</h4>
+    <h3>Wenran Lu</h3>
+    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" width="100" height="100">
+    <h4>bio: I am a good dog walker</h4>
+    <h4>major: ECE</h4>
+    <h4>responsibilities: about page, unit tests</h4>
+    <h4>commits: {{ data['wenran']}}</h4>
+    <h4>issues: {{ stats['wenran'] }}</h4>
+    <h4>unit tests:</h4>
+
+    <h3>Development Statistics</h3>
+    <p>Total number of commits: {{ data['total'] }}</p>
+    <p>Total number of issues: {{ stats['total'] }}</p>
+    <p>Total number of unit tests:</p>
+    <br>
+    <h3>Data Sources</h3>
+    <p>......</p>
+    <br>
+    <h3>Development Tools</h3>
+    <p>MySQL used for backend database</p>
+    <p>Node.js used for RESTful API</p>
+    <p>Angular used for front-end</p>
+    <p>Postman used to test RESTful API</p>
+    <p>Selenium used to test user interface</p>
+    <br>
+    <h3>
+        <a href = "https://github.com/ArjunSingh1/SoftwareLab.git">GitHub Repository</a>
+    </h3>
+</div>
 
 </body>
 </html>
