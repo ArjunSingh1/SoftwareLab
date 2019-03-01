@@ -42,5 +42,5 @@ def get_contributors_statistics():
         elif result[i]['login'] =='rabiakhan713':
             table['rabia'] = result[i]['contributions']
 
-        table['total'] = table['rabia']+ table['wenran'] + table['blake'] + table['yinghong'] + table['arjun']
+    table['total'] = table['rabia']+ table['wenran'] + table['blake'] + table['yinghong'] + table['arjun']
     return table

@@ -22,7 +22,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(1, table['yinghong'])
         self.assertEqual(4, table['blake'])
         self.assertEqual(0, table['arjun'])
-        self.assertEqual(2, table['wenran'])
+        self.assertEqual(3, table['wenran'])
 
 if __name__ == '__main__':
     unittest.main()
