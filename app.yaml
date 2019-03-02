@@ -6,4 +6,14 @@ handlers:
 - url: /static
   static_dir: static
 - url: /.*
-  script: Main.app
+  script: main.app
+
+libraries:
+- name: flask
+  version: 0.12
+- name: click
+  version: 6.6
+- name: itsdangerous
+  version: 0.24
+- name: pytz
+  version: 2017.3
