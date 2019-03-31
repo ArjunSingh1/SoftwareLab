@@ -2,6 +2,9 @@
 from flask import Flask, render_template, url_for
 #import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
+#import csv to read games_lists csv files
+import csv
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -41,7 +44,10 @@ def console5():
 #games page
 @app.route("/games")
 def games(): 
-	return render_template('games.html')
+    df = pd.read_csv('PS3_Games', names = ['title', 'page', 'image'])
+    titles = map(str,(df.title.tolist())[1:11])
+    images = map(str,(df.image.tolist())[1:11])
+    return render_template('games.html', titles=titles, images=images)
 
 #hardcode=================================
 @app.route("/games/game1")
