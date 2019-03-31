@@ -76,9 +76,21 @@ def console6():
 #games page
 @app.route("/games")
 def games(): 
-    df = pd.read_csv('PS3_Games', names = ['title', 'page', 'image'])
-    titles = map(str,(df.title.tolist())[1:11])
-    images = map(str,(df.image.tolist())[1:11])
+    #open the file in universal line ending mode
+    with open('PS3_Games', 'rU') as infile:
+        # read the file as a dict for each row ({header : value})
+        reader = csv.DictReader(infile)
+        data={}
+        for row in reader:
+            for header, value in row.items():
+                try:
+                    data[header].append(value)
+                except KeyError:
+                    data[header] = [value]
+        
+        #extract the variables you want
+        titles = data['title']
+        images = data['image']
     return render_template('games.html', titles=titles, images=images)
 
 @app.route("/games/game1")
