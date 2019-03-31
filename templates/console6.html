@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+<a href="{{url_for('home')}}">Home</a>
+  <a class="active" href="{{url_for('consoles')}}">Consoles</a>
+  <a href="{{url_for('games')}}">Games</a>
+  <a href="{{url_for('rating')}}">Rating</a>
+  <a href="{{url_for('about')}}">About</a>
+</div>
+
+<div style="padding-left:16px">
+  <h2>Wii U</h2>
+</div>
+
+<img src="{{ url_for('static',filename='image/Wii U.jpg') }}" alt="Wii U" width="500" height="600">
+<h3>Tech Specs:</h3>
+    <p>{{ data[0] }}</p>
+    <p>{{ data[1] }}</p>
+    <p>{{ data[2] }}</p>
+    <p>{{ data[3] }}</p>
+    <p>{{ data[4] }}</p>
+    <p>{{ data[5] }}</p>
+    <p>{{ data[6] }}</p>
+    <p>{{ data[7] }}</p>
+<p>
+    Networking: Wii U can be connected to the Internet via a wireless (IEEE 802.11b/g/n) connection. The console features four USB 2.0 connectors – two in the front and two in the rear – that support Wii LAN Adapters.
+<br>
+    <br>
+    "Audio Output: Uses six-channel PCM linear output via HDMI connector, or analog output via the AV Multi Out connector."
+<br>
+    <br>
+    "Video Output: Supports 1080p, 1080i, 720p, 480p and 480i. Compatible cables include HDMI, Wii D-Terminal, Wii Component Video, Wii RGB, Wii S-Video Stereo AV and Wii AV."
+<br>
+    <br>
+    Energy Efficiency: Wii U utilizes specially designed power-saving features to lower its energy consumption.
+<br>
+    <br>
+    Wii Compatibility: Nearly all Wii software and accessories can be used with Wii U.
+<br>
+    <br>
+    Wii U GamePad: Wii U™ GamePad
+</p>
+</body>
+</html>
