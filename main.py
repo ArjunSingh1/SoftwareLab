@@ -4,7 +4,6 @@ from flask import Flask, render_template, url_for
 from HttpHandler import get_contributors_statistics, get_issues_statistics
 #import csv to read games_lists csv files
 import csv
-import pandas as pd
 
 app = Flask(__name__)
 
