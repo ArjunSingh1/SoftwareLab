@@ -17,3 +17,9 @@ libraries:
   version: 0.24
 - name: pytz
   version: 2017.3
+
+env_variables:
+  CLOUD_SQL_INSTANCE_NAME: game-square-233222:us-central1:game-square
+  DB_USER: admin
+  DB_PASS: copper
+  DB_NAME: TestBase

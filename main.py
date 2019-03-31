@@ -19,27 +19,59 @@ def home():
 def consoles(): 
 	return render_template('consoles.html')
 
-#hardcode=================================
 @app.route("/consoles/console1")
 def console1():
-    return render_template('console1.html')
+    data = []
+    with open('consoles.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            data.append("".join(row))
+    return render_template('console1.html', data=data)
 
 @app.route("/consoles/console2")
 def console2():
-    return render_template('console2.html')
+    data2 = []
+    with open('consoles5.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            data2.append("".join(row))
+    return render_template('console2.html', data=data2)
 
 @app.route("/consoles/console3")
 def console3():
-    return render_template('console3.html')
+    data3 = []
+    with open('consoles2.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            data3.append("".join(row))
+    return render_template('console3.html', data=data3)
 
 @app.route("/consoles/console4")
 def console4():
-    return render_template('console4.html')
+    data4 = []
+    with open('consoles4.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            data4.append("".join(row))
+    return render_template('console4.html', data=data4)
 
 @app.route("/consoles/console5")
 def console5():
-    return render_template('console5.html')
-#==========================================
+    data5 = []
+    with open('consoles3.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            data5.append("".join(row))
+    return render_template('console5.html', data=data5)
+
+@app.route("/consoles/console6")
+def console6():
+    data6 = []
+    with open('consoles6.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            data6.append("".join(row))
+    return render_template('console6.html', data=data6)
 
 #games page
 @app.route("/games")
@@ -49,7 +81,6 @@ def games():
     images = map(str,(df.image.tolist())[1:11])
     return render_template('games.html', titles=titles, images=images)
 
-#hardcode=================================
 @app.route("/games/game1")
 def game1():
     return render_template('game1.html')
@@ -69,7 +100,7 @@ def game4():
 @app.route("/games/game5")
 def game5():
     return render_template('game5.html')
-#=========================================
+
 
 #rating page
 @app.route("/rating")
@@ -89,3 +120,4 @@ def server_error(e):
 
 if __name__ == '__main__':
 	app.run(debug=True)
+
