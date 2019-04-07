@@ -44,18 +44,18 @@ def search_game_page(path):
     more_content = requests.get(url).content
     #get soup 
     more_soup = BeautifulSoup(more_content,'lxml') #choose lxml parser
-    more_table = more_soup.find('table', {"id" : "infobox hproduct"})
+    more_table = more_soup.find('table', {"class" : "infobox hproduct"})
 
     # find the tag : <img ... >
-    image_tag = more_soup.find('img')
+    image_tag = more_table.find('img')
     # return image urls
     image_url = image_tag.get('src')
     return image_url
 
 #if game has a link, link is scraped and returned
-def find_link(tr):
-    if tr.find('td').find('a'):
-        path = tr.find('td').find('a')['href']
+def find_link(tag, tr):
+    if tr.find(tag).find('a'):
+        path = tr.find(tag).find('a')['href']
         return path
 
 #saves all scraped games to a csv file
@@ -69,7 +69,7 @@ def file_save(csv_file, tr, tag):
     for i in range(2,12):
         try:
             title = tr[i].find(tag).find('i').text
-            path = find_link(tr=tr[i])
+            path = find_link(tag, tr=tr[i])
             if path:
                 image = "https:" + search_game_page(path)
             else:
