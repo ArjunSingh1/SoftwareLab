@@ -59,12 +59,15 @@ def find_link(tag, tr):
         return path
 
 #saves all scraped games to a csv file
-def file_save(csv_file, tr, tag):
-    game_write = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-    #game_write.writerow([col1, col3])
+def file_save(csv_file, tr, tag, header):
+    game_write = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+    col1 = "title"
+    col2 ="image_link"
+    if header:
+        game_write.writerow([col1, col2])
+    
     length = len(tr)
-    for i in range(2,12):
+    for i in range(2,(length-3)):
         try:
             title = tr[i].find(tag).find('i').text
             path = find_link(tag, tr=tr[i])
@@ -91,10 +94,10 @@ def search_page(url, name, append, tag):
     #save titles and links
     if append:
         with open(name, mode='a') as games_file:
-            file_save(csv_file=games_file, tr=tr, tag=tag)
+            file_save(csv_file=games_file, tr=tr, tag=tag, header=0)
     else:
         with open(name, mode='w') as games_file:
-            file_save(csv_file=games_file, tr=tr, tag=tag)
+            file_save(csv_file=games_file, tr=tr, tag=tag, header=1)
 
 if __name__ == "__main__":
     main()
