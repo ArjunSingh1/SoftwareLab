@@ -45,10 +45,9 @@ body {
   <a class="active" href="{{url_for('about')}}">About</a>
 </div>
 
-<div style="padding-left:16px">
+<div style="padding-left:16px" align="center">
     <h1>About us</h1>
     <br>
-
     <h2>Team Copper</h2>
     <br>
     <h3>Arjun Singh</h3>
@@ -58,7 +57,7 @@ body {
     <h4>responsibilities: engagement metric, design </h4>
     <h4>commits: {{ data['arjun']}}</h4>
     <h4>issues: {{ stats['arjun'] }}</h4>
-    <h4>unit tests: 0</h4>
+    <h4>unit tests: 4</h4>
     <h3>Blake Gardner</h3>
     <img src="{{ url_for('static',filename='image/blake.jpg') }}" width="100" height="100">
     <h4>bio: I am an Electrical Engineering major at the University of Texas</h4>
@@ -95,7 +94,7 @@ body {
     <h3>Development Statistics</h3>
     <p>Total number of commits: {{ data['total'] }}</p>
     <p>Total number of issues: {{ stats['total'] }}</p>
-    <p>Total number of unit tests: ~12</p>
+    <p>Total number of unit tests: ~16</p>
     <br>
     <h3>Data Sources</h3>
         <a href = "https://www.nintendo.com">Nintendo Switch</a>

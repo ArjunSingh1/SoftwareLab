@@ -43,33 +43,24 @@ body {
   <a href="{{url_for('about')}}">About</a>
 </div>
 
-<div style="padding-left:16px">
+<div style="padding-left:16px" align="center">
   <h2>Sony PlayStation 4 Slim</h2>
-</div>
 
 <img src="{{ url_for('static',filename='image/Sony PlayStation 4 Slim.jpg') }}" alt="Sony PlayStation 4 Slim" width="500" height="600">
 <h3>Tech Specs:</h3>
+    <p>{{ data[0] }}</p>
     <p>{{ data[1] }}</p>
-<p>Main processor: Single-chip custom processor
-CPU : x86-64 AMD “Jaguar”, 8 cores
-GPU : 1.84 TFLOPS, AMD Radeon™ based graphics engine</p>
+    <p>{{ data[2] }}</p>
     <p>{{ data[3] }}</p>
     <p>{{ data[4] }}</p>
+    <p>{{ data[5] }}</p>
     <p>{{ data[6] }}</p>
-<p>
-    BD/ DVD drive
- (read only): BD × 6 CAV
-DVD × 8 CAV"
-</p>
-
-<p>Input/ Output: Super-Speed USB (USB 3.1 Gen1) port × 2 
-AUX port × 1</p>
-
-<p>Networking: Ethernet（10BASE-T, 100BASE-TX, 1000BASE-T）×1
-IEEE 802.11 a/b/g/n/ac
-Bluetooth®v4.0</p>
+    <p>{{ data[7] }}</p>
+    <p>{{ data[8] }}</p>
+    <p>{{ data[9] }}</p>
     <p>{{ data[10] }}</p>
     <p>{{ data[11] }}</p>
 
+</div>
 </body>
 </html>

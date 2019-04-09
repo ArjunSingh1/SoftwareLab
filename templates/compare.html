@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<title>Rating</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -36,7 +38,7 @@ body {
 <body>
 
 <div class="topnav">
-<a href="{{url_for('home')}}">Home</a>
+  <a href="{{url_for('home')}}">Home</a>
   <a class="active" href="{{url_for('consoles')}}">Consoles</a>
   <a href="{{url_for('games')}}">Games</a>
   <a href="{{url_for('rating')}}">Rating</a>
@@ -44,23 +46,9 @@ body {
 </div>
 
 <div style="padding-left:16px" align="center">
-  <h2>Wii U</h2>
-
-<img src="{{ url_for('static',filename='image/Wii U.jpg') }}" alt="Wii U" width="500" height="600">
-<h3>Tech Specs:</h3>
-    <p>{{ data[0] }}</p>
-    <p>{{ data[1] }}</p>
-    <p>{{ data[2] }}</p>
-    <p>{{ data[3] }}</p>
-    <p>{{ data[4] }}</p>
-    <p>{{ data[5] }}</p>
-    <p>{{ data[6] }}</p>
-    <p>{{ data[7] }}</p>
-    <p>{{ data[8] }}</p>
-    <p>{{ data[9] }}</p>
-    <p>{{ data[10] }}</p>
-    <p>{{ data[11] }}</p>
-    <p>{{ data[12] }}</p>
+  <h2>Compare</h2>
+  <p>Compare the consoles</p>
 </div>
+
 </body>
 </html>

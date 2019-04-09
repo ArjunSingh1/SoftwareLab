@@ -64,11 +64,82 @@ div.desc {
   <a href="{{url_for('rating')}}">Rating</a>
   <a href="{{url_for('about')}}">About</a>
 </div>
+<div align="center">
 
 <div style="padding-left:16px">
   <h2>Consoles</h2>
-  <p>Introduction of all consoles!</p>
+  <h3>Choose any two consoles!</h3>
+  <form name="compare">
+<label>
+    <input type="checkbox" name="one"
+    onClick="return KeepCount()"> XBOX ONE X
+</label>
+
+<label>
+<input type="checkbox" NAME="two"
+onClick="return KeepCount()"> XBOX 360
+</label>
+
+<label>
+<input type="checkbox" NAME="three"
+onClick="return KeepCount()"> Switch
+</label>
+
+<label>
+<input type="checkbox" NAME="four"
+onClick="return KeepCount()"> PS4 Pro
+</label>
+
+<label>
+<input type="checkbox" NAME="five"
+onClick="return KeepCount()"> PS4 Slim
+</label>
+
+<label>
+<input type="checkbox" NAME="six"
+onClick="return KeepCount()"> Wii U
+</label>
+<button onclick="compare()">Compare</button>
+</form>
+<br>
 </div>
+
+<script language="javascript">
+
+function KeepCount() {
+
+var NewCount = 0
+
+if (document.compare.one.checked)
+{NewCount = NewCount + 1}
+
+if (document.compare.two.checked)
+{NewCount = NewCount + 1}
+
+if (document.compare.three.checked)
+{NewCount = NewCount + 1}
+
+if (document.compare.four.checked)
+{NewCount = NewCount + 1}
+
+if (document.compare.five.checked)
+{NewCount = NewCount + 1}
+
+if (document.compare.six.checked)
+{NewCount = NewCount + 1}
+
+if (NewCount == 3)
+{
+alert('Pick Just Two Consoles Please!')
+document.compare; return false;
+}
+}
+
+function compare(){
+    location.href = "www.google.com";
+
+}
+</script>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console1')}}">
@@ -112,5 +183,6 @@ div.desc {
   <div class="desc"> Wii U </div>
 </div>
 
+</div>
 </body>
 </html>
