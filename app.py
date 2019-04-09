@@ -29,16 +29,16 @@ def console2():
     with open('consoles5.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data2.append("".join(row))
+            data2.append("".join(row).strip())
     return render_template('console2.html', data=data2)
 
 @app.route("/consoles/console3")
 def console3():
     data3 = []
-    with open('consoles2.csv') as csv_file:
+    with open('consoles2.csv','rU') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data3.append("".join(row))
+            data3.append("".join(row).strip())
     return render_template('console3.html', data=data3)
 
 @app.route("/consoles/console4")
@@ -47,7 +47,7 @@ def console4():
     with open('consoles4.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data4.append("".join(row))
+            data4.append("".join(row).strip())
     return render_template('console4.html', data=data4)
 
 @app.route("/consoles/console5")
@@ -56,7 +56,7 @@ def console5():
     with open('consoles3.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data5.append("".join(row))
+            data5.append("".join(row).strip())
     return render_template('console5.html', data=data5)
 
 @app.route("/consoles/console6")
@@ -67,6 +67,10 @@ def console6():
         for row in csv_reader:
             data6.append("".join(row))
     return render_template('console6.html', data=data6)
+
+@app.route("/consoles/compare")
+def compare():
+    return render_template('compare.html')
 
 @app.route("/games")
 def games():
