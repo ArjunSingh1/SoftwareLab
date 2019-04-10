@@ -10,6 +10,7 @@ col5 = "platform3"
 col6 = "platform4"
 col7 = "platform5"
 col8 = "platform6"
+colNA = "na"
 
 def main():
 	with open('PS4_Games', mode='r', newline='\n') as PS4_file:
@@ -25,6 +26,7 @@ def main():
 	with open('XboxOne_Games', mode='r', newline='\n') as XboxOne_file:
 		add_to_dictionary(file=XboxOne_file, platform='XboxOne')
 
+	fill_in_empty_cols()
 	put_dictionary_in_csv()
 	print("Done")
 
@@ -46,6 +48,13 @@ def add_to_dictionary(file,platform):
 					entry.append(None)
 				entry.append(platform)
 				dict[row[0]] = entry
+
+def fill_in_empty_cols():
+	for value in dict.values():
+		platforms = value[2]
+		rowlength = platforms.count(',') + 3
+		for i in range(8-rowlength):
+			value.append("na")
 
 def put_dictionary_in_csv():
 	with open('All_Games', mode='w') as file:

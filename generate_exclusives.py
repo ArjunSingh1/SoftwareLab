@@ -6,10 +6,15 @@ col1 = 'title'
 col2 = 'image_link'
 col3 = 'platform'
 def main():
-    with open('games_lists/All_Games') as csvfile:
+    with open('All_Games') as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         for row in readCSV:
-            if len(row) == 3:
+            rowlen = 0
+            for i in range(0,7):
+                if row[i] != "na":
+                    rowlen = rowlen + 1
+
+            if rowlen == 3:
                 if row[1] != "unreleased":
                     entry = []
                     entry.append(row[0])

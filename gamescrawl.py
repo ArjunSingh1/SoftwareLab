@@ -67,7 +67,7 @@ def file_save(csv_file, tr, tag, header):
         game_write.writerow([col1, col2])
     
     length = len(tr)
-    for i in range(2,(length-3)):
+    for i in range(2,length):
         try:
             title = tr[i].find(tag).find('i').text
             path = find_link(tag, tr=tr[i])
