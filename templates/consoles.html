@@ -99,7 +99,6 @@ onClick="return KeepCount()"> PS4 Slim
 <input type="checkbox" NAME="six"
 onClick="return KeepCount()"> Wii U
 </label>
-<button onclick="compare()">Compare</button>
 </form>
 <br>
 </div>
@@ -133,12 +132,13 @@ if (NewCount == 3)
 alert('Pick Just Two Consoles Please!')
 document.compare; return false;
 }
+
+if (NewCount ==2)
+{
+    window.location="{{url_for('compare') }}";
+}
 }
 
-function compare(){
-    location.href = "www.google.com";
-
-}
 </script>
 
 <div class="gallery">
