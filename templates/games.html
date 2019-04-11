@@ -70,41 +70,13 @@ div.desc {
   <p>Introduction of all games!</p>
 </div>
 
-<div class="gallery">
-  <a target="_blank" href="{{ url_for('game1')}}">
-    <img src="{{ images[0] }}" alt width="700" height="400">
-  </a>
-  <div class="desc"> {{ titles[0] }} </div>
-</div>
+{% for game in games: %}
 
-<div class="gallery">
-  <a target="_blank" href="{{ url_for('game2')}}">
-    <img src="{{ images[1] }}" alt width="700" height="400">
-  </a>
-  <div class="desc"> {{ titles[1] }} </div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="{{ url_for('game3')}}">
-    <img src="{{ images[3] }}" alt width="700" height="400">
-  </a>
-  <div class="desc"> {{ titles[3] }} </div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="{{ url_for('game4')}}">
-    <img src="{{ images[3] }}" alt width="700" height="400">
-  </a>
-  <div class="desc"> {{ titles[3] }} </div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="{{ url_for('game5')}}">
-    <img src="{{ images[4] }}" alt width="700" height="400">
-  </a>
-  <div class="desc"> {{ titles[4] }} </div>
-</div>
-
+  <div>
+    <h1>{{game.title}}</h1>
+    <img src="{{game.link}}" alt="" style="width:100;height:200"/>
+  </div>
+{%endfor%}
 
 
 </body>

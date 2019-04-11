@@ -5,11 +5,10 @@ db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square
 
 def insert_games():
     # Create tables (if they don't already exist)
-    with db.connect() as conn:
-    	print('started')
-    	with open('Final_All_Games.csv') as file:
+	with db.connect() as conn:
+		print('started')
+		with open('Final_All_Games.csv') as file:
 			csv_reader = csv.reader(file, delimiter=',')
-			line_count = 0
 			for row in csv_reader:
 				try:
 					conn.execute(

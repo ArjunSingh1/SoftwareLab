@@ -76,21 +76,8 @@ db = sqlalchemy.create_engine(
 @app.route("/home")
 def home():
 
-    #example database connection
-    #names = []
-    #with db.connect() as conn:
-        # Execute the query and fetch all results
-        #recent_names = conn.execute(
-            #"SELECT name, id FROM test "
-            #"ORDER BY id DESC LIMIT 5"
-        #).fetchall()
-        # Convert the results into a list of dicts representing votes
-        #for row in recent_names:
-            #names.append({
-                #'name': row[0],
-                #'id': row[1]
-            #})
-    return render_template('home.html')#,names=names)
+    
+    return render_template('home.html')
 
 #consoles page
 @app.route("/consoles")
@@ -154,22 +141,24 @@ def console6():
 #games page
 @app.route("/games")
 def games(): 
-    #open the file in universal line ending mode
-    with open('data/PS3_Games', 'rU') as infile:
-        # read the file as a dict for each row ({header : value})
-        reader = csv.DictReader(infile)
-        data={}
-        for row in reader:
-            for header, value in row.items():
-                try:
-                    data[header].append(value)
-                except KeyError:
-                    data[header] = [value]
-        
-        #extract the variables you want
-        titles = data['title']
-        images = data['image']
-    return render_template('games.html', titles=titles, images=images)
+
+    games = []
+    with db.connect() as conn:
+        # Execute the query and fetch all results
+        top_games = conn.execute(
+            "SELECT title, link FROM All_Games "
+            "LIMIT 50;"
+        ).fetchall()
+        # Convert the results into a list of dicts representing votes
+        for row in top_games:
+            if row[1] == 'unreleased':
+                row[1] = 'https://www.classicposters.com/images/nopicture.gif'
+            games.append({
+                'title': row[0],
+                'link': row[1]
+            })
+
+    return render_template('games.html', games=games)
 
 @app.route("/games/game1")
 def game1():
