@@ -4,11 +4,11 @@ import logging
 import csv
 from time import sleep
 
-#import flask framework
+# import flask framework
 from flask import Flask, render_template, url_for, request, Response
-#import api request for github
+# import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
-#for databse connection
+# for databse connection
 import sqlalchemy
 
 # Remember - storing secrets in plaintext is potentially unsafe. Consider using
@@ -17,7 +17,6 @@ db_user = os.environ.get("DB_USER")
 db_pass = os.environ.get("DB_PASS")
 db_name = os.environ.get("DB_NAME")
 cloud_sql_connection_name = os.environ.get("CLOUD_SQL_CONNECTION_NAME")
-
 
 app = Flask(__name__)
 
@@ -69,38 +68,40 @@ db = sqlalchemy.create_engine(
 
     # [END_EXCLUDE]
 )
+
+
 # [END cloud_sql_mysql_sqlalchemy_create]
 
-#home page
+# home page
 @app.route("/")
 @app.route("/home")
 def home():
+    # example database connection
+    # names = []
+    # with db.connect() as conn:
+    # Execute the query and fetch all results
+    # recent_names = conn.execute(
+    # "SELECT name, id FROM test "
+    # "ORDER BY id DESC LIMIT 5"
+    # ).fetchall()
+    # Convert the results into a list of dicts representing votes
+    # for row in recent_names:
+    # names.append({
+    # 'name': row[0],
+    # 'id': row[1]
+    # })
+    return render_template('home.html')  # ,names=names)
 
-    #example database connection
-    #names = []
-    #with db.connect() as conn:
-        # Execute the query and fetch all results
-        #recent_names = conn.execute(
-            #"SELECT name, id FROM test "
-            #"ORDER BY id DESC LIMIT 5"
-        #).fetchall()
-        # Convert the results into a list of dicts representing votes
-        #for row in recent_names:
-            #names.append({
-                #'name': row[0],
-                #'id': row[1]
-            #})
-    return render_template('home.html')#,names=names)
 
-#consoles page
+# consoles page
 @app.route("/consoles")
-def consoles(): 
-	return render_template('consoles.html')
+def consoles():
+    return render_template('consoles.html')
 
 @app.route("/consoles/console1")
 def console1():
     data = []
-    with open('data/consoles.csv') as csv_file:
+    with open('consoles.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data.append("".join(row))
@@ -109,103 +110,114 @@ def console1():
 @app.route("/consoles/console2")
 def console2():
     data2 = []
-    with open('data/consoles5.csv') as csv_file:
+    with open('consoles5.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data2.append("".join(row))
+            data2.append("".join(row).strip())
     return render_template('console2.html', data=data2)
 
 @app.route("/consoles/console3")
 def console3():
     data3 = []
-    with open('data/consoles2.csv') as csv_file:
+    with open('consoles2.csv','rU') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data3.append("".join(row))
+            data3.append("".join(row).strip())
     return render_template('console3.html', data=data3)
 
 @app.route("/consoles/console4")
 def console4():
     data4 = []
-    with open('data/consoles4.csv') as csv_file:
+    with open('consoles4.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data4.append("".join(row))
+            data4.append("".join(row).strip())
     return render_template('console4.html', data=data4)
 
 @app.route("/consoles/console5")
 def console5():
     data5 = []
-    with open('data/consoles3.csv') as csv_file:
+    with open('consoles3.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data5.append("".join(row))
+            data5.append("".join(row).strip())
     return render_template('console5.html', data=data5)
 
 @app.route("/consoles/console6")
 def console6():
     data6 = []
-    with open('data/consoles6.csv') as csv_file:
+    with open('consoles6.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data6.append("".join(row))
     return render_template('console6.html', data=data6)
 
-#games page
+@app.route("/consoles/compare")
+def compare():
+    return render_template('compare.html')
+
+# games page
 @app.route("/games")
-def games(): 
-    #open the file in universal line ending mode
+def games():
+    # open the file in universal line ending mode
     with open('data/PS3_Games', 'rU') as infile:
         # read the file as a dict for each row ({header : value})
         reader = csv.DictReader(infile)
-        data={}
+        data = {}
         for row in reader:
             for header, value in row.items():
                 try:
                     data[header].append(value)
                 except KeyError:
                     data[header] = [value]
-        
-        #extract the variables you want
+
+        # extract the variables you want
         titles = data['title']
         images = data['image']
     return render_template('games.html', titles=titles, images=images)
+
 
 @app.route("/games/game1")
 def game1():
     return render_template('game1.html')
 
+
 @app.route("/games/game2")
 def game2():
     return render_template('game2.html')
+
 
 @app.route("/games/game3")
 def game3():
     return render_template('game3.html')
 
+
 @app.route("/games/game4")
 def game4():
     return render_template('game4.html')
+
 
 @app.route("/games/game5")
 def game5():
     return render_template('game5.html')
 
 
-#rating page
+# rating page
 @app.route("/rating")
-def rating(): 
-	return render_template('rating.html')
+def rating():
+    return render_template('rating.html')
 
-#about page
+
+# about page
 @app.route("/about")
 def about():
     data = get_contributors_statistics()
     sleep(0.1)
-    stats = get_issues_statistics() #stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
+    stats = get_issues_statistics()  # stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
     return render_template('about.html', data=data, stats=stats)
 
-#errors
+
+# errors
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request.')
@@ -214,6 +226,6 @@ def server_error(e):
     See logs for full stacktrace.
     """.format(e), 500
 
-if __name__ == '__main__':
-	app.run(debug=True)
 
+if __name__ == '__main__':
+    app.run(debug=True)
