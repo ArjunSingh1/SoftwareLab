@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import datetime
 import os
 import logging
@@ -75,19 +76,17 @@ db = sqlalchemy.create_engine(
 @app.route("/")
 @app.route("/home")
 def home():
-
-    
     return render_template('home.html')
 
-#consoles page
+# consoles page
 @app.route("/consoles")
-def consoles(): 
-	return render_template('consoles.html')
+def consoles():
+    return render_template('consoles.html')
 
 @app.route("/consoles/console1")
 def console1():
     data = []
-    with open('data/consoles.csv') as csv_file:
+    with open('consoles.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data.append("".join(row))
@@ -96,47 +95,51 @@ def console1():
 @app.route("/consoles/console2")
 def console2():
     data2 = []
-    with open('data/consoles5.csv') as csv_file:
+    with open('consoles5.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data2.append("".join(row))
+            data2.append("".join(row).strip())
     return render_template('console2.html', data=data2)
 
 @app.route("/consoles/console3")
 def console3():
     data3 = []
-    with open('data/consoles2.csv') as csv_file:
+    with open('consoles2.csv','rU') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data3.append("".join(row))
+            data3.append("".join(row).strip())
     return render_template('console3.html', data=data3)
 
 @app.route("/consoles/console4")
 def console4():
     data4 = []
-    with open('data/consoles4.csv') as csv_file:
+    with open('consoles4.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data4.append("".join(row))
+            data4.append("".join(row).strip())
     return render_template('console4.html', data=data4)
 
 @app.route("/consoles/console5")
 def console5():
     data5 = []
-    with open('data/consoles3.csv') as csv_file:
+    with open('consoles3.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            data5.append("".join(row))
+            data5.append("".join(row).strip())
     return render_template('console5.html', data=data5)
 
 @app.route("/consoles/console6")
 def console6():
     data6 = []
-    with open('data/consoles6.csv') as csv_file:
+    with open('consoles6.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data6.append("".join(row))
     return render_template('console6.html', data=data6)
+
+@app.route("/consoles/compare")
+def compare():
+    return render_template('compare.html')
 
 #games page
 @app.route("/games")
@@ -205,4 +208,3 @@ def server_error(e):
 
 if __name__ == '__main__':
 	app.run(debug=True)
-
