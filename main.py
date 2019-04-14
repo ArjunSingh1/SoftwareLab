@@ -178,6 +178,8 @@ def games(page):
                 'link' : row[1]
             })
 
+    return render_template('games.html', games=games)
+
 
 @app.route("/games/game1")
 def game1():
