@@ -163,7 +163,7 @@ def compare():
     #return render_template('games.html', games=games)
 
 @app.route('/games', defaults={'page':1})
-@app.route('/games/page/<int::page>')
+@app.route('/games/page/<int:page>')
 def games(page):
     games = []
     perpage = 100
