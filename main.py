@@ -141,27 +141,45 @@ def compare():
     return render_template('compare.html')
 
 #games page
-@app.route("/games")
-def games(): 
+#@app.route("/games")
+#def games(): 
 
-    games = []
-    with db.connect() as conn:
-        # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT title, link FROM All_Games "
-            "LIMIT 10;"
-        ).fetchall()
+ #   games = []
+  #  with db.connect() as conn:
+   #     # Execute the query and fetch all results
+    #    top_games = conn.execute(
+     #       "SELECT title, link FROM All_Games "
+      #      "LIMIT 50;"
+       # ).fetchall()
         # Convert the results into a list of dicts representing votes
-        for row in top_games:
-            link = row[1]
-            if row[1] == 'unreleased':
-                link = 'https://www.classicposters.com/images/nopicture.gif'
+        #for row in top_games:
+         #   if row[1] == 'unreleased':
+          #      row[1] = 'https://www.classicposters.com/images/nopicture.gif'
+           # games.append({
+            #    'title': row[0],
+             #   'link': row[1]
+            #})
+
+    #return render_template('games.html', games=games)
+
+@app.route('/games', defaults={'page':1})
+@app.route('/games/page/<int:page>')
+def games(page):
+    games = []
+    perpage = 100
+    startat=page*perpage
+    with db.connect() as cursor:
+        top_games = cursor.execute('SELECT title,link FROM All_Games limit 20 offset 0;', (startat, perpage)).fetchall()
+    for row in top_games:
+        if row[1] == 'unreleased':
+            row[1] = 'https://www.classicposters.com/images/nopicture.gif'
             games.append({
-                'title': row[0],
-                'link': link
+                'title' : row[0],
+                'link' : row[1]
             })
 
     return render_template('games.html', games=games)
+
 
 @app.route("/games/game1")
 def game1():
