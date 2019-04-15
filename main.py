@@ -85,7 +85,7 @@ def consoles():
 @app.route("/consoles/console1")
 def console1():
     data = []
-    with open('consoles.csv') as csv_file:
+    with open('data/consoles.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data.append("".join(row))
@@ -94,7 +94,7 @@ def console1():
 @app.route("/consoles/console2")
 def console2():
     data2 = []
-    with open('consoles5.csv') as csv_file:
+    with open('data/consoles5.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data2.append("".join(row).strip())
@@ -103,7 +103,7 @@ def console2():
 @app.route("/consoles/console3")
 def console3():
     data3 = []
-    with open('consoles2.csv','rU') as csv_file:
+    with open('data/consoles2.csv','rU') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data3.append("".join(row).strip())
@@ -112,7 +112,7 @@ def console3():
 @app.route("/consoles/console4")
 def console4():
     data4 = []
-    with open('consoles4.csv') as csv_file:
+    with open('data/consoles4.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data4.append("".join(row).strip())
@@ -121,7 +121,7 @@ def console4():
 @app.route("/consoles/console5")
 def console5():
     data5 = []
-    with open('consoles3.csv') as csv_file:
+    with open('data/consoles3.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data5.append("".join(row).strip())
@@ -130,7 +130,7 @@ def console5():
 @app.route("/consoles/console6")
 def console6():
     data6 = []
-    with open('consoles6.csv') as csv_file:
+    with open('data/consoles6.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data6.append("".join(row))
@@ -149,15 +149,16 @@ def games():
         # Execute the query and fetch all results
         top_games = conn.execute(
             "SELECT title, link FROM All_Games "
-            "LIMIT 50;"
+            "LIMIT 10;"
         ).fetchall()
         # Convert the results into a list of dicts representing votes
         for row in top_games:
+            link = row[1]
             if row[1] == 'unreleased':
-                row[1] = 'https://www.classicposters.com/images/nopicture.gif'
+                link = 'https://www.classicposters.com/images/nopicture.gif'
             games.append({
                 'title': row[0],
-                'link': row[1]
+                'link': link
             })
 
     return render_template('games.html', games=games)
