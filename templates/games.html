@@ -77,6 +77,13 @@ div.desc {
   </div>
 {% endfor %}
 
+<!-- This will be page navigation-->
+
+<form action="{{ url_for('navigation') }}" method="post">
+  <input name="page" type="hidden" value="{{page}}"/>
+  <input name="nextPage" type="submit" value="next">
+</form>
+
 
 </body>
 </html>

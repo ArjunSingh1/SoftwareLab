@@ -141,7 +141,7 @@ def compare():
     return render_template('compare.html')
 
 #games page
-@app.route("/games", defaults={'page':0})
+@app.route("/games", methods=['GET','POST'], defaults={'page':0})
 def games(page): 
     perpage = 50
     startat = page * perpage
@@ -154,16 +154,25 @@ def games(page):
         ).fetchall()
         #Convert the results into a list of dicts representing votes
         for row in top_games:
-            link = row[1]
+            link = row[1].decode('utf-8')
             if link == 'unreleased':
                 link = 'https://www.classicposters.com/images/nopicture.gif'
             games.append({
-                'title': row[0],
+                'title': row[0].decode('utf-8'),
                 'link': link
             })
 
-    return render_template('games.html', games=games)
+    return render_template('games.html', games=games, page=page)
 
+
+#handle Game page navigation
+@app.route("/navigation", methods=['GET', 'POST'])
+def navigation():
+    page = "0"
+    if request.form['page'] != None:
+        page = request.form['page']
+    page = int(page, 10) + 1
+    return games(page)
 #@app.route('/games', defaults={'page':0})
 #@app.route('/games/page/<int:page>')
 #def games(page):
