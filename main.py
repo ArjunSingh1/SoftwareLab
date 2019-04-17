@@ -142,7 +142,7 @@ def compare():
 
 #games page
 @app.route("/games", defaults={'page':0})
-def games(): 
+def games(page): 
     perpage = 50
     startat = page * perpage
     games = []
@@ -152,13 +152,14 @@ def games():
             "SELECT title, link FROM All_Games "
             "LIMIT {}, {}".format(startat, perpage)
         ).fetchall()
-         Convert the results into a list of dicts representing votes
+        #Convert the results into a list of dicts representing votes
         for row in top_games:
-            if row[1] == 'unreleased':
-                row[1] = 'https://www.classicposters.com/images/nopicture.gif'
+            link = row[1]
+            if link == 'unreleased':
+                link = 'https://www.classicposters.com/images/nopicture.gif'
             games.append({
                 'title': row[0],
-                'link': row[1]
+                'link': link
             })
 
     return render_template('games.html', games=games)
