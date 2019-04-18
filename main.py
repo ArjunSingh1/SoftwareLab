@@ -192,32 +192,57 @@ def navigation():
 #
 #    return render_template('games.html', games=games)
 
+# Collects top x games from Scored_Games according to score
+def rank_games(x):
+    games = []
+    with db.connect() as conn:
+        # Execute the query and fetch all results
+        top_games = conn.execute(
+            "SELECT TOP {} title, score FROM Scored_Games".format(x)
+            "ORDER BY score desc;"
+        ).fetchall()
 
-@app.route("/games/game1")
-def game1():
-    return render_template('game1.html')
+        for row in top_games:
+            games.append({
+                'title': row[0].decode('utf-8'),
+                'score': row[1].decode('utf-8')
+            })
+    return games
 
-@app.route("/games/game2")
-def game2():
-    return render_template('game2.html')
+# merge list of dictionaries
+def merge_lists(l1, l2, key):
+  merged = {}
+  for item in l1+l2:
+    if item[key] in merged:
+      merged[item[key]].update(item)
+    else:
+      merged[item[key]] = item
+  return [val for (_, val) in merged.items()]
 
-@app.route("/games/game3")
-def game3():
-    return render_template('game3.html')
+# Collects associated links from All_Games according to title in title_list
+def match_title(title_list):
+    just_title = (x.title for x in title_list)
+    games = []
+    with db.connect() as conn:
+        # Execute the query and fetch all results
+        top_games = conn.execute(
+            "SELECT title, link FROM All_Games WHERE title in {}".format(just_title)
+        ).fetchall()
 
-@app.route("/games/game4")
-def game4():
-    return render_template('game4.html')
+        for row in top_games:
+            games.append({
+                'title': row[0].decode('utf-8'),
+                'link': row[1].decode('utf-8'),
+            })
 
-@app.route("/games/game5")
-def game5():
-    return render_template('game5.html')
-
+    return merge_lists(just_title, games, 'title')
 
 #rating page
 @app.route("/rating")
-def rating(): 
-	return render_template('rating.html')
+def rating():
+    ranks = rank_games(25)
+    top_games = match_title(ranks)
+	return render_template('rating.html', games=top_games)
 
 #about page
 @app.route("/about")

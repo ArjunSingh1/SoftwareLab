@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en">
 <head>
 <meta charset="UTF-8">
 <title>Rating</title>
@@ -33,6 +33,33 @@ body {
   background-color: #4CAF50;
   color: white;
 }
+
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+div.title {
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+}
 </style>
 </head>
 <body>
@@ -47,8 +74,16 @@ body {
 
 <div style="padding-left:16px">
   <h2>Rating</h2>
-  <p>Rating and comparison of game consoles!</p>
+  <p>Rating of games based on community engagement!</p>
 </div>
+
+{% for game in games: %}
+  <div class = "gallery">
+    <div class = "title">{{game.title}}</div>
+    <img src="{{game.link}}" alt="" style="width:100;height:200"/>
+    <div class = "desc">GameSquare Engagement Score: {{game.score * 10}}/10</div>
+  </div>
+{% endfor %}
 
 </body>
 </html>
