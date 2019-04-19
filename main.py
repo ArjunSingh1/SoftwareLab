@@ -138,16 +138,22 @@ def games(page):
     return render_template('games.html', games=games, page=page)
 
 
-#handle Game page navigation
-@app.route("/navigation", methods=['GET', 'POST'])
-def navigation():
+#handle Game page forward navigation
+@app.route("/navigateNext", methods=['GET', 'POST'])
+def navigateNext():
     page = request.form['page']
 
-    if request.form['nextPage'] != None:
+    if page != "600":
         page = int(page, 10) + 1
-    elif (request.form['previousPage'] != None) and (page != "0"):
-        page = int(page, 10) - 1
 
+    return games(page)
+
+#handle Game page backward navigation
+@app.route("/navigatePrevious", methods=['GET', 'POST'])
+def navigatePrevious():
+    page = request.form['page']
+    if page != "0":
+        page = int(page, 10) - 1
     return games(page)
 
 # Collects top x games from Scored_Games according to score
