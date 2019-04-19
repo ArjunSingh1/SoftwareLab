@@ -71,17 +71,24 @@ div.desc {
 </div>
 
 {% for game in games: %}
-  <div>
-    <h1>{{game.title}}</h1>
+  <div class="gallery">
+    <h6>{{game.title}}</h6>
     <img src="{{game.link}}" alt="" style="width:100;height:200"/>
   </div>
 {% endfor %}
 
 <!-- This will be page navigation-->
+<br>
+<br>
 
-<form action="{{ url_for('navigation') }}" method="post">
+<form action="{{ url_for('navigateNext') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
-  <input name="nextPage" type="submit" value="next">
+  <input name="nextPage" type="submit" value="next"/>
+</form>
+
+<form action="{{ url_for('navigatePrevious') }}" method="post">
+  <input name="page" type="hidden" value="{{page}}"/>
+  <input name="previousPage" type="submit" value="previous"/>
 </form>
 
 
