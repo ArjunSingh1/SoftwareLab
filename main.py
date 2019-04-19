@@ -24,52 +24,25 @@ app = Flask(__name__)
 # [START cloud_sql_mysql_sqlalchemy_create]
 # The SQLAlchemy engine will help manage interactions, including automatically
 # managing a pool of connections to your database
-db = sqlalchemy.create_engine(
+#db = sqlalchemy.create_engine(
     # Equivalent URL:
     # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>
-    sqlalchemy.engine.url.URL(
-        drivername='mysql+pymysql',
-        username=db_user,
-        password=db_pass,
-        database=db_name,
-        query={
-            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
-        }
-    ),
-    # ... Specify additional properties here.
-    # [START_EXCLUDE]
+#    sqlalchemy.engine.url.URL(
+#        drivername='mysql+pymysql',
+#        username=db_user,
+#        password=db_pass,
+#        database=db_name,
+#        query={
+#            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
+#        }
+#    ),
+#    pool_size=5,
+#    max_overflow=2,
+#    pool_timeout=30,  # 30 seconds
+#    pool_recycle=1800,  # 30 minutes
+#)
 
-    # [START cloud_sql_mysql_sqlalchemy_limit]
-    # Pool size is the maximum number of permanent connections to keep.
-    pool_size=5,
-    # Temporarily exceeds the set pool_size if no connections are available.
-    max_overflow=2,
-    # The total number of concurrent connections for your application will be
-    # a total of pool_size and max_overflow.
-    # [END cloud_sql_mysql_sqlalchemy_limit]
-
-    # [START cloud_sql_mysql_sqlalchemy_backoff]
-    # SQLAlchemy automatically uses delays between failed connection attempts,
-    # but provides no arguments for configuration.
-    # [END cloud_sql_mysql_sqlalchemy_backoff]
-
-    # [START cloud_sql_mysql_sqlalchemy_timeout]
-    # 'pool_timeout' is the maximum number of seconds to wait when retrieving a
-    # new connection from the pool. After the specified amount of time, an
-    # exception will be thrown.
-    pool_timeout=30,  # 30 seconds
-    # [END cloud_sql_mysql_sqlalchemy_timeout]
-
-    # [START cloud_sql_mysql_sqlalchemy_lifetime]
-    # 'pool_recycle' is the maximum number of seconds a connection can persist.
-    # Connections that live longer than the specified amount of time will be
-    # reestablished
-    pool_recycle=1800,  # 30 minutes
-    # [END cloud_sql_mysql_sqlalchemy_lifetime]
-
-    # [END_EXCLUDE]
-)
-# [END cloud_sql_mysql_sqlalchemy_create]
+db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
 
 #home page
 @app.route("/")
@@ -168,29 +141,14 @@ def games(page):
 #handle Game page navigation
 @app.route("/navigation", methods=['GET', 'POST'])
 def navigation():
-    page = "0"
-    if request.form['page'] != None:
-        page = request.form['page']
-    page = int(page, 10) + 1
+    page = request.form['page']
+
+    if request.form['nextPage'] != None:
+        page = int(page, 10) + 1
+    elif (request.form['previousPage'] != None) and (page != "0"):
+        page = int(page, 10) - 1
+
     return games(page)
-#@app.route('/games', defaults={'page':0})
-#@app.route('/games/page/<int:page>')
-#def games(page):
-#    games = []
-#    perpage = 100
-#    startat=page*perpage
-#    with db.connect() as conn:
-#        top_games = conn.execute('SELECT title,link FROM All_Games limit %s offset %s;', (perpage,startat)).fetchall()
-#    for row in top_games:
-#        link = row[1].decode('utf-8')
-#        if row[1] == 'unreleased':
-#            link = 'https://www.classicposters.com/images/nopicture.gif'
-#            games.append({
-#                'title' : row[0].decode('utf-8'),
-#                'link' : link
-#            })
-#
-#    return render_template('games.html', games=games)
 
 # Collects top x games from Scored_Games according to score
 def rank_games(x):
@@ -199,8 +157,7 @@ def rank_games(x):
         # Execute the query and fetch all results
         top_games = conn.execute(
             "SELECT TOP {} title, score FROM Scored_Games".format(x)
-            "ORDER BY score desc;"
-        ).fetchall()
+            ).fetchall()
 
         for row in top_games:
             games.append({
@@ -240,9 +197,10 @@ def match_title(title_list):
 #rating page
 @app.route("/rating")
 def rating():
-    ranks = rank_games(25)
-    top_games = match_title(ranks)
-	return render_template('rating.html', games=top_games)
+#    ranks = rank_games(25)
+#    top_games = match_title(ranks)
+#	return render_template('rating.html', games=top_games)
+    return render_template('rating.html')
 
 #about page
 @app.route("/about")
