@@ -33,9 +33,88 @@ body {
   background-color: #4CAF50;
   color: white;
 }
+
+/* The container */
+.checkcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.checkcontainer label {
+  display: block;
+  float: left;
+  padding-right: 10px;
+  padding-left: 22px;
+  text-indent: 10px;
+}
+/* Hide the browser's default checkbox */
+.checkcontainer input {
+  position: relative;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkcontainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkcontainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 </style>
+
 </head>
-<body>
+<div>
 
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
@@ -45,54 +124,351 @@ body {
   <a href="{{url_for('about')}}">About</a>
 </div>
 
-<div class="container">
-  <div style="padding-left:16px" align="center">
+
+<div align="center">
     <h2>Compare</h2>
-    <p>Compare the consoles</p>
+  <p>Choose any two consoles!</p>
+<form name="compare">
+<div class="checkcontainer" align = "center">
+<label class="checkcontainer">
+    <input type="checkbox" name="one"
+    onClick="return KeepCount()"> XBOX ONE X
+    <span class="checkmark"></span>
+</label>
+
+<label class="checkcontainer">
+    <input type="checkbox" NAME="two"
+    onClick="return KeepCount()"> XBOX 360
+    <span class="checkmark"></span>
+</label>
+
+<label class="checkcontainer">
+    <input type="checkbox" NAME="three"
+    onClick="return KeepCount()"> Switch
+    <span class="checkmark"></span>
+</label>
+
+<label class="checkcontainer">
+    <input type="checkbox" NAME="four"
+    onClick="return KeepCount()"> PS4 Pro
+    <span class="checkmark"></span>
+</label>
+
+<label class="checkcontainer">
+    <input type="checkbox" NAME="five"
+    onClick="return KeepCount()"> PS4 Slim
+    <span class="checkmark"></span>
+</label>
+
+<label class="checkcontainer">
+    <input type="checkbox" NAME="six"
+    onClick="return KeepCount()"> Wii U
+    <span class="checkmark"></span>
+</label>
+</div>
+</form>
+</div>
+<br>
+
+<div class="container">
+  <div>
+  <img id = "photo1" class="col-sm-4 offset-sm-2" src="{{ url_for('static',filename='image/compare.png') }}" class="float-left" alt="Console1" width="304" height="236">
+  <img id = "photo2" class="col-sm-4 offset-sm-1" src="{{ url_for('static',filename='image/compare.png') }}" class="float-right" alt="Console2" width="304" height="236">
   </div>
-  <div> 
-  <img class="col-sm-4 offset-sm-2" src=".jpg" class="float-left" alt="Console1" width="304" height="236"> 
-  <img class="col-sm-4 offset-sm-1" src=".jpg" class="float-right" alt="Console2" width="304" height="236"> 
-  </div>
-  
+
   <div>
   <table class="table table-striped table-dark">
   <thead>
     <tr>
       <th scope="col" style="width: 20%">Compare</th>
-      <th scope="col" style="width: 40%">Console1</th>
-      <th scope="col" style="width: 40%">Console2</th>
+      <th scope="col" id = "console1" style="width: 40%">Console1</th>
+      <th scope="col" id = "console2" style="width: 40%">Console2</th>
     </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row" >Size</th>
-        <td >Size1</td>
-        <td >Size2</td>
-      </tr>
-      <tr>
-        <th scope="row">Weight</th>
-        <td>Weight1</td>
-        <td>Weight2</td>
-      </tr>
-      <tr>
-        <th scope="row">CPU</th>
-        <td>CPU1</td>
-        <td>CPU2</td>
+        <th scope="row" >CPU</th>
+        <td  id = "CPU1"></td>
+        <td  id = "CPU2"></td>
       </tr>
       <tr>
         <th scope="row">GPU</th>
-        <td>GPU1</td>
-        <td>GPU2</td>
+        <td id = "GPU1"></td>
+        <td id = "GPU2"></td>
+      </tr>
+      <tr>
+        <th scope="row">Memory</th>
+        <td id = "M1"></td>
+        <td id = "M2"></td>
       </tr>
       <tr>
         <th scope="row">Storage</th>
-        <td>Storage1</td>
-        <td>Storage2</td>
+        <td id = "S1"></td>
+        <td id = "S2"></td>
+      </tr>
+      <tr>
+        <th scope="row">Weight</th>
+        <td id = "W1"></td>
+        <td id = "W2"></td>
+      </tr>
+      <tr>
+        <th scope="row">AV output</th>
+        <td id = "AV1"></td>
+        <td id = "AV2"></td>
       </tr>
     </tbody>
   </table>
 </div>
+</div>
+
+
+<script language="javascript">
+
+function KeepCount() {
+
+    var NewCount = 0
+
+    if (document.compare.one.checked) {
+        NewCount = NewCount + 1
+        if (NewCount == 0) {
+            document.getElementById("CPU1").innerHTML = " ";
+            document.getElementById("GPU1").innerHTML = " ";
+            document.getElementById("M1").innerHTML = " ";
+            document.getElementById("S1").innerHTML = " ";
+            document.getElementById("W1").innerHTML = " ";
+            document.getElementById("AV1").innerHTML = " ";
+            document.getElementById("CPU2").innerHTML = " ";
+            document.getElementById("GPU2").innerHTML = " ";
+            document.getElementById("M2").innerHTML = " ";
+            document.getElementById("S2").innerHTML = " ";
+            document.getElementById("W2").innerHTML = " ";
+            document.getElementById("AV2").innerHTML = " ";
+        }else if (NewCount == 1) {
+            document.getElementById("photo1").src = "{{ url_for('static',filename='image/Microsoft Xbox One X.jpg')}}";
+            document.getElementById("console1").innerHTML = "Xbox One X";
+            document.getElementById("CPU1").innerHTML = "{{ data[0] }}";
+            document.getElementById("GPU1").innerHTML = "{{ data[1] }}";
+            document.getElementById("M1").innerHTML = "{{ data[2] }}";
+            document.getElementById("S1").innerHTML = "{{ data[3] }}";
+            document.getElementById("W1").innerHTML = "{{ data[4] }}";
+            document.getElementById("AV1").innerHTML = "{{ data[5] }}";
+        }else if(NewCount == 2) {
+            document.getElementById("photo2").src = "{{ url_for('static',filename='image/Microsoft Xbox One X.jpg')}}";
+            document.getElementById("console2").innerHTML = "Xbox One X";
+            document.getElementById("CPU2").innerHTML = "{{ data[0] }}";
+            document.getElementById("GPU2").innerHTML = "{{ data[1] }}";
+            document.getElementById("M2").innerHTML = "{{ data[2] }}";
+            document.getElementById("S2").innerHTML = "{{ data[3] }}";
+            document.getElementById("W2").innerHTML = "{{ data[4] }}";
+            document.getElementById("AV2").innerHTML = "{{ data[5] }}";
+        }
+    }
+
+    if (document.compare.two.checked) {
+        NewCount = NewCount + 1
+        if (NewCount == 0) {
+            document.getElementById("CPU1").innerHTML = " ";
+            document.getElementById("GPU1").innerHTML = " ";
+            document.getElementById("M1").innerHTML = " ";
+            document.getElementById("S1").innerHTML = " ";
+            document.getElementById("W1").innerHTML = " ";
+            document.getElementById("AV1").innerHTML = " ";
+            document.getElementById("CPU2").innerHTML = " ";
+            document.getElementById("GPU2").innerHTML = " ";
+            document.getElementById("M2").innerHTML = " ";
+            document.getElementById("S2").innerHTML = " ";
+            document.getElementById("W2").innerHTML = " ";
+            document.getElementById("AV2").innerHTML = " ";
+        }else if (NewCount == 1) {
+            document.getElementById("photo1").src = "{{ url_for('static',filename='image/Microsoft Xbox 360.jpg')}}";
+            document.getElementById("console1").innerHTML = "Xbox 360";
+            document.getElementById("CPU1").innerHTML = "{{ data[24] }}";
+            document.getElementById("GPU1").innerHTML = "{{ data[25] }}";
+            document.getElementById("M1").innerHTML = "{{ data[26] }}";
+            document.getElementById("S1").innerHTML = "{{ data[27] }}";
+            document.getElementById("W1").innerHTML = "{{ data[28] }}";
+            document.getElementById("AV1").innerHTML = "{{ data[29] }}";
+        }else if(NewCount == 2) {
+            document.getElementById("photo2").src = "{{ url_for('static',filename='image/Microsoft Xbox 360.jpg')}}";
+            document.getElementById("console2").innerHTML = "Xbox 360";
+            document.getElementById("CPU2").innerHTML = "{{ data[24] }}";
+            document.getElementById("GPU2").innerHTML = "{{ data[25] }}";
+            document.getElementById("M2").innerHTML = "{{ data[26] }}";
+            document.getElementById("S2").innerHTML = "{{ data[27] }}";
+            document.getElementById("W2").innerHTML = "{{ data[28] }}";
+            document.getElementById("AV2").innerHTML = "{{ data[29] }}";
+        }
+    }
+
+    if (document.compare.three.checked) {
+        NewCount = NewCount + 1
+        if (NewCount == 0) {
+            document.getElementById("CPU1").innerHTML = " ";
+            document.getElementById("GPU1").innerHTML = " ";
+            document.getElementById("M1").innerHTML = " ";
+            document.getElementById("S1").innerHTML = " ";
+            document.getElementById("W1").innerHTML = " ";
+            document.getElementById("AV1").innerHTML = " ";
+            document.getElementById("CPU2").innerHTML = " ";
+            document.getElementById("GPU2").innerHTML = " ";
+            document.getElementById("M2").innerHTML = " ";
+            document.getElementById("S2").innerHTML = " ";
+            document.getElementById("W2").innerHTML = " ";
+            document.getElementById("AV2").innerHTML = " ";
+        }else if (NewCount == 1) {
+            document.getElementById("photo1").src = "{{ url_for('static',filename='image/Nintendo Switch With Gray Joy.jpg')}}";
+            document.getElementById("console1").innerHTML = "Nintendo Switch";
+            document.getElementById("CPU1").innerHTML = "{{ data[6] }}";
+            document.getElementById("GPU1").innerHTML = "{{ data[7] }}";
+            document.getElementById("M1").innerHTML = "{{ data[8] }}";
+            document.getElementById("S1").innerHTML = "{{ data[9] }}";
+            document.getElementById("W1").innerHTML = "{{ data[10] }}";
+            document.getElementById("AV1").innerHTML = "{{ data[11] }}";
+        }else if(NewCount == 2) {
+            document.getElementById("photo2").src = "{{ url_for('static',filename='image/Nintendo Switch With Gray Joy.jpg')}}";
+            document.getElementById("console2").innerHTML = "Nintendo Switch";
+            document.getElementById("CPU2").innerHTML = "{{ data[6] }}";
+            document.getElementById("GPU2").innerHTML = "{{ data[7] }}";
+            document.getElementById("M2").innerHTML = "{{ data[8] }}";
+            document.getElementById("S2").innerHTML = "{{ data[9] }}";
+            document.getElementById("W2").innerHTML = "{{ data[10] }}";
+            document.getElementById("AV2").innerHTML = "{{ data[11] }}";
+        }
+    }
+
+    if (document.compare.four.checked) {
+        NewCount = NewCount + 1
+        if (NewCount == 0) {
+            document.getElementById("CPU1").innerHTML = " ";
+            document.getElementById("GPU1").innerHTML = " ";
+            document.getElementById("M1").innerHTML = " ";
+            document.getElementById("S1").innerHTML = " ";
+            document.getElementById("W1").innerHTML = " ";
+            document.getElementById("AV1").innerHTML = " ";
+            document.getElementById("CPU2").innerHTML = " ";
+            document.getElementById("GPU2").innerHTML = " ";
+            document.getElementById("M2").innerHTML = " ";
+            document.getElementById("S2").innerHTML = " ";
+            document.getElementById("W2").innerHTML = " ";
+            document.getElementById("AV2").innerHTML = " ";
+        }else if (NewCount == 1) {
+            document.getElementById("photo1").src = "{{ url_for('static',filename='image/Sony PlayStation 4 Pro.jpg')}}";
+            document.getElementById("console1").innerHTML = "PlayStation 4 Pro";
+            document.getElementById("CPU1").innerHTML = "{{ data[18] }}";
+            document.getElementById("GPU1").innerHTML = "{{ data[19] }}";
+            document.getElementById("M1").innerHTML = "{{ data[20] }}";
+            document.getElementById("S1").innerHTML = "{{ data[21] }}";
+            document.getElementById("W1").innerHTML = "{{ data[22] }}";
+            document.getElementById("AV1").innerHTML = "{{ data[23] }}";
+        }else if(NewCount == 2) {
+            document.getElementById("photo2").src = "{{ url_for('static',filename='image/Sony PlayStation 4 Pro.jpg')}}";
+            document.getElementById("console2").innerHTML = "PlayStation 4 Pro";
+            document.getElementById("CPU2").innerHTML = "{{ data[18] }}";
+            document.getElementById("GPU2").innerHTML = "{{ data[19] }}";
+            document.getElementById("M2").innerHTML = "{{ data[20] }}";
+            document.getElementById("S2").innerHTML = "{{ data[21] }}";
+            document.getElementById("W2").innerHTML = "{{ data[22] }}";
+            document.getElementById("AV2").innerHTML = "{{ data[23] }}";
+        }
+    }
+
+    if (document.compare.five.checked) {
+        NewCount = NewCount + 1
+        if (NewCount == 0) {
+            document.getElementById("CPU1").innerHTML = " ";
+            document.getElementById("GPU1").innerHTML = " ";
+            document.getElementById("M1").innerHTML = " ";
+            document.getElementById("S1").innerHTML = " ";
+            document.getElementById("W1").innerHTML = " ";
+            document.getElementById("AV1").innerHTML = " ";
+            document.getElementById("CPU2").innerHTML = " ";
+            document.getElementById("GPU2").innerHTML = " ";
+            document.getElementById("M2").innerHTML = " ";
+            document.getElementById("S2").innerHTML = " ";
+            document.getElementById("W2").innerHTML = " ";
+            document.getElementById("AV2").innerHTML = " ";
+        }else if (NewCount == 1) {
+            document.getElementById("photo1").src = "{{ url_for('static',filename='image/Sony PlayStation 4 Slim.jpg')}}";
+            document.getElementById("console1").innerHTML = "PlayStation 4 Slim";
+            document.getElementById("CPU1").innerHTML = "{{ data[12] }}";
+            document.getElementById("GPU1").innerHTML = "{{ data[13] }}";
+            document.getElementById("M1").innerHTML = "{{ data[14] }}";
+            document.getElementById("S1").innerHTML = "{{ data[15] }}";
+            document.getElementById("W1").innerHTML = "{{ data[16] }}";
+            document.getElementById("AV1").innerHTML = "{{ data[17] }}";
+        }else if(NewCount == 2) {
+            document.getElementById("console2").innerHTML = "PlayStation 4 Slim";
+            document.getElementById("photo2").src = "{{ url_for('static',filename='image/Sony PlayStation 4 Slim.jpg')}}";
+            document.getElementById("CPU2").innerHTML = "{{ data[12] }}";
+            document.getElementById("GPU2").innerHTML = "{{ data[13] }}";
+            document.getElementById("M2").innerHTML = "{{ data[14] }}";
+            document.getElementById("S2").innerHTML = "{{ data[15] }}";
+            document.getElementById("W2").innerHTML = "{{ data[16] }}";
+            document.getElementById("AV2").innerHTML = "{{ data[17] }}";
+        }
+    }
+
+    if (document.compare.six.checked) {
+        NewCount = NewCount + 1
+        if (NewCount == 0) {
+            document.getElementById("CPU1").innerHTML = " ";
+            document.getElementById("GPU1").innerHTML = " ";
+            document.getElementById("M1").innerHTML = " ";
+            document.getElementById("S1").innerHTML = " ";
+            document.getElementById("W1").innerHTML = " ";
+            document.getElementById("AV1").innerHTML = " ";
+            document.getElementById("CPU2").innerHTML = " ";
+            document.getElementById("GPU2").innerHTML = " ";
+            document.getElementById("M2").innerHTML = " ";
+            document.getElementById("S2").innerHTML = " ";
+            document.getElementById("W2").innerHTML = " ";
+            document.getElementById("AV2").innerHTML = " ";
+        }else if (NewCount == 1) {
+            document.getElementById("photo1").src = "{{ url_for('static',filename='image/Wii U.jpg')}}";
+            document.getElementById("console1").innerHTML = "Wii U";
+            document.getElementById("CPU1").innerHTML = "{{ data[30] }}";
+            document.getElementById("GPU1").innerHTML = "{{ data[31] }}";
+            document.getElementById("M1").innerHTML = "{{ data[32] }}";
+            document.getElementById("S1").innerHTML = "{{ data[33] }}";
+            document.getElementById("W1").innerHTML = "{{ data[34] }}";
+            document.getElementById("AV1").innerHTML = "{{ data[35] }}";
+        }else if(NewCount == 2) {
+            document.getElementById("photo2").src = "{{ url_for('static',filename='image/Wii U.jpg')}}";
+            document.getElementById("console2").innerHTML = "Wii U";
+            document.getElementById("CPU2").innerHTML = "{{ data[30] }}";
+            document.getElementById("GPU2").innerHTML = "{{ data[31] }}";
+            document.getElementById("M2").innerHTML = "{{ data[32] }}";
+            document.getElementById("S2").innerHTML = "{{ data[33] }}";
+            document.getElementById("W2").innerHTML = "{{ data[34] }}";
+            document.getElementById("AV2").innerHTML = "{{ data[35] }}";
+        }
+    }
+
+    if (NewCount ==0){
+        document.getElementById("photo1").src = "{{ url_for('static',filename='image/compare.png')}}";
+        document.getElementById("console1").innerHTML = "Console1";
+        document.getElementById("CPU1").innerHTML = " ";
+        document.getElementById("GPU1").innerHTML = " ";
+        document.getElementById("M1").innerHTML = " ";
+        document.getElementById("S1").innerHTML = " ";
+        document.getElementById("W1").innerHTML = " ";
+        document.getElementById("AV1").innerHTML = " ";
+    }else if (NewCount ==1) {
+        document.getElementById("photo2").src = "{{ url_for('static',filename='image/compare.png')}}";
+        document.getElementById("console2").innerHTML = "Console2";
+        document.getElementById("CPU2").innerHTML = " ";
+        document.getElementById("GPU2").innerHTML = " ";
+        document.getElementById("M2").innerHTML = " ";
+        document.getElementById("S2").innerHTML = " ";
+        document.getElementById("W2").innerHTML = " ";
+        document.getElementById("AV2").innerHTML = " ";
+    }else if (NewCount == 3) {
+        alert('Pick Two Consoles Please!')
+        document.compare;
+        return false;
+    }
+}
+</script>
 </div>
 </body>
 </html>

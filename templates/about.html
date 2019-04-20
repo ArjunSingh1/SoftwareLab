@@ -6,7 +6,6 @@
 <title>About</title>
 <style>
 body {
-  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -33,9 +32,19 @@ body {
   background-color: #4CAF50;
   color: white;
 }
+
+img {
+  border-radius: 50%;
+}
+
+.element{
+     padding: 20px;
+     display: table-cell;
+}
+
 </style>
 </head>
-<body>
+<body id="background">
 
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
@@ -44,53 +53,94 @@ body {
   <a href="{{url_for('rating')}}">Rating</a>
   <a class="active" href="{{url_for('about')}}">About</a>
 </div>
-
-<div style="padding-left:16px" align="center">
+<div align = "center">
     <h1>About us</h1>
     <br>
-    <h2>Team Copper</h2>
+    <p> This is a reference website that provides information about consoles and games</p>
+    <p> You can discover trending consoles and games based on their ratings</p>
+    <p> You can also compare the tech specs of any two consoles</p>
+    <p> This website is designed for amateur gamers looking for a good console or a game</p>
     <br>
+    <h2>Team Copper</h2>
+</div>
+    <div class="element-grid" align="center" id="member">
+        <div class="element">
     <h3>Arjun Singh</h3>
-    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" width="100" height="100">
-    <h4>bio: I am Arjun Singh</h4>
-    <h4>major: ECE</h4>
-    <h4>responsibilities: engagement metric, design </h4>
-    <h4>commits: {{ data['arjun']}}</h4>
-    <h4>issues: {{ stats['arjun'] }}</h4>
-    <h4>unit tests: 4</h4>
+    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" id = "one" onclick=bio1() width="100" height="100">
+        </div>
+        <div class="element">
     <h3>Blake Gardner</h3>
-    <img src="{{ url_for('static',filename='image/blake.jpg') }}" width="100" height="100">
-    <h4>bio: I am an Electrical Engineering major at the University of Texas</h4>
-    <h4>major: ECE</h4>
-    <h4>responsibilities: about page, unit tests, GCP</h4>
-    <h4>commits: {{ data['blake']}}</h4>
-    <h4>issues: {{ stats['blake'] }}</h4>
-    <h4>unit tests: 6</h4>
+    <img src="{{ url_for('static',filename='image/blake.jpg') }}" id = "two" onclick=bio2() width="100" height="100">
+        </div>
+        <div class="element">
     <h3>Rabia Khan</h3>
-    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" width="100" height="100">
-    <h4>bio: When I am not coding, I like going hiking</h4>
-    <h4>major: ECE</h4>
-    <h4>responsibilities: project lead for phase I, user stories, data scraping</h4>
-    <h4>commits: {{ data['rabia']}}</h4>
-    <h4>issues: {{ stats['rabia'] }}</h4>
-    <h4>unit tests: 0</h4>
-    <h3>Yinghong Liu</h3>
-    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" width="100" height="100">
-    <h4>bio: I am Yinghong Liu</h4>
-    <h4>major: ME</h4>
-    <h4>responsibilities: 15 static pages on GCP</h4>
-    <h4>commits: {{ data['yinghong']}}</h4>
-    <h4>issues: {{ stats['yinghong'] }}</h4>
-    <h4>unit tests: 0</h4>
+    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" id = "three" onclick=bio3() width="100" height="100">
+        </div>
+        <div class="element">
     <h3>Wenran Lu</h3>
-    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" width="100" height="100">
-    <h4>bio: I am a good dog walker</h4>
-    <h4>major: ECE</h4>
-    <h4>responsibilities: about page, unit tests</h4>
-    <h4>commits: {{ data['wenran']}}</h4>
-    <h4>issues: {{ stats['wenran'] }}</h4>
-    <h4>unit tests: 6</h4>
+    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" id = "four" onclick=bio4() width="100" height="100">
 
+        </div>
+        <div class="element">
+    <h3>Yinghong Liu</h3>
+    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" id = "five" onclick=bio5() width="100" height="100">
+
+        </div>
+        <p id="p1">Click our avatars</p>
+        <p id="p2">We will tell you more about our: </p>
+        <p id="p3">responsibilities in this project</p>
+        <p id="p4">personal bio</p>
+        <p id="p5">github contributions</p>
+        <p id="p6">and more</p>
+    </div>
+
+    <script>
+        function bio1(){
+            document.getElementById("p1").innerHTML = "bio: I am Arjun Singh";
+            document.getElementById("p2").innerHTML = "major: ECE";
+            document.getElementById("p3").innerHTML = "responsibilities: engagement metric, rating page, unit tests, Reddit data scraping";
+            document.getElementById("p4").innerHTML = "commits: {{ data['arjun']}}";
+            document.getElementById("p5").innerHTML = "issues: {{ stats['arjun'] }}";
+            document.getElementById("p6").innerHTML = "unit tests: 4";
+        }
+
+        function bio2(){
+            document.getElementById("p1").innerHTML = "bio: I am an Electrical Engineering major at the University of Texas";
+            document.getElementById("p2").innerHTML = "major: ECE";
+            document.getElementById("p3").innerHTML = "responsibilities: MySQL database, data scraping (games), games page, GCP";
+            document.getElementById("p4").innerHTML = "commits: {{ data['blake']}}";
+            document.getElementById("p5").innerHTML = "issues: {{ stats['blake'] }}";
+            document.getElementById("p6").innerHTML = "unit tests: 6";
+        }
+
+        function bio3(){
+            document.getElementById("p1").innerHTML = "bio: When I am not coding, I like going hiking";
+            document.getElementById("p2").innerHTML = "major: ECE";
+            document.getElementById("p3").innerHTML = "responsibilities: user stories, data scraping (games), games page";
+            document.getElementById("p4").innerHTML = "commits: {{ data['rabia']}}";
+            document.getElementById("p5").innerHTML = "issues: {{ stats['rabia'] }}";
+            document.getElementById("p6").innerHTML = "unit tests: 0";
+        }
+
+        function bio4(){
+            document.getElementById("p1").innerHTML = "bio: I am a good dog walker";
+            document.getElementById("p2").innerHTML = "major: ECE";
+            document.getElementById("p3").innerHTML = "responsibilities: about page, consoles page, compare page, unit tests, data scraping (consoles)";
+            document.getElementById("p4").innerHTML = "commits: {{ data['wenran']}}";
+            document.getElementById("p5").innerHTML = "issues: {{ stats['wenran'] }}";
+            document.getElementById("p6").innerHTML = "unit tests: 6";
+        }
+
+        function bio5(){
+            document.getElementById("p1").innerHTML = "bio: I am Yinghong Liu";
+            document.getElementById("p2").innerHTML = "major: ME";
+            document.getElementById("p3").innerHTML = "responsibilities: home page, 15 static pages";
+            document.getElementById("p4").innerHTML = "commits: {{ data['yinghong']}}";
+            document.getElementById("p5").innerHTML = "issues: {{ stats['yinghong'] }}";
+            document.getElementById("p6").innerHTML = "unit tests: 0";
+        }
+    </script>
+    <div align = "center">
     <h3>Development Statistics</h3>
     <p>Total number of commits: {{ data['total'] }}</p>
     <p>Total number of issues: {{ stats['total'] }}</p>
@@ -98,25 +148,21 @@ body {
     <br>
     <h3>Data Sources</h3>
         <a href = "https://www.nintendo.com">Nintendo Switch</a>
-        <p>scraped using Python and BeautifulSoup library</p>
         <a href = "https://www.xbox.com">XBOX</a>
-        <p><p>scraped using Python and BeautifulSoup library</p>
         <a href = "https://www.playstation.com">Play Station</a>
-        <p><p>scraped using Python and BeautifulSoup library</p>
+        <p>scraped using Python and BeautifulSoup library</p>
     <br>
     <h3>Development Tools</h3>
     <p>Flask used for microframework</p>
     <p>unittest used for Python unit tests</p>
-    <p>MySQL will be used for backend database</p>
-    <p>Node.js will be used for RESTful API</p>
+    <p>MySQL used for backend database</p>
     <p>Angular will be used for front-end</p>
-    <p>Postman will be used to test RESTful API</p>
     <p>Selenium will be used to test user interface</p>
     <br>
     <h3>
         <a href = "https://github.com/ArjunSingh1/SoftwareLab.git">GitHub Repository</a>
     </h3>
-</div>
+    </div>
 
 </body>
 </html>

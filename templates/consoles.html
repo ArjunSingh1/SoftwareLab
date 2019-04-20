@@ -33,6 +33,19 @@ body {
   color: white;
 }
 
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
 div.gallery {
   margin: 5px;
   border: 1px solid #ccc;
@@ -68,78 +81,10 @@ div.desc {
 
 <div style="padding-left:16px">
   <h2>Consoles</h2>
-  <h3>Choose any two consoles!</h3>
-  <form name="compare">
-<label>
-    <input type="checkbox" name="one"
-    onClick="return KeepCount()"> XBOX ONE X
-</label>
-
-<label>
-<input type="checkbox" NAME="two"
-onClick="return KeepCount()"> XBOX 360
-</label>
-
-<label>
-<input type="checkbox" NAME="three"
-onClick="return KeepCount()"> Switch
-</label>
-
-<label>
-<input type="checkbox" NAME="four"
-onClick="return KeepCount()"> PS4 Pro
-</label>
-
-<label>
-<input type="checkbox" NAME="five"
-onClick="return KeepCount()"> PS4 Slim
-</label>
-
-<label>
-<input type="checkbox" NAME="six"
-onClick="return KeepCount()"> Wii U
-</label>
-</form>
-<br>
-</div>
-
-<script language="javascript">
-
-function KeepCount() {
-
-var NewCount = 0
-
-if (document.compare.one.checked)
-{NewCount = NewCount + 1}
-
-if (document.compare.two.checked)
-{NewCount = NewCount + 1}
-
-if (document.compare.three.checked)
-{NewCount = NewCount + 1}
-
-if (document.compare.four.checked)
-{NewCount = NewCount + 1}
-
-if (document.compare.five.checked)
-{NewCount = NewCount + 1}
-
-if (document.compare.six.checked)
-{NewCount = NewCount + 1}
-
-if (NewCount == 3)
-{
-alert('Pick Just Two Consoles Please!')
-document.compare; return false;
-}
-
-if (NewCount ==2)
-{
-    window.location="{{url_for('compare') }}";
-}
-}
-
-</script>
+     <h5>Click here to compare the consoles!</h5>
+  <form name="compare" action="/consoles/compare" target = _blank method="get">
+      <input class = "button" type = "submit" value = "Compare">
+  </form>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console1')}}">
