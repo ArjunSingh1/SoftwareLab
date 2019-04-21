@@ -50,7 +50,12 @@ db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square
 def home():
     return render_template('home.html')
 
-#console page
+#console pages
+
+@app.route("/consoles")
+def consoles():
+    return render_template('consoles.html')
+
 @app.route("/consoles/console1")
 def console1():
     data = []
