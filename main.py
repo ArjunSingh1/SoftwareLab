@@ -167,6 +167,7 @@ def games(page, sortmethod, searchstring):
     perpage = 50
     startat = page * perpage
     games = []
+    noimagerows = []
     #sqlstatement = "SELECT * from All_Games WHERE title like "  
     with db.connect() as conn:
         if sortmethod == 'All_Games':
@@ -175,6 +176,23 @@ def games(page, sortmethod, searchstring):
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    noimagerows.append(row)
+                else:
+                    games.append({
+                        'title': row[0].decode('utf-8'),
+                        'link': link,
+                        'score' : row[2],
+                        'platform_one' : row[3],
+                        'platform_two' : row[4],
+                        'platform_three' : row[5],
+                        'platform_four' : row[6],
+                        'platform_five' : row[7],
+                        'platform_six' : row[8],
+                    })
+
+            for row in noimagerows:
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
                     link = 'https://www.classicposters.com/images/nopicture.gif'
