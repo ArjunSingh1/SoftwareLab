@@ -168,7 +168,7 @@ def games(page, sortmethod, searchstring):
     games = []
     if sortmethod=='':
         with db.connect as conn:
-            rows = conn.execute("SELECT * from All_Games WHERE title = %s", (searchstring,)).fetchone
+            rows = conn.execute("SELECT * from All_Games WHERE title = %s", (searchstring,)).fetchone()
         for row in rows:
             link = row[1].decode('utf-8')
             if link == 'unreleased':
