@@ -138,8 +138,8 @@ def search_results(search):
     if search_string == '':
         if search.data['select'] == 'All_Games':
             sortmethod = 'All_Games'
-        elif search.data['select'] == 'Exclusives':
-            sortmethod = 'Exclusives'
+        elif search.data['select'] == 'Exclusive_Games':
+            sortmethod = 'Exclusive_Games'
         elif search.data['select'] == 'PS4_Games':
             sortmethod = 'PS4_Games'
         elif search.data['select'] == 'PS3_Games':
