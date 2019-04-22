@@ -62,7 +62,7 @@ def consoles():
 @app.route("/consoles/console1")
 def console1():
     data = []
-    with open('consoles.csv') as csv_file:
+    with open('data/consoles.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data.append("".join(row))
@@ -171,7 +171,7 @@ def games(page, sortmethod, searchstring):
     with db.connect() as conn:
         if sortmethod == 'All_Games':
             top_games = conn.execute(
-                "SELECT title, link, score FROM All_Games "
+                "SELECT title, link, score, platform_one, platform_two, platform_three, platform_four, platform_five, platform_six FROM All_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -181,7 +181,13 @@ def games(page, sortmethod, searchstring):
                 games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link,
-                    'score' : row[2]
+                    'score' : row[2],
+                    'platform_one' : row[3],
+                    'platform_two' : row[4],
+                    'platform_three' : row[5],
+                    'platform_four' : row[6],
+                    'platform_five' : row[7],
+                    'platform_six' : row[8],
                 })
         elif sortmethod == 'Exclusive_Games':
             top_games = conn.execute(
