@@ -342,7 +342,7 @@ class MySQL_Wrapper:
         with self.db.connect() as conn:
             # Execute the query and fetch all results
             top_games = conn.execute(
-                "SELECT TOP {} title, link, score FROM Scored_Games".format(this.top)
+                "SELECT TOP {} title, link, score FROM Scored_Games".format(self.top)
                 ).fetchall()
 
             for row in top_games:
