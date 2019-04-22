@@ -352,7 +352,7 @@ class MySQL_Wrapper:
                 games.append({
                     'title': row[0].decode('utf-8'),
                     'link' : link,
-                    'score': row[2].decode('utf-8')
+                    'score': row[2]
                 })
         return games
 
