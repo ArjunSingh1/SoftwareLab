@@ -274,7 +274,7 @@ def games(page, sortmethod, searchstring):
                     'link': link
                 })    
         else:
-            rows = conn.execute("SELECT * from All_Games WHERE title LIKE '%{}%'".format(searchstring)).fetchall()
+            rows = conn.execute("SELECT * from Exclusive_Games WHERE title LIKE '%%{}%%'".format(searchstring)).fetchall()
             for row in rows:
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
