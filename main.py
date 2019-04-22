@@ -173,18 +173,9 @@ def games(page, sortmethod, searchstring):
                 "SELECT title, link FROM All_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
-            #Convert the results into a list of dicts representing votes
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link
-                })
         elif sortmethod == 'Exclusive_Games':
             top_games = conn.execute(
-                "SELECT title, link FROM Exclusive_Games"
+                "SELECT title, link FROM Exclusive_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
         elif sortmethod == 'PS4_Games':
@@ -217,11 +208,17 @@ def games(page, sortmethod, searchstring):
                 "SELECT title, link FROM Switch_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
-            
-            
-        
-        
 
+        #Convert the results into a list of dicts representing votes
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+            
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
 
