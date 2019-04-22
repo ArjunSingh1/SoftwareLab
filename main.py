@@ -168,16 +168,16 @@ def games(page, sortmethod, searchstring):
     games = []
     if sortmethod=='':
         with db.connect as conn:
-            rows = conn.execute("SELECT * from All_Games WHERE title = %s", (searchstring,)).fetchone()
-        for row in rows:
-            link = row[1].decode('utf-8')
-            if link == 'unreleased':
-                link = 'https://www.classicposters.com/images/nopicture.gif'
-            games.append({
-                'title': row[0].decode('utf-8'),
-                'link': link,
-                'score' : row[2]
-                })        
+            rows = conn.execute("SELECT * from All_Games WHERE title like %s", (searchstring,)).fetchone()
+            for row in rows:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score' : row[2]
+                    })        
 
     else:
         with db.connect() as conn:

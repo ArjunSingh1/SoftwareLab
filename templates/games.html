@@ -72,7 +72,7 @@ div.desc {
 </div>
 
 {% for game in games: %}
-  <div>
+  <div class="gallery">
     <h6>{{game.title}}</h6>
     <img src="{{game.link}}" alt="" style="width:100;height:200"/>
     {% if sortmethod=='All_Games': %}
