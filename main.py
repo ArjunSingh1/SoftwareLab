@@ -166,9 +166,11 @@ def games(page, sortmethod, searchstring):
     perpage = 50
     startat = page * perpage
     games = []
+    sqlstatement = "SELECT * from All_Games WHERE title like "
+
     if sortmethod=='':
         with db.connect as conn:
-            rows = conn.execute("SELECT * from All_Games WHERE title like %s", (searchstring,)).fetchone()
+            rows = conn.execute("SELECT * from All_Games WHERE title LIKE '%{}%'".format(searchstring)).fetchall()
             for row in rows:
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
