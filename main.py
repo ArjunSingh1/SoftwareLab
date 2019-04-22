@@ -157,7 +157,7 @@ def search_results(search):
     else:
         sortmethod = 'All_Games'
     
-    games(0, sortmethod, search_string)
+    return games(0, sortmethod, search_string)
  
     
 #games page
