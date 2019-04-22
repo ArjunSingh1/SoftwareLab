@@ -3,9 +3,11 @@ import os
 import logging
 import csv
 from time import sleep
+from forms import GameSearchForm
+from tables import Results
 
 #import flask framework
-from flask import Flask, render_template, url_for, request, Response
+from flask import Flask, render_template, url_for, request, Response, flash, redirect
 #import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
 #for databse connection
@@ -114,19 +116,95 @@ def compare():
             overalldata.append("".join(row))
     return render_template('compare.html', data=overalldata)
 
-
+#implementing games searching and sorting
+@app.route('/searchgames', methods=['GET', 'POST'])
+def index():
+    search = GameSearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+ 
+    return render_template('index.html', form=search)
+ 
+ 
+@app.route('/results')
+def search_results(search):
+    search_string = search.data['search']
+ 
+    if search_string == '':
+        if search.data['select'] == 'All_Games':
+            sortmethod = 'All_Games'
+        elif search.data['select'] == 'Exclusives':
+            sortmethod = 'Exclusives'
+        elif search.data['select'] == 'PS4_Games':
+            sortmethod = 'PS4_Games'
+        elif search.data['select'] == 'PS3_Games':
+            sortmethod = 'PS3_Games'
+        elif search.data['select'] == 'XboxOne_Games':
+            sortmethod = 'XboxOne_Games'
+        elif search.data['select'] == 'Xbox360_Games':
+            sortmethod = 'Xbox360_Games'
+        elif search.data['select'] == 'WiiU_Games':
+            sortmethod = 'WiiU_Games'
+        elif search.data['select'] == 'Switch_Games':
+            sortmethod = 'Switch_Games'
+        else:
+            sortmethod = 'All_Games'
+    else:
+        sortmethod = 'All_Games'
+    
+    games(0, sortmethod, search_string)
+ 
+    
 #games page
 @app.route("/games", methods=['GET','POST'], defaults={'page':0})
-def games(page):
+def games(page, sortmethod, searchstring):
     perpage = 50
     startat = page * perpage
     games = []
     with db.connect() as conn:
         # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT title, link FROM All_Games "
-            "LIMIT {}, {}".format(startat, perpage)
-        ).fetchall()
+        if sortmethod == 'All_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM All_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'Exclusives':
+            top_games = conn.execute(
+                "SELECT title, link FROM Exclusives "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'PS4_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM PS4_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'PS3_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM PS3_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'XboxOne_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM XboxOne_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'Xbox360_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM Xbox360_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'WiiU_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM WiiU_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+        elif sortmethod == 'Switch_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM Switch_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+
+
         #Convert the results into a list of dicts representing votes
         for row in top_games:
             link = row[1].decode('utf-8')
@@ -137,26 +215,30 @@ def games(page):
                 'link': link
             })
 
-    return render_template('games.html', games=games, page=page)
+    return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
 
 #handle Game page forward navigation
 @app.route("/navigateNext", methods=['GET', 'POST'])
 def navigateNext():
     page = request.form['page']
+    sortmethod = request.form['sortmethod']
+    searchstring = request.form['searchstring']
 
     if page != "600":
         page = int(page, 10) + 1
 
-    return games(page)
+    return games(page, sortmethod, searchstring)
 
 #handle Game page backward navigation
 @app.route("/navigatePrevious", methods=['GET', 'POST'])
 def navigatePrevious():
     page = request.form['page']
+    sortmethod = request.form['sortmethod']
+    searchstring = request.form['searchstring']
     if page != "0":
         page = int(page, 10) - 1
-    return games(page)
+    return games(page, sortmethod, searchstring)
 
 # Collects top x games from Scored_Games according to score
 def rank_games(x):

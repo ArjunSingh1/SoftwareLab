@@ -83,11 +83,15 @@ div.desc {
 
 <form action="{{ url_for('navigateNext') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
+  <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
+  <input name="searchstring" type="hidden" value="{{searchstring}}"/>
   <input name="nextPage" type="submit" value="next"/>
 </form>
 
 <form action="{{ url_for('navigatePrevious') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
+  <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
+  <input name="searchstring" type="hidden" value="{{searchstring}}"/>
   <input name="previousPage" type="submit" value="previous"/>
 </form>
 
