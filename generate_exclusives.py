@@ -26,7 +26,7 @@ def main():
 
 
 def put_dictionary_in_csv():
-    with open('Exclusive_Games', mode='w') as file:
+    with open('Exclusive_Games.csv', mode='w') as file:
         write = csv.writer(file, delimiter=',', quoting=csv.QUOTE_NONE, escapechar='\\', lineterminator='\n')
         write.writerow([col1,col2,col3])
         for key, value in dict.items():
