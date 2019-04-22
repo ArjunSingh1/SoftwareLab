@@ -62,7 +62,7 @@ def consoles():
 @app.route("/consoles/console1")
 def console1():
     data = []
-    with open('data/consoles.csv') as csv_file:
+    with open('consoles.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             data.append("".join(row))

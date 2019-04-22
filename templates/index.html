@@ -52,6 +52,13 @@
               padding: 15px;
               text-align: center;
             }
+
+            .center {
+              margin: auto;
+              width: 50%;
+              border: 3px solid green;
+              padding: 10px;
+            }        
             </style>
     </head>
     <body>
@@ -64,7 +71,7 @@
             <a href="{{url_for('about')}}">About</a>
         </div>
 
-        <h2>Flask Music Database</h2>
+        
      
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -75,16 +82,20 @@
         </ul>
       {% endif %}
     {% endwith %}
-     
-    {% from "_formhelpers.html" import render_field %}
-    <form method=post>
-      <dl>
-        {{ render_field(form.select) }}
-        <p>
-        {{ render_field(form.search) }}
-      </dl>
-      <p><input type=submit value=Search>
-    </form>
+    <div class = ".center">
+        <h2>Find Your Game</h2>
+        {% from "_formhelpers.html" import render_field %}
+        <form method=post>
+          <dl>
+            <h6>Sort by type:</h6>
+            {{ render_field(form.select) }}
+            <h6>or search for a specific game:</h6>
+            {{ render_field(form.search) }}
+          </dl>
+          <input type=submit value=Search>
+        </form>
+    </div>
+    
     
     </body>
 
