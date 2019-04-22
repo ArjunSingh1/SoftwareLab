@@ -75,7 +75,8 @@ div.desc {
   <div>
     <h6>{{game.title}}</h6>
     <img src="{{game.link}}" alt="" style="width:100;height:200"/>
-    <h1>game</h1>
+    {% if sortmethod=='All_Games': %}
+      <h6>Engagement Score: {{game.score}}</h6>
   </div>
 {% endfor %}
 
