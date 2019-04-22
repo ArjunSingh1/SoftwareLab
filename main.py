@@ -4,7 +4,7 @@ import logging
 import csv
 from time import sleep
 from forms import GameSearchForm
-from tables import Results
+#from tables import Results
 
 #import flask framework
 from flask import Flask, render_template, url_for, request, Response, flash, redirect
