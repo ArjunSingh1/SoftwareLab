@@ -2,6 +2,7 @@ import datetime
 import os
 import logging
 import csv
+import random
 from time import sleep
 from forms import GameSearchForm
 #from tables import Results
@@ -314,57 +315,53 @@ def navigatePrevious():
         page = int(page, 10) - 1
     return games(page, sortmethod, searchstring)
 
-# Collects top x games from Scored_Games according to score
-def rank_games(x):
-    games = []
-    with db.connect() as conn:
-        # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT TOP {} title, score FROM Scored_Games".format(x)
-            ).fetchall()
+# easier SQL calls
+class MySQL_Wrapper:
+    def __init__(self, name = None, db = None, top=10):
+        self.name = name
+        self.db = db
+        self.top = top
+        if name is not None:
+            import pandas as pd
+            import numpy as np
+            self.data = pd.read_csv(name)
+            
+    # Collects top x games from Scored_Games according to score
+    def rank_games(self):
+        games = []
+        if(self.name is not None):
+            data = self.data.sort_values('score', ascending=False).head(self.top)
+            for i in range(data.shape[0]):
+                games.append({
+                    'title': data.iloc[i,1],
+                    'link' : data.iloc[i,2],
+                    'score': data.iloc[i,data.shape[1]-1]
+                })
+            return games
+        
+        with self.db.connect() as conn:
+            # Execute the query and fetch all results
+            top_games = conn.execute(
+                "SELECT TOP {} title, link, score FROM Scored_Games".format(this.top)
+                ).fetchall()
 
-        for row in top_games:
-            games.append({
-                'title': row[0].decode('utf-8'),
-                'score': row[1].decode('utf-8')
-            })
-    return games
-
-# merge list of dictionaries
-def merge_lists(l1, l2, key):
-  merged = {}
-  for item in l1+l2:
-    if item[key] in merged:
-      merged[item[key]].update(item)
-    else:
-      merged[item[key]] = item
-  return [val for (_, val) in merged.items()]
-
-# Collects associated links from All_Games according to title in title_list
-def match_title(title_list):
-    just_title = (x.title for x in title_list)
-    games = []
-    with db.connect() as conn:
-        # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT title, link FROM All_Games WHERE title in {}".format(just_title)
-        ).fetchall()
-
-        for row in top_games:
-            games.append({
-                'title': row[0].decode('utf-8'),
-                'link': row[1].decode('utf-8'),
-            })
-
-    return merge_lists(just_title, games, 'title')
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link' : link,
+                    'score': row[2].decode('utf-8')
+                })
+        return games
 
 #rating page
 @app.route("/rating")
 def rating():
-#    ranks = rank_games(25)
-#    top_games = match_title(ranks)
-#	return render_template('rating.html', games=top_games)
-    return render_template('rating.html')
+    ranks = MySQL_Wrapper(db=db, top=10)
+    top_games = ranks.rank_games()
+    return render_template('rating.html', games=top_games)
 
 #about page
 @app.route("/about")
