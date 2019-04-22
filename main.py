@@ -2,10 +2,13 @@ import datetime
 import os
 import logging
 import csv
+import random
 from time import sleep
+from forms import GameSearchForm
+#from tables import Results
 
 #import flask framework
-from flask import Flask, render_template, url_for, request, Response
+from flask import Flask, render_template, url_for, request, Response, flash, redirect
 #import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
 #for databse connection
@@ -24,25 +27,25 @@ app = Flask(__name__)
 # [START cloud_sql_mysql_sqlalchemy_create]
 # The SQLAlchemy engine will help manage interactions, including automatically
 # managing a pool of connections to your database
-#db = sqlalchemy.create_engine(
+db = sqlalchemy.create_engine(
     # Equivalent URL:
     # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>
-#    sqlalchemy.engine.url.URL(
-#        drivername='mysql+pymysql',
-#        username=db_user,
-#        password=db_pass,
-#        database=db_name,
-#        query={
-#            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
-#        }
-#    ),
-#    pool_size=5,
-#    max_overflow=2,
-#    pool_timeout=30,  # 30 seconds
-#    pool_recycle=1800,  # 30 minutes
-#)
+    sqlalchemy.engine.url.URL(
+        drivername='mysql+pymysql',
+        username=db_user,
+        password=db_pass,
+        database=db_name,
+        query={
+            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
+        }
+    ),
+    pool_size=5,
+    max_overflow=2,
+    pool_timeout=30,  # 30 seconds
+    pool_recycle=1800,  # 30 minutes
+)
 
-db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
+#db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
 
 #home page
 @app.route("/")
@@ -119,101 +122,270 @@ def compare():
             overalldata.append("".join(row))
     return render_template('compare.html', data=overalldata)
 
-
+#implementing games searching and sorting
+@app.route('/index', methods=['GET', 'POST'])
+def index():
+    search = GameSearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+ 
+    return render_template('index.html', form=search)
+ 
+ 
+@app.route('/results')
+def search_results(search):
+    search_string = search.data['search']
+ 
+    if search_string == '':
+        if search.data['select'] == 'All_Games':
+            sortmethod = 'All_Games'
+        elif search.data['select'] == 'Exclusive_Games':
+            sortmethod = 'Exclusive_Games'
+        elif search.data['select'] == 'PS4_Games':
+            sortmethod = 'PS4_Games'
+        elif search.data['select'] == 'PS3_Games':
+            sortmethod = 'PS3_Games'
+        elif search.data['select'] == 'XboxOne_Games':
+            sortmethod = 'XboxOne_Games'
+        elif search.data['select'] == 'Xbox360_Games':
+            sortmethod = 'Xbox360_Games'
+        elif search.data['select'] == 'WiiU_Games':
+            sortmethod = 'WiiU_Games'
+        elif search.data['select'] == 'Switch_Games':
+            sortmethod = 'Switch_Games'
+        else:
+            sortmethod = 'All_Games'
+    else:
+        sortmethod = ''
+    
+    return games(0, sortmethod, search_string)
+ 
+    
 #games page
 @app.route("/games", methods=['GET','POST'], defaults={'page':0})
-def games(page):
+def games(page, sortmethod, searchstring):
     perpage = 50
     startat = page * perpage
     games = []
+    noimagerows = []
+    #sqlstatement = "SELECT * from All_Games WHERE title like "  
     with db.connect() as conn:
-        # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT title, link FROM All_Games "
-            "LIMIT {}, {}".format(startat, perpage)
-        ).fetchall()
-        #Convert the results into a list of dicts representing votes
-        for row in top_games:
-            link = row[1].decode('utf-8')
-            if link == 'unreleased':
-                link = 'https://www.classicposters.com/images/nopicture.gif'
-            games.append({
-                'title': row[0].decode('utf-8'),
-                'link': link
-            })
+        if sortmethod == 'All_Games':
+            top_games = conn.execute(
+                "SELECT title, link, score, platform_one, platform_two, platform_three, platform_four, platform_five, platform_six FROM All_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    noimagerows.append(row)
+                else:
+                    games.append({
+                        'title': row[0].decode('utf-8'),
+                        'link': link,
+                        'score' : row[2],
+                        'platform_one' : row[3],
+                        'platform_two' : row[4],
+                        'platform_three' : row[5],
+                        'platform_four' : row[6],
+                        'platform_five' : row[7],
+                        'platform_six' : row[8],
+                    })
 
-    return render_template('games.html', games=games, page=page)
+            for row in noimagerows:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score' : row[2],
+                    'platform_one' : row[3],
+                    'platform_two' : row[4],
+                    'platform_three' : row[5],
+                    'platform_four' : row[6],
+                    'platform_five' : row[7],
+                    'platform_six' : row[8],
+                })
+        elif sortmethod == 'Exclusive_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM Exclusive_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+        elif sortmethod == 'PS4_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM PS4_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+        elif sortmethod == 'PS3_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM PS3_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+        elif sortmethod == 'XboxOne_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM XboxOne_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+        elif sortmethod == 'Xbox360_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM Xbox360_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+        elif sortmethod == 'WiiU_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM WiiU_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })
+        elif sortmethod == 'Switch_Games':
+            top_games = conn.execute(
+                "SELECT title, link FROM Switch_Games "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link
+                })    
+        else:
+            rows = conn.execute("SELECT * from Exclusive_Games WHERE title LIKE '%%{}%%'".format(searchstring)).fetchall()
+            for row in rows:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score' : row[2]
+                })            
+            
+        
+        
+
+            
+    return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
 
 #handle Game page forward navigation
 @app.route("/navigateNext", methods=['GET', 'POST'])
 def navigateNext():
     page = request.form['page']
+    sortmethod = request.form['sortmethod']
+    searchstring = request.form['searchstring']
 
     if page != "600":
         page = int(page, 10) + 1
 
-    return games(page)
+    return games(page, sortmethod, searchstring)
 
 #handle Game page backward navigation
 @app.route("/navigatePrevious", methods=['GET', 'POST'])
 def navigatePrevious():
     page = request.form['page']
+    sortmethod = request.form['sortmethod']
+    searchstring = request.form['searchstring']
     if page != "0":
         page = int(page, 10) - 1
-    return games(page)
+    return games(page, sortmethod, searchstring)
 
-# Collects top x games from Scored_Games according to score
-def rank_games(x):
-    games = []
-    with db.connect() as conn:
-        # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT TOP {} title, score FROM Scored_Games".format(x)
-            ).fetchall()
+# easier SQL calls
+class MySQL_Wrapper:
+    def __init__(self, name = None, db = None, top=10):
+        self.name = name
+        self.db = db
+        self.top = top
+        if name is not None:
+            import pandas as pd
+            import numpy as np
+            self.data = pd.read_csv(name)
+            
+    # Collects top x games from Scored_Games according to score
+    def rank_games(self):
+        games = []
+        if(self.name is not None):
+            data = self.data.sort_values('score', ascending=False).head(self.top)
+            for i in range(data.shape[0]):
+                games.append({
+                    'title': data.iloc[i,1],
+                    'link' : data.iloc[i,2],
+                    'score': data.iloc[i,data.shape[1]-1]
+                })
+            return games
+        
+        with self.db.connect() as conn:
+            # Execute the query and fetch all results
+            top_games = conn.execute(
+                "SELECT title, link, score FROM All_Games ORDER BY score DESC LIMIT {}".format(self.top)
+                ).fetchall()
 
-        for row in top_games:
-            games.append({
-                'title': row[0].decode('utf-8'),
-                'score': row[1].decode('utf-8')
-            })
-    return games
-
-# merge list of dictionaries
-def merge_lists(l1, l2, key):
-  merged = {}
-  for item in l1+l2:
-    if item[key] in merged:
-      merged[item[key]].update(item)
-    else:
-      merged[item[key]] = item
-  return [val for (_, val) in merged.items()]
-
-# Collects associated links from All_Games according to title in title_list
-def match_title(title_list):
-    just_title = (x.title for x in title_list)
-    games = []
-    with db.connect() as conn:
-        # Execute the query and fetch all results
-        top_games = conn.execute(
-            "SELECT title, link FROM All_Games WHERE title in {}".format(just_title)
-        ).fetchall()
-
-        for row in top_games:
-            games.append({
-                'title': row[0].decode('utf-8'),
-                'link': row[1].decode('utf-8'),
-            })
-
-    return merge_lists(just_title, games, 'title')
+            for row in top_games:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link' : link,
+                    'score': row[2]
+                })
+        return games
 
 #rating page
 @app.route("/rating")
 def rating():
-#    ranks = rank_games(25)
-#    top_games = match_title(ranks)
-#	return render_template('rating.html', games=top_games)
-    return render_template('rating.html')
+    ranks = MySQL_Wrapper(db=db, top=10)
+    top_games = ranks.rank_games()
+    return render_template('rating.html', games=top_games)
 
 #about page
 @app.route("/about")
