@@ -122,7 +122,7 @@ def compare():
     return render_template('compare.html', data=overalldata)
 
 #implementing games searching and sorting
-@app.route('/searchgames', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     search = GameSearchForm(request.form)
     if request.method == 'POST':
