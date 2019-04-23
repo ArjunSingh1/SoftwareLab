@@ -61,6 +61,19 @@ div.desc {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+figure {
+    display: inline-block;
+    border: 1px dotted gray;
+    margin: 20px; /* adjust as needed */
+}
+figure img {
+    vertical-align: top;
+}
+figure figcaption {
+    border: 1px dotted blue;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -82,13 +95,13 @@ div.desc {
 
 <div class="wrapper">
   {% for game in games: %}
-  <div>
-    <h6>{{game.title}}</h6>
-    <img src="{{game.link}}" alt=""/>
+  <figure>
+    <img src="{{game.link}}" alt="missing"/>
+    <figcaption>{{game.title}}</figcaption>
     {% if sortmethod=='All_Games': %}
-      <h6>Engagement Score: {{game.score}}</h6>
+      <br>Engagement Score: {{game.score}}
     {% endif %}
-  </div>
+  </figure>
   {% endfor %}
 </div>
 
