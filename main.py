@@ -70,38 +70,25 @@ def consoles():
             "SELECT * from All_Consoles WHERE console = 'XBOX ONE X'"
         ).fetchall()
 
-        print(console1+'\n')
-
         console2 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'XBOX 360'"
         ).fetchall()
-
-        print(console2 + '\n')
 
         console3 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'Switch'"
         ).fetchall()
 
-        print(console3 + '\n')
-
         console4 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'PS4 Pro'"
         ).fetchall()
-
-        print(console4 + '\n')
 
         console5 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'PS4 Slim'"
         ).fetchall()
 
-        print(console5 + '\n')
-
         console6 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'Wii U'"
         ).fetchall()
-
-        print(console6 + '\n')
-
 
     return render_template('consoles.html')
 
@@ -177,17 +164,12 @@ def compare():
         ).fetchall()
 
         overalldata.append(data1)
-        print(overalldata + '\n')
         overalldata.append(data2)
-        print(overalldata + '\n')
         overalldata.append(data3)
-        print(overalldata + '\n')
         overalldata.append(data4)
-        print(overalldata + '\n')
         overalldata.append(data5)
-        print(overalldata + '\n')
         overalldata.append(data6)
-        print(overalldata + '\n')
+        print(overalldata)
 
     return render_template('compare.html', data=overalldata)
 
