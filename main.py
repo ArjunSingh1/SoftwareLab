@@ -27,7 +27,7 @@ app = Flask(__name__)
 # [START cloud_sql_mysql_sqlalchemy_create]
 # The SQLAlchemy engine will help manage interactions, including automatically
 # managing a pool of connections to your database
-'''db = sqlalchemy.create_engine(
+db = sqlalchemy.create_engine(
     # Equivalent URL:
     # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>
     sqlalchemy.engine.url.URL(
@@ -43,9 +43,9 @@ app = Flask(__name__)
     max_overflow=2,
     pool_timeout=30,  # 30 seconds
     pool_recycle=1800,  # 30 minutes
-)'''
+)
 
-db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
+#db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
 
 # home page
 @app.route("/")
