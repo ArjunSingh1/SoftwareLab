@@ -196,17 +196,17 @@ def compare():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     search = GameSearchForm(request.form)
+    submit_type = 'search'
     if request.method == 'POST':
-        return search_results(search)
-
+        return search_results(search, submit_type)
+ 
     return render_template('index.html', form=search)
 
 
 @app.route('/results')
-def search_results(search):
-    search_string = search.data['search']
-
-    if search_string == '':
+def search_results(search, submit_type):
+    if submit_type == 'filter':
+        search_string = ''
         if search.data['select'] == 'All_Games':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusive_Games':
@@ -226,9 +226,17 @@ def search_results(search):
         else:
             sortmethod = 'All_Games'
     else:
+        search_string = search.data['search']
         sortmethod = ''
-
+    
     return games(0, sortmethod, search_string)
+
+@app.route('/filter', methods=['GET','POST'])
+def filter():
+    search = GameSearchForm(request.form)
+    submit_type = 'filter'
+
+    return search_results(search,submit_type)
 
 
 # games page
