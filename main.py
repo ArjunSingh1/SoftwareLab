@@ -317,7 +317,7 @@ def games(page, sortmethod, searchstring):
                     'platform_three': row[5],
                     'platform_four': row[6],
                     'platform_five': row[7],
-                    'platform_six': row[8],
+                    'platform_six': row[8]
                 })
         elif sortmethod == 'Exclusive_Games':
             top_games = conn.execute(
@@ -412,7 +412,7 @@ def games(page, sortmethod, searchstring):
                 })
         else:
             rows = conn.execute(
-                "SELECT * from Exclusive_Games WHERE title LIKE '%%{}%%'".format(searchstring)).fetchall()
+                "SELECT * from All_Games WHERE title LIKE '%%{}%%'".format(searchstring)).fetchall()
             for row in rows:
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
@@ -420,7 +420,13 @@ def games(page, sortmethod, searchstring):
                 games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link,
-                    'score': row[2]
+                    'score': row[2],
+                    'platform_one': row[3],
+                    'platform_two': row[4],
+                    'platform_three': row[5],
+                    'platform_four': row[6],
+                    'platform_five': row[7],
+                    'platform_six': row[8]
                 })
 
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
