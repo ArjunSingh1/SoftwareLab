@@ -46,8 +46,14 @@ th, td {
   padding: 15px;
   text-align: left;
 }
+
 th.rank {
   text-align: center;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 </style>
 </head>
@@ -93,6 +99,19 @@ th.rank {
   <p>Rating of games based on community engagement! Our metric of engagement is defined by upvotes so will use the Top sorting parameter. </p>
   <p>The aggregate sum of the first few posts will be the Reddit score of the game.</p>
   <p>The higher the score, the better the game.</p>
+
+  <div class="row">
+    {% set i = 1 %}
+    {% for game in games: %}
+    <div>
+      <img src="{{game.link}}" alt=""/>
+      <h6>Rank: {{ i }} Engagement Score: {{game.score}}</h6>
+      <h6>{{game.title}}</h6>
+    </div>
+    {% set i = i + 1 %}
+    {% endfor %}
+  </div>
+  <!--
   <div class="row">
     {% set i = 1 %}
     {% for game in games: %}
@@ -108,8 +127,8 @@ th.rank {
     </div>
     {% set i = i + 1 %}
     {% endfor %}
-    
   </div>
+  -->
 </div>
 
 </body>
