@@ -5,13 +5,14 @@ import csv
 import random
 from time import sleep
 from forms import GameSearchForm
-#from tables import Results
+# from tables import Results
 
-#import flask framework
+# import flask framework
+# import flask framework
 from flask import Flask, render_template, url_for, request, Response, flash, redirect
-#import api request for github
+# import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
-#for databse connection
+# for databse connection
 import sqlalchemy
 
 # Remember - storing secrets in plaintext is potentially unsafe. Consider using
@@ -20,7 +21,6 @@ db_user = os.environ.get("DB_USER")
 db_pass = os.environ.get("DB_PASS")
 db_name = os.environ.get("DB_NAME")
 cloud_sql_connection_name = os.environ.get("CLOUD_SQL_CONNECTION_NAME")
-
 
 app = Flask(__name__)
 
@@ -45,98 +45,201 @@ db = sqlalchemy.create_engine(
     pool_recycle=1800,  # 30 minutes
 )
 
-#db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
 
-#home page
+# db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
+
+# home page
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html')
 
-#console pages
+
+# console pages
+console_1 = []
+console_2 = []
+console_3 = []
+console_4 = []
+console_5 = []
+console_6 = []
 
 @app.route("/consoles")
 def consoles():
+    with db.connect() as conn:
+        consoles = conn.execute(
+            "SELECT * from All_Consoles"
+        ).fetchall()
+    i=0
+    for row in consoles:
+        if i == 1:
+            console_1.append(row[1])
+            console_1.append(row[2])
+            console_1.append(row[3])
+            console_1.append(row[4])
+            console_1.append(row[5])
+            console_1.append(row[6])
+            console_1.append(row[7])
+            console_1.append(row[8])
+            console_1.append(row[9])
+            console_1.append(row[10])
+
+        if i == 2:
+            console_2.append(row[1])
+            console_2.append(row[2])
+            console_2.append(row[3])
+            console_2.append(row[4])
+            console_2.append(row[5])
+            console_2.append(row[6])
+            console_2.append(row[7])
+            console_2.append(row[8])
+            console_2.append(row[9])
+            console_2.append(row[10])
+            console_2.append(row[11])
+            console_2.append(row[12])
+            console_2.append(row[13])
+
+        if i == 3:
+            console_3.append(row[1])
+            console_3.append(row[2])
+            console_3.append(row[3])
+            console_3.append(row[4])
+            console_3.append(row[5])
+            console_3.append(row[6])
+            console_3.append(row[7])
+            console_3.append(row[8])
+            console_3.append(row[9])
+            console_3.append(row[10])
+            console_3.append(row[11])
+            console_3.append(row[12])
+            console_3.append(row[13])
+            console_3.append(row[14])
+            console_3.append(row[15])
+
+        if i == 4:
+            console_4.append(row[1])
+            console_4.append(row[2])
+            console_4.append(row[3])
+            console_4.append(row[4])
+            console_4.append(row[5])
+            console_4.append(row[6])
+            console_4.append(row[7])
+            console_4.append(row[8])
+            console_4.append(row[9])
+            console_4.append(row[10])
+            console_4.append(row[11])
+            console_4.append(row[12])
+
+        if i == 5:
+            console_5.append(row[1])
+            console_5.append(row[2])
+            console_5.append(row[3])
+            console_5.append(row[4])
+            console_5.append(row[5])
+            console_5.append(row[6])
+            console_5.append(row[7])
+            console_5.append(row[8])
+            console_5.append(row[9])
+            console_5.append(row[10])
+            console_5.append(row[11])
+            console_5.append(row[12])
+
+        if i == 6:
+            console_6.append(row[1])
+            console_6.append(row[2])
+            console_6.append(row[3])
+            console_6.append(row[4])
+            console_6.append(row[5])
+            console_6.append(row[6])
+            console_6.append(row[7])
+            console_6.append(row[8])
+            console_6.append(row[9])
+            console_6.append(row[10])
+            console_6.append(row[11])
+            console_6.append(row[12])
+            console_6.append(row[13])
+        i=i+1
+
     return render_template('consoles.html')
+
 
 @app.route("/consoles/console1")
 def console1():
-    data = []
-    with open('consoles.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            data.append("".join(row))
+    data = console_1
+
     return render_template('console1.html', data=data)
+
 
 @app.route("/consoles/console2")
 def console2():
-    data2 = []
-    with open('consoles5.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            data2.append("".join(row).strip())
+    data2 = console_2
     return render_template('console2.html', data=data2)
+
 
 @app.route("/consoles/console3")
 def console3():
-    data3 = []
-    with open('consoles2.csv','rU') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            data3.append("".join(row).strip())
+    data3 = console_3
+
     return render_template('console3.html', data=data3)
+
 
 @app.route("/consoles/console4")
 def console4():
-    data4 = []
-    with open('consoles4.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            data4.append("".join(row).strip())
+    data4 = console_4
+
     return render_template('console4.html', data=data4)
+
 
 @app.route("/consoles/console5")
 def console5():
-    data5 = []
-    with open('consoles3.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            data5.append("".join(row).strip())
+    data5 = console_5
+
     return render_template('console5.html', data=data5)
+
 
 @app.route("/consoles/console6")
 def console6():
-    data6 = []
-    with open('consoles6.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            data6.append("".join(row))
+    data6 = console_6
+
     return render_template('console6.html', data=data6)
 
 @app.route("/consoles/compare")
 def compare():
     overalldata = []
-    with open('AllConsoles.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            overalldata.append("".join(row))
+    with db.connect() as conn:
+
+        data= conn.execute(
+            "SELECT * from Comparison"
+        ).fetchall()
+
+    i = 0
+    for row in data:
+        if i!=0:
+            overalldata.append(row[1])
+            overalldata.append(row[2])
+            overalldata.append(row[3])
+            overalldata.append(row[4])
+            overalldata.append(row[5])
+            overalldata.append(row[6])
+        i=i+1
+
     return render_template('compare.html', data=overalldata)
 
-#implementing games searching and sorting
+
+# implementing games searching and sorting
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     search = GameSearchForm(request.form)
+    submit_type = 'search'
     if request.method == 'POST':
-        return search_results(search)
- 
+        return search_results(search, submit_type)
+
     return render_template('index.html', form=search)
- 
- 
+
+
 @app.route('/results')
-def search_results(search):
-    search_string = search.data['search']
- 
-    if search_string == '':
+def search_results(search, submit_type):
+    if submit_type == 'filter':
+        search_string = ''
         if search.data['select'] == 'All_Games':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusive_Games':
@@ -156,19 +259,28 @@ def search_results(search):
         else:
             sortmethod = 'All_Games'
     else:
+        search_string = search.data['search']
         sortmethod = ''
-    
+
     return games(0, sortmethod, search_string)
- 
-    
-#games page
-@app.route("/games", methods=['GET','POST'], defaults={'page':0})
+
+
+@app.route('/filter', methods=['GET', 'POST'])
+def filter():
+    search = GameSearchForm(request.form)
+    submit_type = 'filter'
+
+    return search_results(search, submit_type)
+
+
+# games page
+@app.route("/games", methods=['GET', 'POST'], defaults={'page': 0})
 def games(page, sortmethod, searchstring):
     perpage = 50
     startat = page * perpage
     games = []
     noimagerows = []
-    #sqlstatement = "SELECT * from All_Games WHERE title like "  
+    # sqlstatement = "SELECT * from All_Games WHERE title like "
     with db.connect() as conn:
         if sortmethod == 'All_Games':
             top_games = conn.execute(
@@ -183,13 +295,13 @@ def games(page, sortmethod, searchstring):
                     games.append({
                         'title': row[0].decode('utf-8'),
                         'link': link,
-                        'score' : row[2],
-                        'platform_one' : row[3],
-                        'platform_two' : row[4],
-                        'platform_three' : row[5],
-                        'platform_four' : row[6],
-                        'platform_five' : row[7],
-                        'platform_six' : row[8],
+                        'score': row[2],
+                        'platform_one': row[3],
+                        'platform_two': row[4],
+                        'platform_three': row[5],
+                        'platform_four': row[6],
+                        'platform_five': row[7],
+                        'platform_six': row[8],
                     })
 
             for row in noimagerows:
@@ -199,13 +311,13 @@ def games(page, sortmethod, searchstring):
                 games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link,
-                    'score' : row[2],
-                    'platform_one' : row[3],
-                    'platform_two' : row[4],
-                    'platform_three' : row[5],
-                    'platform_four' : row[6],
-                    'platform_five' : row[7],
-                    'platform_six' : row[8],
+                    'score': row[2],
+                    'platform_one': row[3],
+                    'platform_two': row[4],
+                    'platform_three': row[5],
+                    'platform_four': row[6],
+                    'platform_five': row[7],
+                    'platform_six': row[8],
                 })
         elif sortmethod == 'Exclusive_Games':
             top_games = conn.execute(
@@ -297,9 +409,10 @@ def games(page, sortmethod, searchstring):
                 games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link
-                })    
+                })
         else:
-            rows = conn.execute("SELECT * from Exclusive_Games WHERE title LIKE '%%{}%%'".format(searchstring)).fetchall()
+            rows = conn.execute(
+                "SELECT * from Exclusive_Games WHERE title LIKE '%%{}%%'".format(searchstring)).fetchall()
             for row in rows:
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
@@ -307,17 +420,13 @@ def games(page, sortmethod, searchstring):
                 games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link,
-                    'score' : row[2]
-                })            
-            
-        
-        
+                    'score': row[2]
+                })
 
-            
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
 
-#handle Game page forward navigation
+# handle Game page forward navigation
 @app.route("/navigateNext", methods=['GET', 'POST'])
 def navigateNext():
     page = request.form['page']
@@ -329,7 +438,8 @@ def navigateNext():
 
     return games(page, sortmethod, searchstring)
 
-#handle Game page backward navigation
+
+# handle Game page backward navigation
 @app.route("/navigatePrevious", methods=['GET', 'POST'])
 def navigatePrevious():
     page = request.form['page']
@@ -339,9 +449,10 @@ def navigatePrevious():
         page = int(page, 10) - 1
     return games(page, sortmethod, searchstring)
 
+
 # easier SQL calls
 class MySQL_Wrapper:
-    def __init__(self, name = None, db = None, top=10):
+    def __init__(self, name=None, db=None, top=10):
         self.name = name
         self.db = db
         self.top = top
@@ -349,25 +460,25 @@ class MySQL_Wrapper:
             import pandas as pd
             import numpy as np
             self.data = pd.read_csv(name)
-            
+
     # Collects top x games from Scored_Games according to score
     def rank_games(self):
         games = []
-        if(self.name is not None):
+        if (self.name is not None):
             data = self.data.sort_values('score', ascending=False).head(self.top)
             for i in range(data.shape[0]):
                 games.append({
-                    'title': data.iloc[i,1],
-                    'link' : data.iloc[i,2],
-                    'score': data.iloc[i,data.shape[1]-1]
+                    'title': data.iloc[i, 1],
+                    'link': data.iloc[i, 2],
+                    'score': data.iloc[i, data.shape[1] - 1]
                 })
             return games
-        
+
         with self.db.connect() as conn:
             # Execute the query and fetch all results
             top_games = conn.execute(
                 "SELECT title, link, score FROM All_Games ORDER BY score DESC LIMIT {}".format(self.top)
-                ).fetchall()
+            ).fetchall()
 
             for row in top_games:
                 link = row[1].decode('utf-8')
@@ -375,19 +486,21 @@ class MySQL_Wrapper:
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link' : link,
+                    'link': link,
                     'score': row[2]
                 })
         return games
 
-#rating page
+
+# rating page
 @app.route("/rating")
 def rating():
     ranks = MySQL_Wrapper(db=db, top=10)
     top_games = ranks.rank_games()
     return render_template('rating.html', games=top_games)
 
-#about page
+
+# about page
 @app.route("/about")
 def about():
     #data = get_contributors_statistics()
@@ -395,7 +508,8 @@ def about():
     #stats = get_issues_statistics() stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
     return render_template('about.html')
 
-#errors
+
+# errors
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request.')
@@ -404,5 +518,6 @@ def server_error(e):
     See logs for full stacktrace.
     """.format(e), 500
 
+
 if __name__ == '__main__':
-	app.run(debug=True)
+    app.run(debug=True)

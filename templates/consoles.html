@@ -75,8 +75,7 @@ div.desc {
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
   <a class="active" href="{{url_for('consoles')}}">Consoles</a>
-  <a href="{{url_for('index')}}">Search Games</a>
-  <!--<a href="{{url_for('games')}}">Games</a>-->
+  <a href="{{url_for('games')}}">Games</a>
   <a href="{{url_for('rating')}}">Rating</a>
   <a href="{{url_for('about')}}">About</a>
 </div>
@@ -91,42 +90,42 @@ div.desc {
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console1')}}">
-    <img src="{{ url_for('static',filename='image/Microsoft Xbox One X.jpg') }}" alt width="700" height="400">
+    <img id = "1" src="{{ url_for('static',filename='image/Microsoft Xbox One X.jpg') }}" alt width="700" height="400">
   </a>
   <div class="desc"> Microsoft Xbox One X </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console2')}}">
-    <img src="{{ url_for('static',filename='image/Microsoft Xbox 360.jpg') }}" alt width="600" height="400">
+    <img id = "2" src="{{ url_for('static',filename='image/Microsoft Xbox 360.jpg') }}" alt width="600" height="400">
   </a>
   <div class="desc"> Microsoft Xbox 360 </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console3')}}">
-    <img src="{{ url_for('static',filename='image/Nintendo Switch With Gray Joy.jpg') }}" alt width="600" height="400">
+    <img id = "3" src="{{ url_for('static',filename='image/Nintendo Switch With Gray Joy.jpg') }}" alt width="600" height="400">
   </a>
   <div class="desc"> Nintendo Switch With Gray Joy </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console4')}}">
-    <img src="{{ url_for('static',filename='image/Sony PlayStation 4 Pro.jpg') }}" alt width="600" height="400">
+    <img id = "4" src="{{ url_for('static',filename='image/Sony PlayStation 4 Pro.jpg') }}" alt width="600" height="400">
   </a>
   <div class="desc"> Sony PlayStation 4 Pro </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console5')}}">
-    <img src="{{ url_for('static',filename='image/Sony PlayStation 4 Slim.jpg') }}" alt width="600" height="400">
+    <img id = "5" src="{{ url_for('static',filename='image/Sony PlayStation 4 Slim.jpg') }}" alt width="600" height="400">
   </a>
   <div class="desc"> Sony PlayStation 4 Slim </div>
 </div>
 
 <div class="gallery">
   <a target="_blank" href="{{ url_for('console6')}}">
-    <img src="{{ url_for('static',filename='image/Wii U.jpg') }}" alt width="600" height="400">
+    <img id = "6" src="{{ url_for('static',filename='image/Wii U.jpg') }}" alt width="600" height="400">
   </a>
   <div class="desc"> Wii U </div>
 </div>
