@@ -105,8 +105,9 @@ th.rank {
     {% for game in games: %}
     <div>
       <img src="{{game.link}}" alt=""/>
-      <h6 align="center">Rank: {{ i }} Engagement Score: {{game.score}}</h6>
-      <h6 align="center">{{game.title}}</h6>
+      <h6 >Rank: {{ i }}</h6>
+      <h6 >Engagement Score: {{game.score}}</h6>
+      <h6 >Name: {{game.title}}</h6>
     </div>
     {% set i = i + 1 %}
     {% endfor %}
