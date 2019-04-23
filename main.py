@@ -390,10 +390,10 @@ def rating():
 #about page
 @app.route("/about")
 def about():
-    data = get_contributors_statistics()
-    sleep(0.1)
-    stats = get_issues_statistics() #stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
-    return render_template('about.html', data=data, stats=stats)
+    #data = get_contributors_statistics()
+    #sleep(0.1)
+    #stats = get_issues_statistics() stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
+    return render_template('about.html')
 
 #errors
 @app.errorhandler(500)

@@ -4,6 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About</title>
+<meta charset="UTF-8"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var blake = 0;
+        var rabia = 0;
+        var arjun = 0;
+        var wenran = 0;
+        var yinghong = 0;
+        var blakeC = 0;
+        var rabiaC = 0;
+        var arjunC = 0;
+        var wenranC = 0;
+        var yinghongC = 0;
+        $(document).ready(function(){
+                var api = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/issues";
+                $.get(api, function (data) {
+                    $.each(data, function (idx, obj) {
+                        if(obj.user.login == "rabiakhan713"){
+                            rabia++;
+                        } else if(obj.user.login == "wenranlu"){
+                            wenran++;
+                        } else if(obj.user.login == "Bgardner4"){
+                            blake++;
+                        } else if(obj.user.login == "YinghongLIU"){
+                            yinghong++;
+                        } else if(obj.user.login == "ArjunSingh1"){
+                            arjun++;
+                        }
+                    });
+                    var total = arjun + rabia + blake + yinghong + wenran;
+                    $("#totalIssues").append(total);
+                });
+                api = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/contributors"
+                $.get(api, function (data) {
+                    $.each(data, function (idx, obj) {
+                        if(obj.login == "rabiakhan713"){
+                            rabiaC += obj.contributions;
+                        } else if(obj.login == "wenranlu"){
+                            wenranC += obj.contributions;
+                        } else if(obj.login == "Bgardner4"){
+                            blakeC += obj.contributions;
+                        } else if(obj.login == "YinghongLIU"){
+                            yinghongC += obj.contributions;
+                        } else if(obj.login == "ArjunSingh1"){
+                            arjunC += obj.contributions;
+                        }
+                    });
+                    var totalC = arjunC + rabiaC + blakeC + yinghongC + wenranC;
+                    $("#totalCommits").append(totalC);
+                });
+        });
+    </script>
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -100,8 +152,8 @@ img {
             document.getElementById("p1").innerHTML = "bio: I am Arjun Singh";
             document.getElementById("p2").innerHTML = "major: ECE";
             document.getElementById("p3").innerHTML = "responsibilities: engagement metric, rating page, unit tests, Reddit data scraping";
-            document.getElementById("p4").innerHTML = "commits: {{ data['arjun']}}";
-            document.getElementById("p5").innerHTML = "issues: {{ stats['arjun'] }}";
+            document.getElementById("p4").innerHTML = "commits: " + arjunC;
+            document.getElementById("p5").innerHTML = "issues: " + arjun;
             document.getElementById("p6").innerHTML = "unit tests: 4";
         }
 
@@ -109,8 +161,8 @@ img {
             document.getElementById("p1").innerHTML = "bio: I am an Electrical Engineering major at the University of Texas";
             document.getElementById("p2").innerHTML = "major: ECE";
             document.getElementById("p3").innerHTML = "responsibilities: MySQL database, data scraping (games), games page, GCP";
-            document.getElementById("p4").innerHTML = "commits: {{ data['blake']}}";
-            document.getElementById("p5").innerHTML = "issues: {{ stats['blake'] }}";
+            document.getElementById("p4").innerHTML = "commits: " + blakeC;
+            document.getElementById("p5").innerHTML = "issues: " + blake;
             document.getElementById("p6").innerHTML = "unit tests: 6";
         }
 
@@ -118,8 +170,8 @@ img {
             document.getElementById("p1").innerHTML = "bio: When I am not coding, I like going hiking";
             document.getElementById("p2").innerHTML = "major: ECE";
             document.getElementById("p3").innerHTML = "responsibilities: user stories, data scraping (games), games page";
-            document.getElementById("p4").innerHTML = "commits: {{ data['rabia']}}";
-            document.getElementById("p5").innerHTML = "issues: {{ stats['rabia'] }}";
+            document.getElementById("p4").innerHTML = "commits: " + rabiaC;
+            document.getElementById("p5").innerHTML = "issues: "  + rabia;
             document.getElementById("p6").innerHTML = "unit tests: 0";
         }
 
@@ -127,8 +179,8 @@ img {
             document.getElementById("p1").innerHTML = "bio: I am a good dog walker";
             document.getElementById("p2").innerHTML = "major: ECE";
             document.getElementById("p3").innerHTML = "responsibilities: about page, consoles page, compare page, unit tests, data scraping (consoles)";
-            document.getElementById("p4").innerHTML = "commits: {{ data['wenran']}}";
-            document.getElementById("p5").innerHTML = "issues: {{ stats['wenran'] }}";
+            document.getElementById("p4").innerHTML = "commits: " + wenranC;
+            document.getElementById("p5").innerHTML = "issues: " + wenran;
             document.getElementById("p6").innerHTML = "unit tests: 6";
         }
 
@@ -136,15 +188,15 @@ img {
             document.getElementById("p1").innerHTML = "bio: I am Yinghong Liu";
             document.getElementById("p2").innerHTML = "major: ME";
             document.getElementById("p3").innerHTML = "responsibilities: home page, 15 static pages";
-            document.getElementById("p4").innerHTML = "commits: {{ data['yinghong']}}";
-            document.getElementById("p5").innerHTML = "issues: {{ stats['yinghong'] }}";
+            document.getElementById("p4").innerHTML = "commits: " + yinghongC;
+            document.getElementById("p5").innerHTML = "issues: " + yinghong;
             document.getElementById("p6").innerHTML = "unit tests: 0";
         }
     </script>
     <div align = "center">
     <h3>Development Statistics</h3>
-    <p>Total number of commits: {{ data['total'] }}</p>
-    <p>Total number of issues: {{ stats['total'] }}</p>
+    <p id="totalCommits">Total number of commits: </p>
+    <p id="totalIssues">Total number of issues: </p>
     <p>Total number of unit tests: ~16</p>
     <br>
     <h3>Data Sources</h3>
@@ -164,6 +216,5 @@ img {
         <a href = "https://github.com/ArjunSingh1/SoftwareLab.git">GitHub Repository</a>
     </h3>
     </div>
-
 </body>
 </html>
