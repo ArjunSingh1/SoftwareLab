@@ -63,18 +63,22 @@ div.desc {
   height: 280px;
 }
 
-figure {
-    display: inline-block;
-    border: 1px dotted gray;
-    margin: 20px; /* adjust as needed */
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  align-content: center
 }
-figure img {
-    vertical-align: top;
-}
-figure figcaption {
-    border: 1px dotted blue;
-    text-align: center;
-}
+
 </style>
 </head>
 <body>
@@ -98,9 +102,28 @@ figure figcaption {
   {% for game in games: %}
   <figure>
     <img src="{{game.link}}" alt="missing"/>
-    <figcaption>{{game.title}}</figcaption>
+    <h5>{{game.title}}</h5>
     {% if sortmethod=='All_Games': %}
-      <br>Engagement Score: {{game.score}}
+      <h5>Engagement Score: {{game.score}}</h5>
+      {% if {{game.platform_one}} != na %}
+      <h5>Platforms:</h5>
+      <h5>{{game.platform_one}}</h5>
+      {% endif %}
+      {% if {{game.platform_two}} != na %}
+      <h5>{{game.platform_two}}</h5>
+      {% endif %}
+      {% if {{game.platform_three}} != na %}
+      <h5>{{game.platform_three}}</h5>
+      {% endif %}
+      {% if {{game.platform_four}} != na %}
+      <h5>{{game.platform_four}}</h5>
+      {% endif %}
+      {% if {{game.platform_five}} != na %}
+      <h5>{{game.platform_five}}</h5>
+      {% endif %}
+      {% if {{game.platform_six}} != na %}
+      <h5>{{game.platform_six}}</h5>
+      {% endif %}
     {% endif %}
   </figure>
   {% endfor %}
@@ -116,14 +139,14 @@ figure figcaption {
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input name="nextPage" type="submit" value="next"/>
+  <input class="button" name="nextPage" type="submit" value="next"/>
 </form>
 
 <form action="{{ url_for('navigatePrevious') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input name="previousPage" type="submit" value="previous"/>
+  <input class="button" name="previousPage" type="submit" value="previous"/>
 </form>
 
 

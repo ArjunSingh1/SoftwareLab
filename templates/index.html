@@ -62,7 +62,21 @@
               left: 50%;
               -ms-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%);
-            }        
+            }
+
+            .button{
+              background-color: #4CAF50; /* Green */
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+            }  
+                  
             </style>
     </head>
     <body>
@@ -92,15 +106,13 @@
         {% from "_formhelpers.html" import render_field %}
         <form action="{{ url_for('filter') }}" method=post>
           <dl>
-            <h6>Filter Games by Type:</h6>
-            {{ render_field(form.select) }}
+            <h6>Filter Games by Type: {{ render_field(form.select) }}</h6>
           </dl>
           <input type=submit value=Filter>
         </form>
         <form method=post>
           <dl>
-            <h6>or Search for a Specific Game:</h6>
-            {{ render_field(form.search) }}
+            <h6>or Search for a Specific Game:{{ render_field(form.search) }}</h6>
           </dl>
           <input type=submit value=Search>
         </form>
