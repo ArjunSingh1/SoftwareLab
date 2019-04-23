@@ -70,25 +70,40 @@ def consoles():
             "SELECT * from All_Consoles WHERE console = 'XBOX ONE X'"
         ).fetchall()
 
+        print(console1[0])
+        print("\n")
+        print(console1[1])
+
         console2 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'XBOX 360'"
         ).fetchall()
+
+        #print(console2)
 
         console3 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'Switch'"
         ).fetchall()
 
+        #print(console3)
+
         console4 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'PS4 Pro'"
         ).fetchall()
+
+        #print(console4)
 
         console5 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'PS4 Slim'"
         ).fetchall()
 
+        #print(console5)
+
         console6 = conn.execute(
             "SELECT * from All_Consoles WHERE console = 'Wii U'"
         ).fetchall()
+
+        #print(console6)
+
 
     return render_template('consoles.html')
 
@@ -164,10 +179,15 @@ def compare():
         ).fetchall()
 
         overalldata.append(data1)
+
         overalldata.append(data2)
+
         overalldata.append(data3)
+
         overalldata.append(data4)
+
         overalldata.append(data5)
+
         overalldata.append(data6)
         print(overalldata)
 
@@ -178,17 +198,17 @@ def compare():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     search = GameSearchForm(request.form)
+    submit_type = 'search'
     if request.method == 'POST':
-        return search_results(search)
+        return search_results(search, submit_type)
 
     return render_template('index.html', form=search)
 
 
 @app.route('/results')
-def search_results(search):
-    search_string = search.data['search']
-
-    if search_string == '':
+def search_results(search, submit_type):
+    if submit_type == 'filter':
+        search_string = ''
         if search.data['select'] == 'All_Games':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusive_Games':
@@ -208,9 +228,18 @@ def search_results(search):
         else:
             sortmethod = 'All_Games'
     else:
+        search_string = search.data['search']
         sortmethod = ''
 
     return games(0, sortmethod, search_string)
+
+
+@app.route('/filter', methods=['GET', 'POST'])
+def filter():
+    search = GameSearchForm(request.form)
+    submit_type = 'filter'
+
+    return search_results(search, submit_type)
 
 
 # games page
