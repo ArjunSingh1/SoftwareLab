@@ -71,24 +71,92 @@ def consoles():
         ).fetchall()
     i=0
     for row in consoles:
-        if i == 0:
-            console_1.append(row[0])
-            console_1.append(row[1])
         if i == 1:
-            console_2.append(row[0])
-            console_2.append(row[1])
+            console_1.append(row[1])
+            console_1.append(row[2])
+            console_1.append(row[3])
+            console_1.append(row[4])
+            console_1.append(row[5])
+            console_1.append(row[6])
+            console_1.append(row[7])
+            console_1.append(row[8])
+            console_1.append(row[9])
+            console_1.append(row[10])
+
         if i == 2:
-            console_3.append(row[0])
-            console_3.append(row[1])
+            console_2.append(row[1])
+            console_2.append(row[2])
+            console_2.append(row[3])
+            console_2.append(row[4])
+            console_2.append(row[5])
+            console_2.append(row[6])
+            console_2.append(row[7])
+            console_2.append(row[8])
+            console_2.append(row[9])
+            console_2.append(row[10])
+            console_2.append(row[11])
+            console_2.append(row[12])
+            console_2.append(row[13])
+
         if i == 3:
-            console_4.append(row[0])
-            console_4.append(row[1])
+            console_3.append(row[1])
+            console_3.append(row[2])
+            console_3.append(row[3])
+            console_3.append(row[4])
+            console_3.append(row[5])
+            console_3.append(row[6])
+            console_3.append(row[7])
+            console_3.append(row[8])
+            console_3.append(row[9])
+            console_3.append(row[10])
+            console_3.append(row[11])
+            console_3.append(row[12])
+            console_3.append(row[13])
+            console_3.append(row[14])
+            console_3.append(row[15])
+
         if i == 4:
-            console_5.append(row[0])
-            console_5.append(row[1])
+            console_4.append(row[1])
+            console_4.append(row[2])
+            console_4.append(row[3])
+            console_4.append(row[4])
+            console_4.append(row[5])
+            console_4.append(row[6])
+            console_4.append(row[7])
+            console_4.append(row[8])
+            console_4.append(row[9])
+            console_4.append(row[10])
+            console_4.append(row[11])
+            console_4.append(row[12])
+
         if i == 5:
-            console_6.append(row[0])
+            console_5.append(row[1])
+            console_5.append(row[2])
+            console_5.append(row[3])
+            console_5.append(row[4])
+            console_5.append(row[5])
+            console_5.append(row[6])
+            console_5.append(row[7])
+            console_5.append(row[8])
+            console_5.append(row[9])
+            console_5.append(row[10])
+            console_5.append(row[11])
+            console_5.append(row[12])
+
+        if i == 6:
             console_6.append(row[1])
+            console_6.append(row[2])
+            console_6.append(row[3])
+            console_6.append(row[4])
+            console_6.append(row[5])
+            console_6.append(row[6])
+            console_6.append(row[7])
+            console_6.append(row[8])
+            console_6.append(row[9])
+            console_6.append(row[10])
+            console_6.append(row[11])
+            console_6.append(row[12])
+            console_6.append(row[13])
         i=i+1
 
     return render_template('consoles.html')
@@ -139,42 +207,20 @@ def compare():
     overalldata = []
     with db.connect() as conn:
 
-        data1= conn.execute(
-            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'XBOX ONE X'"
+        data= conn.execute(
+            "SELECT * from Comparison"
         ).fetchall()
 
-        data2 = conn.execute(
-            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'XBOX 360'"
-        ).fetchall()
-
-        data3 = conn.execute(
-            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'Switch'"
-        ).fetchall()
-
-        data4 = conn.execute(
-            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'PS4 Pro'"
-        ).fetchall()
-
-        data5 = conn.execute(
-            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'PS4 Slim'"
-        ).fetchall()
-
-        data6 = conn.execute(
-            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'Wii U'"
-        ).fetchall()
-
-        overalldata.append(data1)
-
-        overalldata.append(data2)
-
-        overalldata.append(data3)
-
-        overalldata.append(data4)
-
-        overalldata.append(data5)
-
-        overalldata.append(data6)
-        print(overalldata)
+    i = 0
+    for row in data:
+        if i!=0:
+            overalldata.append(row[1])
+            overalldata.append(row[2])
+            overalldata.append(row[3])
+            overalldata.append(row[4])
+            overalldata.append(row[5])
+            overalldata.append(row[6])
+        i=i+1
 
     return render_template('compare.html', data=overalldata)
 
