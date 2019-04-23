@@ -105,23 +105,23 @@ div.desc {
     <h5>{{game.title}}</h5>
     {% if sortmethod=='All_Games': %}
       <h5>Engagement Score: {{game.score}}</h5>
-      {% if {{game.platform_one}} != na %}
+      {% if {{game.platform_one}} != na: %}
       <h5>Platforms:</h5>
       <h5>{{game.platform_one}}</h5>
       {% endif %}
-      {% if {{game.platform_two}} != na %}
+      {% if {{game.platform_two}} != na: %}
       <h5>{{game.platform_two}}</h5>
       {% endif %}
-      {% if {{game.platform_three}} != na %}
+      {% if {{game.platform_three}} != na: %}
       <h5>{{game.platform_three}}</h5>
       {% endif %}
-      {% if {{game.platform_four}} != na %}
+      {% if {{game.platform_four}} != na: %}
       <h5>{{game.platform_four}}</h5>
       {% endif %}
-      {% if {{game.platform_five}} != na %}
+      {% if {{game.platform_five}} != na: %}
       <h5>{{game.platform_five}}</h5>
       {% endif %}
-      {% if {{game.platform_six}} != na %}
+      {% if {{game.platform_six}} != na: %}
       <h5>{{game.platform_six}}</h5>
       {% endif %}
     {% endif %}
