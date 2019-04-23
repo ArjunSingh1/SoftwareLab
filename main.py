@@ -8,6 +8,7 @@ from forms import GameSearchForm
 # from tables import Results
 
 # import flask framework
+# import flask framework
 from flask import Flask, render_template, url_for, request, Response, flash, redirect
 # import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
@@ -55,99 +56,83 @@ def home():
 
 
 # console pages
-console1 = []
-console2 = []
-console3 = []
-console4 = []
-console5 = []
-console6 = []
+console_1 = []
+console_2 = []
+console_3 = []
+console_4 = []
+console_5 = []
+console_6 = []
 
 @app.route("/consoles")
 def consoles():
     with db.connect() as conn:
-
-        console1 = conn.execute(
-            "SELECT * from All_Consoles WHERE console = 'XBOX ONE X'"
+        consoles = conn.execute(
+            "SELECT * from All_Consoles"
         ).fetchall()
-
-        print(console1[0])
-        print("\n")
-        print(console1[1])
-
-        console2 = conn.execute(
-            "SELECT * from All_Consoles WHERE console = 'XBOX 360'"
-        ).fetchall()
-
-        #print(console2)
-
-        console3 = conn.execute(
-            "SELECT * from All_Consoles WHERE console = 'Switch'"
-        ).fetchall()
-
-        #print(console3)
-
-        console4 = conn.execute(
-            "SELECT * from All_Consoles WHERE console = 'PS4 Pro'"
-        ).fetchall()
-
-        #print(console4)
-
-        console5 = conn.execute(
-            "SELECT * from All_Consoles WHERE console = 'PS4 Slim'"
-        ).fetchall()
-
-        #print(console5)
-
-        console6 = conn.execute(
-            "SELECT * from All_Consoles WHERE console = 'Wii U'"
-        ).fetchall()
-
-        #print(console6)
-
+    i=0
+    for row in consoles:
+        if i == 0:
+            console_1.append(row[0])
+            console_1.append(row[1])
+        if i == 1:
+            console_2.append(row[0])
+            console_2.append(row[1])
+        if i == 2:
+            console_3.append(row[0])
+            console_3.append(row[1])
+        if i == 3:
+            console_4.append(row[0])
+            console_4.append(row[1])
+        if i == 4:
+            console_5.append(row[0])
+            console_5.append(row[1])
+        if i == 5:
+            console_6.append(row[0])
+            console_6.append(row[1])
+        i=i+1
 
     return render_template('consoles.html')
 
 
 @app.route("/consoles/console1")
 def console1():
-    data = console1
+    data = console_1
 
     return render_template('console1.html', data=data)
 
 
 @app.route("/consoles/console2")
 def console2():
-    data2 = console2
+    data2 = console_2
     return render_template('console2.html', data=data2)
 
 
 @app.route("/consoles/console3")
 def console3():
-    data3 = console3
+    data3 = console_3
 
     return render_template('console3.html', data=data3)
 
 
 @app.route("/consoles/console4")
 def console4():
-    data4 = console4
+    data4 = console_4
 
     return render_template('console4.html', data=data4)
 
 
 @app.route("/consoles/console5")
 def console5():
-    data5 = console5
+    data5 = console_5
 
     return render_template('console5.html', data=data5)
 
 
 @app.route("/consoles/console6")
 def console6():
-    data6 = console6
+    data6 = console_6
 
     return render_template('console6.html', data=data6)
-
 
 @app.route("/consoles/compare")
 def compare():
