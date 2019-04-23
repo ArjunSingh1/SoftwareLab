@@ -61,6 +61,7 @@ div.desc {
   text-align: center;
   text-decoration: none;
   font-size: 12px;
+  margin:2px;
   cursor: pointer;
 }
 </style>
@@ -124,13 +125,13 @@ div.desc {
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input name="nextPage" type="submit" value="next"/>
+  <input class="button" name="nextPage" type="submit" value="next"/>
 </form>
 <form action="{{ url_for('navigatePrevious') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input name="previousPage" type="submit" value="previous"/>
+  <input class="button" name="previousPage" type="submit" value="previous"/>
 </form>
 </div>
 
