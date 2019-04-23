@@ -78,7 +78,6 @@ div.desc {
 
 <div style="padding-left:16px">
   <h2>Games</h2>
-  <p>Introduction of all games!</p>
 </div>
 
 
@@ -125,13 +124,13 @@ div.desc {
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input class="button" name="nextPage" type="submit" value="next"/>
+  <input name="nextPage" type="submit" value="next"/>
 </form>
 <form action="{{ url_for('navigatePrevious') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input class="button" name="previousPage" type="submit" value="previous"/>
+  <input name="previousPage" type="submit" value="previous"/>
 </form>
 </div>
 
