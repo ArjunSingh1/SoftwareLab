@@ -65,42 +65,42 @@ console6 = []
 @app.route("/consoles")
 def consoles():
     with db.connect() as conn:
-        if sortmethod == 'All_Consoles':
-            console1 = conn.execute(
-                "SELECT * from All_Consoles WHERE console = 'XBOX ONE X'"
-            ).fetchall()
 
-            print(console1+'\n')
+        console1 = conn.execute(
+            "SELECT * from All_Consoles WHERE console = 'XBOX ONE X'"
+        ).fetchall()
 
-            console2 = conn.execute(
-                "SELECT * from All_Consoles WHERE console = 'XBOX 360'"
-            ).fetchall()
+        print(console1+'\n')
 
-            print(console2 + '\n')
+        console2 = conn.execute(
+            "SELECT * from All_Consoles WHERE console = 'XBOX 360'"
+        ).fetchall()
 
-            console3 = conn.execute(
-                "SELECT * from All_Consoles WHERE console = 'Switch'"
-            ).fetchall()
+        print(console2 + '\n')
 
-            print(console3 + '\n')
+        console3 = conn.execute(
+            "SELECT * from All_Consoles WHERE console = 'Switch'"
+        ).fetchall()
 
-            console4 = conn.execute(
-                "SELECT * from All_Consoles WHERE console = 'PS4 Pro'"
-            ).fetchall()
+        print(console3 + '\n')
 
-            print(console4 + '\n')
+        console4 = conn.execute(
+            "SELECT * from All_Consoles WHERE console = 'PS4 Pro'"
+        ).fetchall()
 
-            console5 = conn.execute(
-                "SELECT * from All_Consoles WHERE console = 'PS4 Slim'"
-            ).fetchall()
+        print(console4 + '\n')
 
-            print(console5 + '\n')
+        console5 = conn.execute(
+            "SELECT * from All_Consoles WHERE console = 'PS4 Slim'"
+        ).fetchall()
 
-            console6 = conn.execute(
-                "SELECT * from All_Consoles WHERE console = 'Wii U'"
-            ).fetchall()
+        print(console5 + '\n')
 
-            print(console6 + '\n')
+        console6 = conn.execute(
+            "SELECT * from All_Consoles WHERE console = 'Wii U'"
+        ).fetchall()
+
+        print(console6 + '\n')
 
 
     return render_template('consoles.html')
@@ -151,43 +151,43 @@ def console6():
 def compare():
     overalldata = []
     with db.connect() as conn:
-        if sortmethod == 'Comparison':
-            data1= conn.execute(
-                "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'XBOX ONE X'"
-            ).fetchall()
 
-            data2 = conn.execute(
-                "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'XBOX 360'"
-            ).fetchall()
+        data1= conn.execute(
+            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'XBOX ONE X'"
+        ).fetchall()
 
-            data3 = conn.execute(
-                "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'Switch'"
-            ).fetchall()
+        data2 = conn.execute(
+            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'XBOX 360'"
+        ).fetchall()
 
-            data4 = conn.execute(
-                "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'PS4 Pro'"
-            ).fetchall()
+        data3 = conn.execute(
+            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'Switch'"
+        ).fetchall()
 
-            data5 = conn.execute(
-                "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'PS4 Slim'"
-            ).fetchall()
+        data4 = conn.execute(
+            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'PS4 Pro'"
+        ).fetchall()
 
-            data6 = conn.execute(
-                "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'Wii U'"
-            ).fetchall()
+        data5 = conn.execute(
+            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'PS4 Slim'"
+        ).fetchall()
 
-            overalldata.append(data1)
-            print(overalldata + '\n')
-            overalldata.append(data2)
-            print(overalldata + '\n')
-            overalldata.append(data3)
-            print(overalldata + '\n')
-            overalldata.append(data4)
-            print(overalldata + '\n')
-            overalldata.append(data5)
-            print(overalldata + '\n')
-            overalldata.append(data6)
-            print(overalldata + '\n')
+        data6 = conn.execute(
+            "SELECT CPU_,GPU,Memory_,Storage_,Mass,AV from Comparison WHERE console = 'Wii U'"
+        ).fetchall()
+
+        overalldata.append(data1)
+        print(overalldata + '\n')
+        overalldata.append(data2)
+        print(overalldata + '\n')
+        overalldata.append(data3)
+        print(overalldata + '\n')
+        overalldata.append(data4)
+        print(overalldata + '\n')
+        overalldata.append(data5)
+        print(overalldata + '\n')
+        overalldata.append(data6)
+        print(overalldata + '\n')
 
     return render_template('compare.html', data=overalldata)
 
@@ -196,17 +196,17 @@ def compare():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     search = GameSearchForm(request.form)
-    submit_type = 'search'
     if request.method == 'POST':
-        return search_results(search, submit_type)
- 
+        return search_results(search)
+
     return render_template('index.html', form=search)
 
 
 @app.route('/results')
-def search_results(search, submit_type):
-    if submit_type == 'filter':
-        search_string = ''
+def search_results(search):
+    search_string = search.data['search']
+
+    if search_string == '':
         if search.data['select'] == 'All_Games':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusive_Games':
@@ -226,17 +226,9 @@ def search_results(search, submit_type):
         else:
             sortmethod = 'All_Games'
     else:
-        search_string = search.data['search']
         sortmethod = ''
-    
+
     return games(0, sortmethod, search_string)
-
-@app.route('/filter', methods=['GET','POST'])
-def filter():
-    search = GameSearchForm(request.form)
-    submit_type = 'filter'
-
-    return search_results(search,submit_type)
 
 
 # games page
