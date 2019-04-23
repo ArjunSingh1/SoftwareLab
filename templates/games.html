@@ -60,13 +60,8 @@ div.desc {
   padding: 10px 25px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 12px;
-  margin: 4px 2px;
   cursor: pointer;
-  position: fixed;
-  bottom: 0;
-  align-content: center
 }
 </style>
 </head>
@@ -124,19 +119,21 @@ div.desc {
 <br>
 <br>
 
+<div style="width:20%;margin:0 auto;position:fixed;display:flex;cursor:pointer;">
+
 <form action="{{ url_for('navigateNext') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
   <input class="button" name="nextPage" type="submit" value="next"/>
 </form>
-
 <form action="{{ url_for('navigatePrevious') }}" method="post">
   <input name="page" type="hidden" value="{{page}}"/>
   <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
   <input name="searchstring" type="hidden" value="{{searchstring}}"/>
   <input class="button" name="previousPage" type="submit" value="previous"/>
 </form>
+</div>
 
 
 </body>
