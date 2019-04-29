@@ -63,6 +63,13 @@
               background-size: cover;
               position: relative;
             }
+
+            .container {
+              display: flex;
+            }
+            .container > div {
+              flex: 1; /*grow*/
+            }
             </style>
     </head>
     <body>
@@ -87,16 +94,21 @@
           {% endif %}
         {% endwith %}
         <div class = "center">
-          <div class="container">
+          <div>
             <h2>Find Your Game</h2>
             {% from "_formhelpers.html" import render_field %}
             <form method=post>
               <h6>Search the Game Database:</h6>
-              <div class="firstdiv">
-                {{ render_field(form.search) }}
-              </div>
-              <div class = "seconddiv">
-                {{ render_field(form.select) }}<button type="submit" class="btn btn-primary">Search</button>
+              <div class= "container">
+                  <div>
+                    {{ render_field(form.search) }}
+                  </div>
+                  <div>
+                    {{ render_field(form.select) }}
+                  </div>
+                  <div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div> 
               </div>
             </form>
           </div>
