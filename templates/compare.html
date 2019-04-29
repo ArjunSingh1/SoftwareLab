@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rating</title>
+  <title>Compare</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -37,9 +37,10 @@ body {
 /* The container */
 .checkcontainer {
   display: block;
+  align-content: center;
   position: relative;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding-left: 15%;
+  padding-right: 15%;
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
@@ -119,7 +120,7 @@ body {
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
   <a class="active" href="{{url_for('consoles')}}">Consoles</a>
-  <a href="{{url_for('games')}}">Games</a>
+   <a href="{{url_for('index')}}">Search Games</a>
   <a href="{{url_for('rating')}}">Rating</a>
   <a href="{{url_for('about')}}">About</a>
 </div>
