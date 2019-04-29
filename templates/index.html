@@ -62,7 +62,15 @@
               left: 50%;
               -ms-transform: translate(-50%, -50%);
               transform: translate(-50%, -50%);
-            }        
+            }       
+
+            .firstdiv{
+              float:left;
+            } 
+
+            .seconddiv{
+              float:right;
+            }
             </style>
     </head>
     <body>
@@ -91,10 +99,13 @@
         <h2>Find Your Game</h2>
         {% from "_formhelpers.html" import render_field %}
         <form method=post>
-          <dl>
-            <h6>Search the Game Database:</h6>
-            {{ render_field(form.select) }}{{ render_field(form.search) }}
-          </dl>
+          <h6>Search the Game Database:</h6>
+          <div class="firstdiv">
+            {{ render_field(form.select) }}
+          </div>
+          <div class = "seconddiv">
+            {{ render_field(form.search) }}
+          </div>
           <input type=submit value=Search>
         </form>
       </div>

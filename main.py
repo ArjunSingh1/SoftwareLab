@@ -260,7 +260,7 @@ def search_results(search, submit_type):
     search_string = search.data['search']
     #sortmethod = search.data['select']
 
-    return games(0, sortmethod, search_string, submit_type)
+    return games(0, sortmethod, search_string)
 
 
 @app.route('/filter', methods=['GET', 'POST'])
@@ -273,7 +273,7 @@ def filter():
 
 # games page
 @app.route("/games", methods=['GET', 'POST'], defaults={'page': 0})
-def games(page, sortmethod, searchstring, submit_type):
+def games(page, sortmethod, searchstring):
     perpage = 50
     startat = page * perpage
     games = []
@@ -415,7 +415,7 @@ def games(page, sortmethod, searchstring, submit_type):
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
                     link = 'https://www.classicposters.com/images/nopicture.gif'
-                if submit_type == 'All_Games':
+                if sortmethod == 'All_Games':
                     games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link,
