@@ -2,54 +2,14 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Game Search</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <style>
             body {
               margin: 0;
               background: #f2f2f2;
               font-family: 'Open Sans', sans-serif;
-            }
-
-            .search {
-              width: 100%;
-              position: relative;
-              display: flex;
-            }
-
-            .searchTerm {
-              width: 100%;
-              border: 3px solid #00B4CC;
-              border-right: none;
-              padding: 5px;
-              height: 20px;
-              border-radius: 5px 0 0 5px;
-              outline: none;
-              color: #9DBFAF;
-            }
-
-            .searchTerm:focus{
-              color: #00B4CC;
-            }
-
-            .searchButton {
-              width: 40px;
-              height: 36px;
-              border: 1px solid #00B4CC;
-              background: #00B4CC;
-              text-align: center;
-              color: #fff;
-              border-radius: 0 5px 5px 0;
-              cursor: pointer;
-              font-size: 20px;
-            }
-
-            /*Resize the wrap to see the search bar change!*/
-            .wrap{
-              width: 30%;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              float:left
             }
             
             .topnav {
@@ -74,28 +34,7 @@
             .topnav a.active {
               background-color: #4CAF50;
               color: white;
-            }
-            
-            div.gallery {
-              margin: 5px;
-              border: 1px solid #ccc;
-              float: left;
-              width: 180px;
-            }
-            
-            div.gallery:hover {
-              border: 1px solid #777;
-            }
-            
-            div.gallery img {
-              width: 100%;
-              height: auto;
-            }
-            
-            div.desc {
-              padding: 15px;
-              text-align: center;
-            }
+            }          
             
             .center {
               margin: 0;
@@ -114,6 +53,16 @@
             .seconddiv{
               float:right;
             }
+
+            .hero-image {
+              background-image: url("https://fs.bitcoinmagazine.com/img/images/blockhain_gaming.original.jpg");
+              background-color: #cccccc;
+              height: 500px;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              position: relative;
+            }
             </style>
     </head>
     <body>
@@ -127,37 +76,33 @@
         </div>
 
         
-     
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <div class = "center">
-      <div>
-        <h2>Find Your Game</h2>
-        {% from "_formhelpers.html" import render_field %}
-        <form method=post>
-          <h6>Search the Game Database:</h6>
-          <div class="wrap">
-            <div class ="search">
+      <div class ="hero-image">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <div class = "center">
+          <div class="container">
+            <h2>Find Your Game</h2>
+            {% from "_formhelpers.html" import render_field %}
+            <form method=post>
+              <h6>Search the Game Database:</h6>
+              <div class="firstdiv">
                 {{ render_field(form.search) }}
-                <button type="submit" class="searchButton">
-                  <i class="fa fa-search"></i>
-               </button>
-            </div>
-            
+              </div>
+              <div class = "seconddiv">
+                {{ render_field(form.select) }}<button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </form>
           </div>
-          <div class = "seconddiv">
-            {{ render_field(form.select) }}
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
+      
     
     
     </body>
