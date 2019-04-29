@@ -10,6 +10,7 @@ from forms import GameSearchForm
 # import flask framework
 # import flask framework
 from flask import Flask, render_template, url_for, request, Response, flash, redirect
+from flask_bootstrap import Bootstrap 
 # import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
 # for databse connection
@@ -23,6 +24,7 @@ db_name = os.environ.get("DB_NAME")
 cloud_sql_connection_name = os.environ.get("CLOUD_SQL_CONNECTION_NAME")
 
 app = Flask(__name__)
+Bootstrap(app)
 
 # [START cloud_sql_mysql_sqlalchemy_create]
 # The SQLAlchemy engine will help manage interactions, including automatically
