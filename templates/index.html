@@ -39,14 +39,14 @@ Game Search
   <div>
     <h2>Find Your Game</h2>
     {% from "_formhelpers.html" import render_field %}
-    <form method=post>
+    <form method=post class="form" role="form">
       <h6>Search the Game Database:</h6>
       <div>
           <div class="firstdiv">
-            {{ wtf.form_field(form.search) }}
+            {{ wtf.form_field(form.search, class="searchTerm", placeholder="Search a game title") }}
           </div>
           <div class="seconddiv">
-            {{ wtf.form_field(form.select) }}
+            {{ wtf.form_field(form.select, class="form-control") }}
           </div>
           <div class="secondiv">
             <button type="submit" class="btn btn-primary">Search</button>
