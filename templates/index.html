@@ -43,10 +43,10 @@ Game Search
       <h6>Search the Game Database:</h6>
       <div>
           <div class="firstdiv">
-            {{ render_field(form.search) }}
+            {{ wtf.form_field(form.search) }}
           </div>
           <div class="seconddiv">
-            {{ render_field(form.select) }}
+            {{ wtf.form_field(form.select) }}
           </div>
           <div class="secondiv">
             <button type="submit" class="btn btn-primary">Search</button>
