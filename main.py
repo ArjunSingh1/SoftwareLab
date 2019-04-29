@@ -237,8 +237,8 @@ def index():
 
 @app.route('/results')
 def search_results(search, submit_type):
-    if submit_type == 'filter':
-        search_string = ''
+    if submit_type == 'search':
+        #search_string = ''
         if search.data['select'] == 'All_Games':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusive_Games':
@@ -257,9 +257,8 @@ def search_results(search, submit_type):
             sortmethod = 'Switch_Games'
         else:
             sortmethod = 'All_Games'
-    else:
-        search_string = search.data['search']
-        sortmethod = search.data['select']
+    search_string = search.data['search']
+    #sortmethod = search.data['select']
 
     return games(0, sortmethod, search_string, submit_type)
 
@@ -281,7 +280,7 @@ def games(page, sortmethod, searchstring, submit_type):
     noimagerows = []
     # sqlstatement = "SELECT * from All_Games WHERE title like "
     with db.connect() as conn:
-        if (sortmethod == 'All_Games') and (submit_type == 'filter'):
+        if (sortmethod == 'All_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link, score, platform_one, platform_two, platform_three, platform_four, platform_five, platform_six FROM All_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -318,7 +317,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'platform_five': row[7],
                     'platform_six': row[8]
                 })
-        elif (sortmethod == 'Exclusive_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'Exclusive_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM Exclusive_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -331,7 +330,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
-        elif (sortmethod == 'PS4_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'PS4_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM PS4_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -344,7 +343,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
-        elif (sortmethod == 'PS3_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'PS3_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM PS3_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -357,7 +356,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
-        elif (sortmethod == 'XboxOne_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'XboxOne_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM XboxOne_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -370,7 +369,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
-        elif (sortmethod == 'Xbox360_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'Xbox360_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM Xbox360_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -383,7 +382,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
-        elif (sortmethod == 'WiiU_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'WiiU_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM WiiU_Games "
                 "LIMIT {}, {}".format(startat, perpage)
@@ -396,7 +395,7 @@ def games(page, sortmethod, searchstring, submit_type):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
-        elif (sortmethod == 'Switch_Games') and (submit_type == 'filter'):
+        elif (sortmethod == 'Switch_Games') and (searchstring == ''):
             top_games = conn.execute(
                 "SELECT title, link FROM Switch_Games "
                 "LIMIT {}, {}".format(startat, perpage)

@@ -90,17 +90,10 @@
       <div>
         <h2>Find Your Game</h2>
         {% from "_formhelpers.html" import render_field %}
-        <form action="{{ url_for('filter') }}" method=post>
-          <dl>
-            <h6>Filter Games by Type:</h6>
-            {{ render_field(form.select) }}
-          </dl>
-          <input type=submit value=Filter>
-        </form>
         <form method=post>
           <dl>
-            <h6>or Search for a Specific Game:</h6>
-            {{ render_field(form.search) }}
+            <h6>Search the Game Database:</h6>
+            {{ render_field(form.select) }}{{ render_field(form.search) }}
           </dl>
           <input type=submit value=Search>
         </form>
