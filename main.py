@@ -340,7 +340,7 @@ def games(page, sortmethod, searchstring):
                 })
         elif (sortmethod == 'PS4_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM PS4_Games "
+                "SELECT title, link, score FROM PS4_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -349,11 +349,12 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2]
                 })
         elif (sortmethod == 'PS3_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM PS3_Games "
+                "SELECT title, link, score FROM PS3_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -362,11 +363,12 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2]
                 })
         elif (sortmethod == 'XboxOne_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM XboxOne_Games "
+                "SELECT title, link, score FROM XboxOne_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -375,11 +377,12 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2]
                 })
         elif (sortmethod == 'Xbox360_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM Xbox360_Games "
+                "SELECT title, link, score FROM Xbox360_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -388,11 +391,12 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2]
                 })
         elif (sortmethod == 'WiiU_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM WiiU_Games "
+                "SELECT title, link, score FROM WiiU_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -401,11 +405,12 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2]
                 })
         elif (sortmethod == 'Switch_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM Switch_Games "
+                "SELECT title, link, score FROM Switch_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -414,7 +419,8 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2]
                 })
         elif (sortmethod == 'Highest Rated') and (searchstring == ''):
             rows = conn.execute(
