@@ -257,6 +257,10 @@ def search_results(search, submit_type):
             sortmethod = 'WiiU_Games'
         elif search.data['select'] == 'Nintendo Switch':
             sortmethod = 'Switch_Games'
+        elif search.data['select'] == 'Highest Rated':
+            sortmethod = 'Highest Rated'
+        elif search.data['select'] == 'Lowest Rated':
+            sortmethod = 'Lowest Rated'        
         else:
             sortmethod = 'All_Games'
     search_string = search.data['search']
@@ -412,7 +416,49 @@ def games(page, sortmethod, searchstring):
                     'title': row[0].decode('utf-8'),
                     'link': link
                 })
+        elif (sortmethod == 'Highest Rated') and (searchstring == ''):
+            rows = conn.execute(
+                "SELECT * FROM All_Games ORDER BY score DESC "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in rows:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score': row[2],
+                    'platform_one': row[3],
+                    'platform_two': row[4],
+                    'platform_three': row[5],
+                    'platform_four': row[6],
+                    'platform_five': row[7],
+                    'platform_six': row[8]
+                    })
+        elif (sortmethod == 'Lowest Rated') and (searchstring == ''):
+            rows = conn.execute(
+                "SELECT * FROM All_Games ORDER BY score ASC "
+                "LIMIT {}, {}".format(startat, perpage)
+            ).fetchall()
+            for row in rows:
+                link = row[1].decode('utf-8')
+                if link == 'unreleased':
+                    link = 'https://www.classicposters.com/images/nopicture.gif'
+                games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score': row[2],
+                    'platform_one': row[3],
+                    'platform_two': row[4],
+                    'platform_three': row[5],
+                    'platform_four': row[6],
+                    'platform_five': row[7],
+                    'platform_six': row[8]
+                    })           
         else:
+            if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
+                sortmethod == 'All_Games'
             rows = conn.execute(
                 "SELECT * from {} WHERE title LIKE '%%{}%%'".format(sortmethod, searchstring)).fetchall()
             for row in rows:
