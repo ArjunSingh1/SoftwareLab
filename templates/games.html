@@ -121,8 +121,8 @@ p{
       </div>
       <div style="width:100%;vertical-align:bottom;height:25%">
       <h5 align=center><strong>{{game.title}}</strong></h5>
-      {% if (sortmethod=='All_Games') or (sortmethod=='Highest Rated') or (sortmethod=='Lowest Rated') or (sortmethod==''): %}
       <p align=center >Engagement Score: <span style="color:red">{{ gs }}</span></p>
+      {% if (sortmethod=='All_Games') or (sortmethod=='Highest Rated') or (sortmethod=='Lowest Rated') or (sortmethod==''): %}
       {% if game.platform_one != 'na': %}
       <p align=center>Platforms:
         <span style="color:#4CAF50">
