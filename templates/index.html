@@ -42,11 +42,6 @@ Game Search
     {% from "_formhelpers.html" import render_field %}
     <form method=post class="form" role="form">
       <h6>Search the Game Database:</h6>
-      <div>
-          <div class="firstdiv">
-          </div>
-          <div class="seconddiv">
-            <div id="cover">
               <div class="tb">
                 <div class="td">
                   {{ wtf.form_field(form.select, class="dropdown-primary") }}
@@ -59,9 +54,6 @@ Game Search
                   </button>
                   </div>
               </div>
-            </div>
-          </div>
-      </div>
     </form>
   </div>
 </div>
