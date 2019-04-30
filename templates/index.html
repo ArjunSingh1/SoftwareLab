@@ -11,6 +11,7 @@ Game Search
 {% endblock %}
 
 {% block styles %}
+{{ super() }}
 <link rel="stylesheet" href="{{url_for('static', filename='mystyles.css')}}">
 {% endblock %}
 
@@ -41,17 +42,18 @@ Game Search
     {% from "_formhelpers.html" import render_field %}
     <form method=post class="form" role="form">
       <h6>Search the Game Database:</h6>
-      <div>
-          <div class="firstdiv">
-            {{ wtf.form_field(form.search, class="searchTerm", placeholder="Search a game title") }}
-          </div>
-          <div class="seconddiv">
-            {{ wtf.form_field(form.select, class="form-control") }}
-          </div>
-          <div class="secondiv">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </div> 
-      </div>
+              <div class="tb">
+                <div class="td">
+                  {{ wtf.form_field(form.select, class="dropdown-primary") }}
+                </div>
+                <div class="td">
+                  {{ wtf.form_field(form.search, placeholder="Search") }}
+                </div>
+                <div class="td">
+                    <button type="submit" class="btn btn-light">Go</button>
+                  </button>
+                  </div>
+              </div>
     </form>
   </div>
 </div>

@@ -77,3 +77,81 @@ body {
   .searchTerm:focus{
     color: #00B4CC;
   }
+
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+*
+{
+    outline: none;
+}
+
+html, body
+{
+    height: 12%;
+    min-height: 12%;
+}
+
+
+.tb
+{
+    display: table;
+    width: 50%;
+}
+
+.td
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+input, button
+{
+    color: #fff;
+    font-family: Nunito;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+
+form
+{
+    height: 20px;
+}
+
+input[type="text"]
+{
+    width: 100px;
+    height: 20px;
+    font-size: 10px;
+    line-height: 1;
+}
+
+input[type="text"]::placeholder
+{
+    color: #e16868;
+}
+
+
+button
+{
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+
+
