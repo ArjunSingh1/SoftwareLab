@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About</title>
-<meta charset="UTF-8"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         var blake = 0;
@@ -59,6 +58,8 @@
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #f2f2f2;
+  margin:0;
 }
 
 .topnav {
@@ -70,9 +71,21 @@ body {
   float: left;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 18px 21px;
   text-decoration: none;
   font-size: 17px;
+}
+
+.topnav p{
+    float: right;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  font-family:impact;
+  color:#4CAF50;
+  padding-top:0px;
+  padding-bottom:0px;
 }
 
 .topnav a:hover {
@@ -94,9 +107,22 @@ img {
      display: table-cell;
 }
 
+hr{
+  border: 0; 
+  height: 1px; 
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+  }
+
+.smallerText{
+    font-size: 14px;
+}
+
 </style>
 </head>
-<body id="background">
+<body>
 
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
@@ -106,6 +132,7 @@ img {
   <a href="{{url_for('rating')}}">Rating</a>
   <a class="active" href="{{url_for('about')}}">About</a>
 </div>
+
 <div align = "center">
     <h1>About us</h1>
     <br>
@@ -113,6 +140,10 @@ img {
     <p> You can discover trending consoles and games based on their ratings</p>
     <p> You can also compare the tech specs of any two consoles</p>
     <p> This website is designed for amateur gamers looking for a good console or a game</p>
+    <br>
+
+    <hr>
+
     <br>
     <h2>Team Copper</h2>
 </div>
@@ -155,6 +186,11 @@ img {
             document.getElementById("p4").innerHTML = "commits: " + arjunC;
             document.getElementById("p5").innerHTML = "issues: " + arjun;
             document.getElementById("p6").innerHTML = "unit tests: 4";
+            document.getElementById("one").style.opacity = 1;
+            document.getElementById("two").style.opacity = 0.5;
+            document.getElementById("three").style.opacity = 0.5;
+            document.getElementById("four").style.opacity = 0.5;
+            document.getElementById("five").style.opacity = 0.5;
         }
 
         function bio2(){
@@ -164,6 +200,11 @@ img {
             document.getElementById("p4").innerHTML = "commits: " + blakeC;
             document.getElementById("p5").innerHTML = "issues: " + blake;
             document.getElementById("p6").innerHTML = "unit tests: 6";
+            document.getElementById("one").style.opacity = 0.5;
+            document.getElementById("two").style.opacity = 1;
+            document.getElementById("three").style.opacity = 0.5;
+            document.getElementById("four").style.opacity = 0.5;
+            document.getElementById("five").style.opacity = 0.5;
         }
 
         function bio3(){
@@ -173,6 +214,11 @@ img {
             document.getElementById("p4").innerHTML = "commits: " + rabiaC;
             document.getElementById("p5").innerHTML = "issues: "  + rabia;
             document.getElementById("p6").innerHTML = "unit tests: 0";
+            document.getElementById("one").style.opacity = 0.5;
+            document.getElementById("two").style.opacity = 0.5;
+            document.getElementById("three").style.opacity = 1;
+            document.getElementById("four").style.opacity = 0.5;
+            document.getElementById("five").style.opacity = 0.5;
         }
 
         function bio4(){
@@ -182,6 +228,11 @@ img {
             document.getElementById("p4").innerHTML = "commits: " + wenranC;
             document.getElementById("p5").innerHTML = "issues: " + wenran;
             document.getElementById("p6").innerHTML = "unit tests: 6";
+            document.getElementById("one").style.opacity = 0.5;
+            document.getElementById("two").style.opacity = 0.5;
+            document.getElementById("three").style.opacity = 0.5;
+            document.getElementById("four").style.opacity = 1;
+            document.getElementById("five").style.opacity = 0.5;
         }
 
         function bio5(){
@@ -191,26 +242,49 @@ img {
             document.getElementById("p4").innerHTML = "commits: " + yinghongC;
             document.getElementById("p5").innerHTML = "issues: " + yinghong;
             document.getElementById("p6").innerHTML = "unit tests: 0";
+            document.getElementById("one").style.opacity = 0.5;
+            document.getElementById("two").style.opacity = 0.5;
+            document.getElementById("three").style.opacity = 0.5;
+            document.getElementById("four").style.opacity = 0.5;
+            document.getElementById("five").style.opacity = 1;
         }
     </script>
+    <hr>
+    <br>
     <div align = "center">
+    <table>
+        <tr>
+            <td style="padding:4px;vertical-align: top;">
+                <div align="center" style="vertical-align: top;">
     <h3>Development Statistics</h3>
-    <p id="totalCommits">Total number of commits: </p>
-    <p id="totalIssues">Total number of issues: </p>
-    <p>Total number of unit tests: ~16</p>
-    <br>
+    <p class="smallerText" id="totalCommits">Total number of commits: </p>
+    <p class="smallerText" id="totalIssues">Total number of issues: </p>
+    <p class="smallerText">Total number of unit tests: ~16</p>
+</div>
+</td>
+<td style="padding:4px;vertical-align: top;">
+<div align=center style="vertical-align: top">
     <h3>Data Sources</h3>
-        <a href = "https://www.nintendo.com">Nintendo Switch</a>
-        <a href = "https://www.xbox.com">XBOX</a>
-        <a href = "https://www.playstation.com">Play Station</a>
-        <p>scraped using Python and BeautifulSoup library</p>
-    <br>
+        <a class="smallerText" href = "https://www.nintendo.com">Nintendo Switch</a>
+        <a class="smallerText" href = "https://www.xbox.com">XBOX</a>
+        <a class="smallerText" href = "https://www.playstation.com">Play Station</a>
+        <p class="smallerText">Scraped using Python and BeautifulSoup library</p>
+    </div>
+ </td>
+ <td style="padding:4px;vertical-align: top;">
+    <div align=center style="vertical-align: top;">
     <h3>Development Tools</h3>
-    <p>Flask used for microframework</p>
-    <p>unittest used for Python unit tests</p>
-    <p>MySQL used for backend database</p>
-    <p>Angular will be used for front-end</p>
-    <p>Selenium will be used to test user interface</p>
+    <p class="smallerText">Flask used for microframework</p>
+    <p class="smallerText">unittest used for Python unit tests</p>
+    <p class="smallerText">MySQL used for backend database</p>
+    <p class="smallerText">JQuery and Bootstrap will be used for front-end</p>
+    <p class="smallerText">Selenium will be used to test user interface</p>
+</div>
+</td>
+</tr>
+</table>
+    <br>
+    <hr>
     <br>
     <h3>
         <a href = "https://github.com/ArjunSingh1/SoftwareLab.git">GitHub Repository</a>
