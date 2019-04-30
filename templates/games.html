@@ -5,11 +5,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#nav").html('');
+  });
+</script>
 <title>Games</title>
 <style>
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #f2f2f2;
 }
 .topnav {
   overflow: hidden;
@@ -50,8 +56,20 @@ div.desc {
 }
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  height: 280px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  height: 300px;
+  margin-bottom: 35px;
+}
+
+figure{
+  background-color: #ddd";
+  margin-bottom:30px;
+}
+
+figure:hover{
+  color:white;
+  background-color: #333;
+  border-color: white;
 }
 .button {
   background-color: #4CAF50; /* Green */
@@ -63,6 +81,16 @@ div.desc {
   font-size: 12px;
   margin:2px;
   cursor: pointer;
+  border-radius:5px;
+}
+
+.button:hover {
+  background-color: #333;
+  color: white;
+}
+
+p{
+  font-size: 12px;
 }
 </style>
 </head>
@@ -76,41 +104,54 @@ div.desc {
   <a href="{{url_for('rating')}}">Rating</a>
   <a href="{{url_for('about')}}">About</a>
 </div>
-
-<div style="padding-left:16px">
-  <h2>Games</h2>
+<br>
+<div align=center style="margin-left:-40px">
+  <h1><strong>Games<strong></h1>
 </div>
 
+<br>
 
 <div class="wrapper">
   {% for game in games: %}
-  <figure>
-    <img src="{{game.link}}" alt="missing"/>
-    <h5>{{game.title}}</h5>
-    {% if (sortmethod=='All_Games') or (sortmethod==''): %}
-      <h5>Engagement Score: {{game.score}}</h5>
+  {% set gs = game.score * 10000 %}
+  <figure style="margin:20px;border-style:solid;border-radius:10px;">
+    <div align="center" style="width:100%;height:100%">
+      <div style="height:75%">
+        <img style="width:80%;height:100%;vertical-align:middle;" align=center src="{{game.link}}" alt="missing"/>
+      </div>
+      <div style="width:100%;vertical-align:bottom;height:25%">
+      <h5 align=center><strong>{{game.title}}</strong></h5>
+      {% if (sortmethod=='All_Games') or (sortmethod==''): %}
+      <p align=center >Engagement Score: <span style="color:red">{{ gs }}</span></p>
       {% if game.platform_one != 'na': %}
-      <h5>Platforms:</h5>
-      <h5>{{game.platform_one}}</h5>
+      <p align=center>Platforms:
+        <span style="color:#4CAF50">
+       {{game.platform_one}}
       {% endif %}
       {% if game.platform_two != 'na': %}
-      <h5>{{game.platform_two}}</h5>
+      , {{game.platform_two}}
       {% endif %}
       {% if game.platform_three != 'na': %}
-      <h5>{{game.platform_three}}</h5>
+      , {{game.platform_three}}
       {% endif %}
       {% if game.platform_four != 'na': %}
-      <h5>{{game.platform_four}}</h5>
+      , {{game.platform_four}}
       {% endif %}
       {% if game.platform_five != 'na': %}
-      <h5>{{game.platform_five}}</h5>
+      , {{game.platform_five}}
       {% endif %}
       {% if game.platform_six != 'na': %}
-      <h5>{{game.platform_six}}</h5>
+      , {{game.platform_six}}
       {% endif %}
+    </span>
+      </p>
     {% endif %}
+  </div>
+</div>
   </figure>
   {% endfor %}
+  <br>
+  <br>
 </div>
 
 
@@ -118,23 +159,35 @@ div.desc {
 <!-- This will be page navigation-->
 <br>
 <br>
+<br>
+<br>
+<br>
 
-<div style="width:20%;margin:0 auto;position:fixed;display:flex;cursor:pointer;">
 
-<form action="{{ url_for('navigateNext') }}" method="post">
-  <input name="page" type="hidden" value="{{page}}"/>
-  <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
-  <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input class="button" name="nextPage" type="submit" value="next"/>
-</form>
-<form action="{{ url_for('navigatePrevious') }}" method="post">
-  <input name="page" type="hidden" value="{{page}}"/>
-  <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
-  <input name="searchstring" type="hidden" value="{{searchstring}}"/>
-  <input class="button" name="previousPage" type="submit" value="previous"/>
-</form>
+<div align="center" style="width:100%;cursor:pointer;position:fixed;">
+  <table>
+    <tr>
+<td>
+  <form action="{{ url_for("navigatePrevious") }}" method="post">
+    <input name="page" type="hidden" value="{{page}}"/>
+    <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
+    <input name="searchstring" type="hidden" value="{{searchstring}}"/>
+    <input class="button" style="width:105px;font-size:12px;text-align: center" align=center name="previousPage" type="submit" value="PREVIOUS"/>
+  </form>
+</td>
+<td>
+  <form action="{{ url_for("navigateNext") }}" method="post">
+    <input name="page" type="hidden" value="{{page}}"/>
+    <input name="sortmethod" type="hidden" value="{{sortmethod}}"/>
+    <input name="searchstring" type="hidden" value="{{searchstring}}"/>
+    <input class="button" style="width:105px;font-size: 12px;text-align: center" align=center name="nextPage" type="submit" value="NEXT"/>
+  </form>
+</td>
+  <tr>
+</table>
 </div>
-
+<br>
+<br>
 
 </body>
 </html>
