@@ -43,11 +43,13 @@ Game Search
       <h6>Search the Game Database:</h6>
       <div>
           <div class="firstdiv">
-            {{ wtf.form_field(form.select, class="mdb-select md-form colorful-select dropdown-primary") }}
           </div>
           <div class="seconddiv">
             <div id="cover">
               <div class="tb">
+                <div class="td">
+                  {{ wtf.form_field(form.select, class="mdb-select md-form colorful-select dropdown-primary") }}
+                </div>
                 <div class="td">
                   {{ wtf.form_field(form.search, placeholder="Search") }}
                 </div>
