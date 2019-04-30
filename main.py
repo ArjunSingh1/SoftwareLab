@@ -10,7 +10,7 @@ from forms import GameSearchForm
 # import flask framework
 # import flask framework
 from flask import Flask, render_template, url_for, request, Response, flash, redirect
-from flask_bootstrap import Bootstrap 
+from flask_bootstrap import Bootstrap
 # import api request for github
 from HttpHandler import get_contributors_statistics, get_issues_statistics
 # for databse connection
@@ -47,7 +47,8 @@ db = sqlalchemy.create_engine(
     pool_recycle=1800,  # 30 minutes
 )
 
-#db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
+
+# db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
 
 # home page
 @app.route("/")
@@ -64,13 +65,14 @@ console_4 = []
 console_5 = []
 console_6 = []
 
+
 @app.route("/consoles")
 def consoles():
     with db.connect() as conn:
         consoles = conn.execute(
             "SELECT * from All_Consoles"
         ).fetchall()
-    i=0
+    i = 0
     for row in consoles:
         if i == 1:
             console_1.append(row[1])
@@ -158,7 +160,7 @@ def consoles():
             console_6.append(row[11])
             console_6.append(row[12])
             console_6.append(row[13])
-        i=i+1
+        i = i + 1
 
     return render_template('consoles.html')
 
@@ -203,25 +205,26 @@ def console6():
 
     return render_template('console6.html', data=data6)
 
+
 @app.route("/consoles/compare")
 def compare():
     overalldata = []
     with db.connect() as conn:
 
-        data= conn.execute(
+        data = conn.execute(
             "SELECT * from Comparison"
         ).fetchall()
 
     i = 0
     for row in data:
-        if i!=0:
+        if i != 0:
             overalldata.append(row[1])
             overalldata.append(row[2])
             overalldata.append(row[3])
             overalldata.append(row[4])
             overalldata.append(row[5])
             overalldata.append(row[6])
-        i=i+1
+        i = i + 1
 
     return render_template('compare.html', data=overalldata)
 
@@ -240,7 +243,7 @@ def index():
 @app.route('/results')
 def search_results(search, submit_type):
     if submit_type == 'search':
-        #search_string = ''
+        # search_string = ''
         if search.data['select'] == 'All':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusives':
@@ -260,11 +263,11 @@ def search_results(search, submit_type):
         elif search.data['select'] == 'Highest Rated':
             sortmethod = 'Highest Rated'
         elif search.data['select'] == 'Lowest Rated':
-            sortmethod = 'Lowest Rated'        
+            sortmethod = 'Lowest Rated'
         else:
             sortmethod = 'All_Games'
     search_string = search.data['search']
-    #sortmethod = search.data['select']
+    # sortmethod = search.data['select']
 
     return games(0, sortmethod, search_string)
 
@@ -441,7 +444,7 @@ def games(page, sortmethod, searchstring):
                     'platform_four': row[6],
                     'platform_five': row[7],
                     'platform_six': row[8]
-                    })
+                })
         elif (sortmethod == 'Lowest Rated') and (searchstring == ''):
             rows = conn.execute(
                 "SELECT * FROM All_Games ORDER BY score ASC "
@@ -461,7 +464,7 @@ def games(page, sortmethod, searchstring):
                     'platform_four': row[6],
                     'platform_five': row[7],
                     'platform_six': row[8]
-                    })           
+                })
         else:
             if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
                 sortmethod == 'All_Games'
@@ -481,9 +484,7 @@ def games(page, sortmethod, searchstring):
                     'platform_four': row[6],
                     'platform_five': row[7],
                     'platform_six': row[8]
-                    })
-                    
-              
+                })
 
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
@@ -559,15 +560,24 @@ class MySQL_Wrapper:
 def rating():
     ranks = MySQL_Wrapper(db=db, top=10)
     top_games = ranks.rank_games()
-    return render_template('rating.html', games=top_games)
+    ranks2 = MySQL_Wrapper(db=db, top=20)
+    top_games2 = ranks2.rank_games()
+    ranks3 = MySQL_Wrapper(db=db, top=30)
+    top_games3 = ranks3.rank_games()
+    ranks4 = MySQL_Wrapper(db=db, top=40)
+    top_games4 = ranks4.rank_games()
+    ranks5 = MySQL_Wrapper(db=db, top=50)
+    top_games5 = ranks5.rank_games()
+    return render_template('rating.html', games=top_games, games2=top_games2, games3=top_games3, games4=top_games4,
+                           games5=top_games5)
 
 
 # about page
 @app.route("/about")
 def about():
-    #data = get_contributors_statistics()
-    #sleep(0.1)
-    #stats = get_issues_statistics() stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
+    # data = get_contributors_statistics()
+    # sleep(0.1)
+    # stats = get_issues_statistics() stats = {'blake':0, 'wenran':0, 'yinghong':0, 'rabia':0, 'arjun':0, 'total': 0}
     return render_template('about.html')
 
 
