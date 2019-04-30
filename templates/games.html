@@ -87,7 +87,7 @@ div.desc {
   <figure>
     <img src="{{game.link}}" alt="missing"/>
     <h5>{{game.title}}</h5>
-    {% if (sortmethod=='All_Games') or (sortmethod==''): %}
+    {% if (sortmethod=='All_Games') or (sortmethod=='Highest Rated') or (sortmethod=='Lowest Rated') or (sortmethod==''): %}
       <h5>Engagement Score: {{game.score}}</h5>
       {% if game.platform_one != 'na': %}
       <h5>Platforms:</h5>
