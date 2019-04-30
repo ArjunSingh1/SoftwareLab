@@ -12,7 +12,7 @@ body {
     /* Flexbox stuff */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     /* Text styles */
     text-align: center;
@@ -68,6 +68,7 @@ body {
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    color: blue;
   }
   
   .formcenter {
