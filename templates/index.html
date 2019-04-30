@@ -25,37 +25,35 @@ Game Search
     <a href="{{url_for('about')}}">About</a>
 </div>
 
-
-<div class ="hero-image">
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-<div class = "center">
-  <div>
-    <h2>Find Your Game</h2>
-    {% from "_formhelpers.html" import render_field %}
-    <form method=post class="form" role="form">
-      <h6>Search the Game Database:</h6>
-              <div class="tb">
-                <div class="td">
-                  {{ wtf.form_field(form.select, class="dropdown-primary") }}
-                </div>
-                <div class="td">
-                  {{ wtf.form_field(form.search, placeholder="Search") }}
-                </div>
-                <div class="td">
-                    <button type="submit" class="btn btn-light">Go</button>
-                  </button>
+<section class="hero">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="hero-inner">
+        <h1>The Gamesquare Database</h1>
+        <h2>Search from over 6500 games!</h2>
+        <div class="center">
+            <form method=post class="form" role="form">
+                <div class="tb">
+                  <div class="td">
+                    {{ wtf.form_field(form.select, class="dropdown-primary") }}
                   </div>
-              </div>
-    </form>
-  </div>
-</div>
-</div>
+                  <div class="td">
+                    {{ wtf.form_field(form.search, placeholder="Enter a game title...") }}
+                  </div>
+                  <div class="td">
+                      <button type="submit" class="btn btn-light">Search</button>
+                    </button>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </div>
+</section>
 {% endblock %}
