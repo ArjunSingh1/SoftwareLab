@@ -467,14 +467,15 @@ def games(page, sortmethod, searchstring):
                 })
         else:
             if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
-                sortmethod == 'All_Games'
+                sortmethod = 'All_Games'
             rows = conn.execute(
                 "SELECT * from {} WHERE title LIKE '%%{}%%'".format(sortmethod, searchstring)).fetchall()
             for row in rows:
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
                     link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
+                if (sortmethod =='All_Games'):
+                    games.append({
                     'title': row[0].decode('utf-8'),
                     'link': link,
                     'score': row[2],
@@ -485,6 +486,21 @@ def games(page, sortmethod, searchstring):
                     'platform_five': row[7],
                     'platform_six': row[8]
                 })
+                elif (sortmethod == 'Exclusive_Games'):
+                    games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score': row[2],
+                    'platform': row[3]
+                })
+                else:
+                    games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score': row[2]
+                })
+
+                
 
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
