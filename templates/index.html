@@ -43,13 +43,13 @@ Game Search
       <h6>Search the Game Database:</h6>
       <div>
           <div class="firstdiv">
-            {{ wtf.form_field(form.search, class="searchTerm", placeholder="Search a game title") }}
+            {{ wtf.form_field(form.select, class="btn btn-secondary btn-lg dropdown-toggle") }}
+            <button type="submit" class="searchButton">
+              <i class="fa fa-search"></i>
+            </button>
           </div>
           <div class="seconddiv">
-            {{ wtf.form_field(form.select, class="form-control") }}
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-             </button>
+            {{ wtf.form_field(form.search, class="searchTerm", placeholder="Search a game title") }}
           </div>
       </div>
     </form>
