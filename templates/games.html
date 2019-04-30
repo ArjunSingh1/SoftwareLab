@@ -109,6 +109,9 @@ div.desc {
       <h5>{{game.platform_six}}</h5>
       {% endif %}
     {% endif %}
+    {% if (sortmethod=='Exclusive_Games'): %}
+      <h5>Engagement Score: {{game.score}}</h5>
+      <h5>Platform: {{game.platform}}</h5>
   </figure>
   {% endfor %}
 </div>

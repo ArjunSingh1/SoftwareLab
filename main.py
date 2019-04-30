@@ -241,21 +241,21 @@ def index():
 def search_results(search, submit_type):
     if submit_type == 'search':
         #search_string = ''
-        if search.data['select'] == 'All_Games':
+        if search.data['select'] == 'All':
             sortmethod = 'All_Games'
-        elif search.data['select'] == 'Exclusive_Games':
+        elif search.data['select'] == 'Exclusives':
             sortmethod = 'Exclusive_Games'
-        elif search.data['select'] == 'PS4_Games':
+        elif search.data['select'] == 'PS4':
             sortmethod = 'PS4_Games'
-        elif search.data['select'] == 'PS3_Games':
+        elif search.data['select'] == 'PS3':
             sortmethod = 'PS3_Games'
-        elif search.data['select'] == 'XboxOne_Games':
+        elif search.data['select'] == 'Xbox One':
             sortmethod = 'XboxOne_Games'
-        elif search.data['select'] == 'Xbox360_Games':
+        elif search.data['select'] == 'Xbox 360':
             sortmethod = 'Xbox360_Games'
-        elif search.data['select'] == 'WiiU_Games':
+        elif search.data['select'] == 'Wii U':
             sortmethod = 'WiiU_Games'
-        elif search.data['select'] == 'Switch_Games':
+        elif search.data['select'] == 'Nintendo Switch':
             sortmethod = 'Switch_Games'
         else:
             sortmethod = 'All_Games'
@@ -321,7 +321,7 @@ def games(page, sortmethod, searchstring):
                 })
         elif (sortmethod == 'Exclusive_Games') and (searchstring == ''):
             top_games = conn.execute(
-                "SELECT title, link FROM Exclusive_Games "
+                "SELECT title, link, score, platform FROM Exclusive_Games "
                 "LIMIT {}, {}".format(startat, perpage)
             ).fetchall()
             for row in top_games:
@@ -330,7 +330,9 @@ def games(page, sortmethod, searchstring):
                     link = 'https://www.classicposters.com/images/nopicture.gif'
                 games.append({
                     'title': row[0].decode('utf-8'),
-                    'link': link
+                    'link': link,
+                    'score': row[2],
+                    'platform': row[3]
                 })
         elif (sortmethod == 'PS4_Games') and (searchstring == ''):
             top_games = conn.execute(
@@ -429,6 +431,14 @@ def games(page, sortmethod, searchstring):
                     'platform_five': row[7],
                     'platform_six': row[8]
                     })
+                elif sortmethod == 'Exclusive_Games':
+                    games.append({
+                    'title': row[0].decode('utf-8'),
+                    'link': link,
+                    'score': row[2],
+                    'platform': row[3]
+                    })
+
                 else:
                     games.append({
                     'title': row[0].decode('utf-8'),
