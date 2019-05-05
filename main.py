@@ -56,153 +56,95 @@ db = sqlalchemy.create_engine(
 def home():
     return render_template('home.html')
 
+# easier data parsing for console pages
+class Console_Wrapper:
+    def __init__(self, db=None, num=None):
+        self.db = db
+        self.num = num
 
-# console pages
-console_1 = []
-console_2 = []
-console_3 = []
-console_4 = []
-console_5 = []
-console_6 = []
 
+    def get_data(self):
+
+        with db.connect() as conn:
+            consoles = conn.execute(
+                "SELECT * from All_Consoles"
+            ).fetchall()
+        i = 0
+        console_data = []
+        for row in consoles:
+            if i == 1 and i == self.num:
+                for j in range(1, 10):
+                    console_data.append(row[j])
+
+            if i == 2 and i == self.num:
+                for j in range(1, 13):
+                    console_data.append(row[j])
+
+            if i == 3 and i == self.num:
+                for j in range(1, 15):
+                    console_data.append(row[j])
+
+            if i == 4 and i == self.num:
+                for j in range(1, 12):
+                    console_data.append(row[j])
+
+            if i == 5 and i == self.num:
+                for j in range(1, 12):
+                    console_data.append(row[j])
+
+            if i == 6 and i == self.num:
+                for j in range(1, 13):
+                    console_data.append(row[j])
+
+            i = i + 1
+
+        return console_data
 
 @app.route("/consoles")
 def consoles():
-    with db.connect() as conn:
-        consoles = conn.execute(
-            "SELECT * from All_Consoles"
-        ).fetchall()
-    i = 0
-    for row in consoles:
-        if i == 1:
-            console_1.append(row[1])
-            console_1.append(row[2])
-            console_1.append(row[3])
-            console_1.append(row[4])
-            console_1.append(row[5])
-            console_1.append(row[6])
-            console_1.append(row[7])
-            console_1.append(row[8])
-            console_1.append(row[9])
-            console_1.append(row[10])
-
-        if i == 2:
-            console_2.append(row[1])
-            console_2.append(row[2])
-            console_2.append(row[3])
-            console_2.append(row[4])
-            console_2.append(row[5])
-            console_2.append(row[6])
-            console_2.append(row[7])
-            console_2.append(row[8])
-            console_2.append(row[9])
-            console_2.append(row[10])
-            console_2.append(row[11])
-            console_2.append(row[12])
-            console_2.append(row[13])
-
-        if i == 3:
-            console_3.append(row[1])
-            console_3.append(row[2])
-            console_3.append(row[3])
-            console_3.append(row[4])
-            console_3.append(row[5])
-            console_3.append(row[6])
-            console_3.append(row[7])
-            console_3.append(row[8])
-            console_3.append(row[9])
-            console_3.append(row[10])
-            console_3.append(row[11])
-            console_3.append(row[12])
-            console_3.append(row[13])
-            console_3.append(row[14])
-            console_3.append(row[15])
-
-        if i == 4:
-            console_4.append(row[1])
-            console_4.append(row[2])
-            console_4.append(row[3])
-            console_4.append(row[4])
-            console_4.append(row[5])
-            console_4.append(row[6])
-            console_4.append(row[7])
-            console_4.append(row[8])
-            console_4.append(row[9])
-            console_4.append(row[10])
-            console_4.append(row[11])
-            console_4.append(row[12])
-
-        if i == 5:
-            console_5.append(row[1])
-            console_5.append(row[2])
-            console_5.append(row[3])
-            console_5.append(row[4])
-            console_5.append(row[5])
-            console_5.append(row[6])
-            console_5.append(row[7])
-            console_5.append(row[8])
-            console_5.append(row[9])
-            console_5.append(row[10])
-            console_5.append(row[11])
-            console_5.append(row[12])
-
-        if i == 6:
-            console_6.append(row[1])
-            console_6.append(row[2])
-            console_6.append(row[3])
-            console_6.append(row[4])
-            console_6.append(row[5])
-            console_6.append(row[6])
-            console_6.append(row[7])
-            console_6.append(row[8])
-            console_6.append(row[9])
-            console_6.append(row[10])
-            console_6.append(row[11])
-            console_6.append(row[12])
-            console_6.append(row[13])
-        i = i + 1
 
     return render_template('consoles.html')
 
 
 @app.route("/consoles/console1")
 def console1():
-    data = console_1
-
+    console_1 = Console_Wrapper(db=db, num=1)
+    data = console_1.get_data()
     return render_template('console1.html', data=data)
 
 
 @app.route("/consoles/console2")
 def console2():
-    data2 = console_2
+    console_2 = Console_Wrapper(db=db, num=2)
+    data2 = console_2.get_data()
     return render_template('console2.html', data=data2)
 
 
 @app.route("/consoles/console3")
 def console3():
-    data3 = console_3
-
+    console_3 = Console_Wrapper(db=db, num=3)
+    data3 = console_3.get_data()
     return render_template('console3.html', data=data3)
 
 
 @app.route("/consoles/console4")
 def console4():
-    data4 = console_4
-
+    console_4 = Console_Wrapper(db=db, num=4)
+    data4 = console_4.get_data()
     return render_template('console4.html', data=data4)
 
 
 @app.route("/consoles/console5")
 def console5():
-    data5 = console_5
-
+    console_5 = Console_Wrapper(db=db, num=5)
+    data5 = console_5.get_data()
     return render_template('console5.html', data=data5)
 
 
 @app.route("/consoles/console6")
 def console6():
-    data6 = console_6
-
+    console_6 = Console_Wrapper(db=db, num=6)
+    data6 = console_6.get_data()
     return render_template('console6.html', data=data6)
 
 
@@ -269,6 +211,7 @@ def search_results(search, submit_type):
 
     return games(0, sortmethod, search_string)
 
+
 # games page
 @app.route("/games", methods=['GET', 'POST'], defaults={'page': 0})
 def games(page, sortmethod, searchstring):
@@ -279,7 +222,7 @@ def games(page, sortmethod, searchstring):
     with db.connect() as conn:
         if (searchstring == ''):
             if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
-                if(sortmethod == 'Highest Rated'):
+                if (sortmethod == 'Highest Rated'):
                     order = 'DESC'
                 else:
                     order = 'ASC'
@@ -303,14 +246,14 @@ def games(page, sortmethod, searchstring):
                     if link == 'unreleased':
                         link = 'https://www.classicposters.com/images/nopicture.gif'
                     append_games(row, link, games, sortmethod)
-            
+
             else:
                 for row in top_games:
                     link = row[1].decode('utf-8')
                     if link == 'unreleased':
                         link = 'https://www.classicposters.com/images/nopicture.gif'
                     append_games(row, link, games, sortmethod)
-            
+
         else:
             if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
                 sortmethod = 'All_Games'
@@ -320,12 +263,13 @@ def games(page, sortmethod, searchstring):
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
                     link = 'https://www.classicposters.com/images/nopicture.gif'
-                append_games(row, link, games, sortmethod)              
+                append_games(row, link, games, sortmethod)
 
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
+
 def append_games(row, link, games, sortmethod):
-    if(sortmethod == 'All_Games') or (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
+    if (sortmethod == 'All_Games') or (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
         games.append({
             'title': row[0].decode('utf-8'),
             'link': link,
@@ -337,7 +281,7 @@ def append_games(row, link, games, sortmethod):
             'platform_five': row[7],
             'platform_six': row[8]
         })
-    elif(sortmethod == 'Exclusive_Games'):
+    elif (sortmethod == 'Exclusive_Games'):
         games.append({
             'title': row[0].decode('utf-8'),
             'link': link,
