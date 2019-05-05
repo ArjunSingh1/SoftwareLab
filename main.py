@@ -243,7 +243,6 @@ def index():
 @app.route('/results')
 def search_results(search, submit_type):
     if submit_type == 'search':
-        # search_string = ''
         if search.data['select'] == 'All':
             sortmethod = 'All_Games'
         elif search.data['select'] == 'Exclusives':
@@ -267,18 +266,8 @@ def search_results(search, submit_type):
         else:
             sortmethod = 'All_Games'
     search_string = search.data['search']
-    # sortmethod = search.data['select']
 
     return games(0, sortmethod, search_string)
-
-
-@app.route('/filter', methods=['GET', 'POST'])
-def filter():
-    search = GameSearchForm(request.form)
-    submit_type = 'filter'
-
-    return search_results(search, submit_type)
-
 
 # games page
 @app.route("/games", methods=['GET', 'POST'], defaults={'page': 0})
@@ -287,184 +276,41 @@ def games(page, sortmethod, searchstring):
     startat = page * perpage
     games = []
     noimagerows = []
-    # sqlstatement = "SELECT * from All_Games WHERE title like "
     with db.connect() as conn:
-        if (sortmethod == 'All_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score, platform_one, platform_two, platform_three, platform_four, platform_five, platform_six FROM All_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    noimagerows.append(row)
+        if (searchstring == ''):
+            if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
+                if(sortmethod == 'Highest Rated'):
+                    order = 'DESC'
                 else:
-                    games.append({
-                        'title': row[0].decode('utf-8'),
-                        'link': link,
-                        'score': row[2],
-                        'platform_one': row[3],
-                        'platform_two': row[4],
-                        'platform_three': row[5],
-                        'platform_four': row[6],
-                        'platform_five': row[7],
-                        'platform_six': row[8],
-                    })
+                    order = 'ASC'
+                top_games = conn.execute(
+                    "SELECT * FROM All_Games ORDER BY score {} LIMIT {}, {}".format(order, startat, perpage)
+                ).fetchall()
+            else:
+                top_games = conn.execute(
+                    "SELECT * FROM {} LIMIT {}, {}".format(sortmethod, startat, perpage)
+                ).fetchall()
+            if (sortmethod == 'All_Games'):
+                for row in top_games:
+                    link = row[1].decode('utf-8')
+                    if link == 'unreleased':
+                        noimagerows.append(row)
+                    else:
+                        append_games(row, link, games, sortmethod)
 
-            for row in noimagerows:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2],
-                    'platform_one': row[3],
-                    'platform_two': row[4],
-                    'platform_three': row[5],
-                    'platform_four': row[6],
-                    'platform_five': row[7],
-                    'platform_six': row[8]
-                })
-        elif (sortmethod == 'Exclusive_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score, platform FROM Exclusive_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2],
-                    'platform': row[3]
-                })
-        elif (sortmethod == 'PS4_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score FROM PS4_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-        elif (sortmethod == 'PS3_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score FROM PS3_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-        elif (sortmethod == 'XboxOne_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score FROM XboxOne_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-        elif (sortmethod == 'Xbox360_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score FROM Xbox360_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-        elif (sortmethod == 'WiiU_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score FROM WiiU_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-        elif (sortmethod == 'Switch_Games') and (searchstring == ''):
-            top_games = conn.execute(
-                "SELECT title, link, score FROM Switch_Games "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in top_games:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-        elif (sortmethod == 'Highest Rated') and (searchstring == ''):
-            rows = conn.execute(
-                "SELECT * FROM All_Games ORDER BY score DESC "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in rows:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2],
-                    'platform_one': row[3],
-                    'platform_two': row[4],
-                    'platform_three': row[5],
-                    'platform_four': row[6],
-                    'platform_five': row[7],
-                    'platform_six': row[8]
-                })
-        elif (sortmethod == 'Lowest Rated') and (searchstring == ''):
-            rows = conn.execute(
-                "SELECT * FROM All_Games ORDER BY score ASC "
-                "LIMIT {}, {}".format(startat, perpage)
-            ).fetchall()
-            for row in rows:
-                link = row[1].decode('utf-8')
-                if link == 'unreleased':
-                    link = 'https://www.classicposters.com/images/nopicture.gif'
-                games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2],
-                    'platform_one': row[3],
-                    'platform_two': row[4],
-                    'platform_three': row[5],
-                    'platform_four': row[6],
-                    'platform_five': row[7],
-                    'platform_six': row[8]
-                })
+                for row in noimagerows:
+                    link = row[1].decode('utf-8')
+                    if link == 'unreleased':
+                        link = 'https://www.classicposters.com/images/nopicture.gif'
+                    append_games(row, link, games, sortmethod)
+            
+            else:
+                for row in top_games:
+                    link = row[1].decode('utf-8')
+                    if link == 'unreleased':
+                        link = 'https://www.classicposters.com/images/nopicture.gif'
+                    append_games(row, link, games, sortmethod)
+            
         else:
             if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
                 sortmethod = 'All_Games'
@@ -474,35 +320,36 @@ def games(page, sortmethod, searchstring):
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
                     link = 'https://www.classicposters.com/images/nopicture.gif'
-                if (sortmethod =='All_Games'):
-                    games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2],
-                    'platform_one': row[3],
-                    'platform_two': row[4],
-                    'platform_three': row[5],
-                    'platform_four': row[6],
-                    'platform_five': row[7],
-                    'platform_six': row[8]
-                })
-                elif (sortmethod == 'Exclusive_Games'):
-                    games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2],
-                    'platform': row[3]
-                })
-                else:
-                    games.append({
-                    'title': row[0].decode('utf-8'),
-                    'link': link,
-                    'score': row[2]
-                })
-
-                
+                append_games(row, link, games, sortmethod)              
 
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
+
+def append_games(row, link, games, sortmethod):
+    if(sortmethod == 'All_Games') or (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
+        games.append({
+            'title': row[0].decode('utf-8'),
+            'link': link,
+            'score': row[2],
+            'platform_one': row[3],
+            'platform_two': row[4],
+            'platform_three': row[5],
+            'platform_four': row[6],
+            'platform_five': row[7],
+            'platform_six': row[8]
+        })
+    elif(sortmethod == 'Exclusive_Games'):
+        games.append({
+            'title': row[0].decode('utf-8'),
+            'link': link,
+            'score': row[2],
+            'platform': row[3]
+        })
+    else:
+        games.append({
+            'title': row[0].decode('utf-8'),
+            'link': link,
+            'score': row[2]
+        })
 
 
 # handle Game page forward navigation
