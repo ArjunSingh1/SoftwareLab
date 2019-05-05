@@ -1,103 +1,23 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GameSquare-About</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='About.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='basics.css')}}">
     <script>
-        var blake = 0;
-        var rabia = 0;
-        var arjun = 0;
-        var wenran = 0;
-        var yinghong = 0;
-        var blakeC = 0;
-        var rabiaC = 0;
-        var arjunC = 0;
-        var wenranC = 0;
-        var yinghongC = 0;
-        $(document).ready(function(){
-                var api = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/issues";
-                $.get(api, function (data) {
-                    $.each(data, function (idx, obj) {
-                        if(obj.user.login == "rabiakhan713"){
-                            rabia++;
-                        } else if(obj.user.login == "wenranlu"){
-                            wenran++;
-                        } else if(obj.user.login == "Bgardner4"){
-                            blake++;
-                        } else if(obj.user.login == "YinghongLIU"){
-                            yinghong++;
-                        } else if(obj.user.login == "ArjunSingh1"){
-                            arjun++;
-                        }
-                    });
-                    var total = arjun + rabia + blake + yinghong + wenran;
-                    $("#totalIssues").append(total);
-                });
-                api = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/contributors"
-                $.get(api, function (data) {
-                    $.each(data, function (idx, obj) {
-                        if(obj.login == "rabiakhan713"){
-                            rabiaC += obj.contributions;
-                        } else if(obj.login == "wenranlu"){
-                            wenranC += obj.contributions;
-                        } else if(obj.login == "Bgardner4"){
-                            blakeC += obj.contributions;
-                        } else if(obj.login == "YinghongLIU"){
-                            yinghongC += obj.contributions;
-                        } else if(obj.login == "ArjunSingh1"){
-                            arjunC += obj.contributions;
-                        }
-                    });
-                    var totalC = arjunC + rabiaC + blakeC + yinghongC + wenranC;
-                    $("#totalCommits").append(totalC);
-                });
-        });
+        let Arjun = new Developer(1, "I am Arjun Singh", "ECE", "engagement metric, rating page, unit tests, Reddit data scraping", "4");
+        let Blake = new Developer(2, "I am an Electrical Engineering major at the University of Texas", "ECE", "MySQL database, data scraping (games), games page, GCP", "6");
+        let Rabia = new Developer(3, "When I am not coding, I like going hiking", "ECE", "user stories, data scraping (games), games page", "0");
+        let Wenran = new Developer(4, "I am a good dog walker", "ECE", "about page, consoles page, compare page, unit tests, data scraping (consoles)", "6");
+        let Yinghong = new Developer(5, "I am Yinghong Liu", "ME", "home page, 15 static pages", "0");
+
+        $(document).ready(apiRequest(Arjun,Blake,Rabia,Wenran,Yinghong));
     </script>
+    <style 
 <style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f2f2f2;
-  margin:0;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 18px 21px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav p{
-    float: right;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 18px;
-  font-family:impact;
-  color:#4CAF50;
-  padding-top:0px;
-  padding-bottom:0px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
 img {
   border-radius: 50%;
 }
@@ -154,24 +74,24 @@ hr{
     <div class="element-grid" align="center" id="member">
         <div id="arjun" class="element">
     <h3>Arjun Singh</h3>
-    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" style="cursor:pointer" id="one" onclick=bio1() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" style="cursor:pointer" id="one" onclick=Arjun.printBio() width="100" height="100">
         </div>
         <div id="blake" class="element">
     <h3>Blake Gardner</h3>
-    <img src="{{ url_for('static',filename='image/blake.jpg') }}" style="cursor:pointer" id="two" onclick=bio2() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/blake.jpg') }}" style="cursor:pointer" id="two" onclick=Blake.printBio() width="100" height="100">
         </div>
         <div id="rabia" class="element">
     <h3>Rabia Khan</h3>
-    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" style="cursor:pointer" id="three" onclick=bio3() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" style="cursor:pointer" id="three" onclick=Rabia.printBio() width="100" height="100">
         </div>
         <div id="wenran" class="element">
     <h3>Wenran Lu</h3>
-    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" style="cursor:pointer" id="four" onclick=bio4() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" style="cursor:pointer" id="four" onclick=Wenran.printBio() width="100" height="100">
 
         </div>
         <div id="yinghong" class="element">
     <h3>Yinghong Liu</h3>
-    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" style="cursor:pointer" id="five" onclick=bio5() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" style="cursor:pointer" id="five" onclick=Yinghong.printBio() width="100" height="100">
 
         </div>
         <p id="p1">Click our avatars</p>
@@ -181,107 +101,6 @@ hr{
         <p id="p5">github contributions</p>
         <p id="p6">and more</p>
     </div>
-
-    <script>
-        function bio1(){
-            document.getElementById("p1").innerHTML = "bio: I am Arjun Singh";
-            document.getElementById("p2").innerHTML = "major: ECE";
-            document.getElementById("p3").innerHTML = "responsibilities: engagement metric, rating page, unit tests, Reddit data scraping";
-            document.getElementById("p4").innerHTML = "commits: " + arjunC;
-            document.getElementById("p5").innerHTML = "issues: " + arjun;
-            document.getElementById("p6").innerHTML = "unit tests: 4";
-            document.getElementById("one").style.opacity = 1;
-            document.getElementById("two").style.opacity = 0.5;
-            document.getElementById("three").style.opacity = 0.5;
-            document.getElementById("four").style.opacity = 0.5;
-            document.getElementById("five").style.opacity = 0.5;
-            document.getElementById("arjun").style.color = "rgb(76, 175, 80)";
-            document.getElementById("blake").style.color = "black";
-            document.getElementById("rabia").style.color = "black";
-            document.getElementById("wenran").style.color = "black";
-            document.getElementById("yinghong").style.color = "black";
-        }
-
-        function bio2(){
-            document.getElementById("p1").innerHTML = "bio: I am an Electrical Engineering major at the University of Texas";
-            document.getElementById("p2").innerHTML = "major: ECE";
-            document.getElementById("p3").innerHTML = "responsibilities: MySQL database, data scraping (games), games page, GCP";
-            document.getElementById("p4").innerHTML = "commits: " + blakeC;
-            document.getElementById("p5").innerHTML = "issues: " + blake;
-            document.getElementById("p6").innerHTML = "unit tests: 6";
-            document.getElementById("one").style.opacity = 0.5;
-            document.getElementById("two").style.opacity = 1;
-            document.getElementById("three").style.opacity = 0.5;
-            document.getElementById("four").style.opacity = 0.5;
-            document.getElementById("five").style.opacity = 0.5;
-
-            document.getElementById("arjun").style.color = "black";
-            document.getElementById("blake").style.color = "rgb(76, 175, 80)";
-            document.getElementById("rabia").style.color = "black";
-            document.getElementById("wenran").style.color = "black";
-            document.getElementById("yinghong").style.color = "black";
-        }
-
-        function bio3(){
-            document.getElementById("p1").innerHTML = "bio: When I am not coding, I like going hiking";
-            document.getElementById("p2").innerHTML = "major: ECE";
-            document.getElementById("p3").innerHTML = "responsibilities: user stories, data scraping (games), games page";
-            document.getElementById("p4").innerHTML = "commits: " + rabiaC;
-            document.getElementById("p5").innerHTML = "issues: "  + rabia;
-            document.getElementById("p6").innerHTML = "unit tests: 0";
-            document.getElementById("one").style.opacity = 0.5;
-            document.getElementById("two").style.opacity = 0.5;
-            document.getElementById("three").style.opacity = 1;
-            document.getElementById("four").style.opacity = 0.5;
-            document.getElementById("five").style.opacity = 0.5;
-
-            document.getElementById("arjun").style.color = "black";
-            document.getElementById("blake").style.color = "black";
-            document.getElementById("rabia").style.color = "rgb(76, 175, 80)";
-            document.getElementById("wenran").style.color = "black";
-            document.getElementById("yinghong").style.color = "black";
-        }
-
-        function bio4(){
-            document.getElementById("p1").innerHTML = "bio: I am a good dog walker";
-            document.getElementById("p2").innerHTML = "major: ECE";
-            document.getElementById("p3").innerHTML = "responsibilities: about page, consoles page, compare page, unit tests, data scraping (consoles)";
-            document.getElementById("p4").innerHTML = "commits: " + wenranC;
-            document.getElementById("p5").innerHTML = "issues: " + wenran;
-            document.getElementById("p6").innerHTML = "unit tests: 6";
-            document.getElementById("one").style.opacity = 0.5;
-            document.getElementById("two").style.opacity = 0.5;
-            document.getElementById("three").style.opacity = 0.5;
-            document.getElementById("four").style.opacity = 1;
-            document.getElementById("five").style.opacity = 0.5;
-
-            document.getElementById("arjun").style.color = "black";
-            document.getElementById("blake").style.color = "black";
-            document.getElementById("rabia").style.color = "black";
-            document.getElementById("wenran").style.color = "rgb(76, 175, 80)";
-            document.getElementById("yinghong").style.color = "black";
-        }
-
-        function bio5(){
-            document.getElementById("p1").innerHTML = "bio: I am Yinghong Liu";
-            document.getElementById("p2").innerHTML = "major: ME";
-            document.getElementById("p3").innerHTML = "responsibilities: home page, 15 static pages";
-            document.getElementById("p4").innerHTML = "commits: " + yinghongC;
-            document.getElementById("p5").innerHTML = "issues: " + yinghong;
-            document.getElementById("p6").innerHTML = "unit tests: 0";
-            document.getElementById("one").style.opacity = 0.5;
-            document.getElementById("two").style.opacity = 0.5;
-            document.getElementById("three").style.opacity = 0.5;
-            document.getElementById("four").style.opacity = 0.5;
-            document.getElementById("five").style.opacity = 1;
-
-            document.getElementById("arjun").style.color = "black";
-            document.getElementById("blake").style.color = "black";
-            document.getElementById("rabia").style.color = "black";
-            document.getElementById("wenran").style.color = "black";
-            document.getElementById("yinghong").style.color = "rgb(76, 175, 80)";
-        }
-    </script>
     <hr>
     <br>
     <div align="center">
