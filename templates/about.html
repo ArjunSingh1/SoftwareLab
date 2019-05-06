@@ -8,13 +8,13 @@
     <script src="{{url_for('static', filename='About.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='basics.css')}}">
     <script>
-        let Arjun = new Developer(1, "I am Arjun Singh", "ECE", "engagement metric, rating page, unit tests, Reddit data scraping", "4");
-        let Blake = new Developer(2, "I am an Electrical Engineering major at the University of Texas", "ECE", "MySQL database, data scraping (games), games page, GCP", "6");
-        let Rabia = new Developer(3, "When I am not coding, I like going hiking", "ECE", "user stories, data scraping (games), games page", "0");
-        let Wenran = new Developer(4, "I am a good dog walker", "ECE", "about page, consoles page, compare page, unit tests, data scraping (consoles)", "6");
-        let Yinghong = new Developer(5, "I am Yinghong Liu", "ME", "home page, 15 static pages", "0");
+        var controller;
 
-        $(document).ready(apiRequest(Arjun,Blake,Rabia,Wenran,Yinghong));
+        function load(){
+            controller = new Controller();
+            apiRequest(controller);
+        }
+
     </script>
     <style 
 <style>
@@ -46,7 +46,7 @@ hr{
 
 </style>
 </head>
-<body>
+<body onload=load()>
 
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
@@ -74,24 +74,24 @@ hr{
     <div class="element-grid" align="center" id="member">
         <div id="arjun" class="element">
     <h3>Arjun Singh</h3>
-    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" style="cursor:pointer" id="one" onclick=Arjun.printBio() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/arjun.jpg') }}" style="cursor:pointer" id="one" onclick=controller.highlightArjun() width="100" height="100">
         </div>
         <div id="blake" class="element">
     <h3>Blake Gardner</h3>
-    <img src="{{ url_for('static',filename='image/blake.jpg') }}" style="cursor:pointer" id="two" onclick=Blake.printBio() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/blake.jpg') }}" style="cursor:pointer" id="two" onclick=controller.highlightBlake() width="100" height="100">
         </div>
         <div id="rabia" class="element">
     <h3>Rabia Khan</h3>
-    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" style="cursor:pointer" id="three" onclick=Rabia.printBio() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/rabia.jpg') }}" style="cursor:pointer" id="three" onclick=controller.highlightRabia() width="100" height="100">
         </div>
         <div id="wenran" class="element">
     <h3>Wenran Lu</h3>
-    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" style="cursor:pointer" id="four" onclick=Wenran.printBio() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/wenran.jpg') }}" style="cursor:pointer" id="four" onclick=controller.highlightWenran() width="100" height="100">
 
         </div>
         <div id="yinghong" class="element">
     <h3>Yinghong Liu</h3>
-    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" style="cursor:pointer" id="five" onclick=Yinghong.printBio() width="100" height="100">
+    <img src="{{ url_for('static',filename='image/yinghong.jpg') }}" style="cursor:pointer" id="five" onclick=controller.highlightYinghong() width="100" height="100">
 
         </div>
         <p id="p1">Click our avatars</p>
