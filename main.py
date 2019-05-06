@@ -71,9 +71,7 @@ class Console_Wrapper:
 
     def __init__(self):
 
-        if Console_Wrapper._instance != None:
-            raise Exception("This class is a singleton!")
-        else:
+        if Console_Wrapper._instance == None:
             Console_Wrapper._instance = self
 
         self.db = db
@@ -86,7 +84,6 @@ class Console_Wrapper:
 
 
     def get_data(self):
-
         with db.connect() as conn:
             consoles = conn.execute(
                 "SELECT * from All_Consoles"
@@ -116,7 +113,6 @@ class Console_Wrapper:
             if i == 6:
                 for j in range(1, 13):
                     self.console_6.append(row[j])
-
             i = i + 1
 
     def get_1(self):
