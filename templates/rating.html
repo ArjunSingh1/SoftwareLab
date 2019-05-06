@@ -70,7 +70,7 @@ function check ()
 
     if(num ==10){
         document.getElementById("title").innerHTML = "Top 10 Games by Engagement";
-        document.getElementById("display").style.visibility = "visible";
+        document.getElementById("display").style.display = "block";
         hide2();
         hide3();
         hide4();
@@ -78,7 +78,7 @@ function check ()
     }
     if(num==20){
         document.getElementById("title").innerHTML = "Top 20 Games by Engagement";
-        document.getElementById("display2").style.visibility = "visible";
+        document.getElementById("display2").style.display = "block";
         hide1();
         hide3();
         hide4();
@@ -86,7 +86,7 @@ function check ()
     }
     if(num==30){
         document.getElementById("title").innerHTML = "Top 30 Games by Engagement";
-        document.getElementById("display3").style.visibility = "visible";
+        document.getElementById("display3").style.display = "block";
         hide1();
         hide2();
         hide4();
@@ -94,7 +94,7 @@ function check ()
     }
     if(num==40){
         document.getElementById("title").innerHTML = "Top 40 Games by Engagement";
-        document.getElementById("display4").style.visibility = "visible";
+        document.getElementById("display4").style.display = "block";
         hide1();
         hide2();
         hide3();
@@ -102,7 +102,7 @@ function check ()
     }
     if(num==50){
         document.getElementById("title").innerHTML = "Top 50 Games by Engagement";
-        document.getElementById("display5").style.visibility = "visible";
+        document.getElementById("display5").style.display = "block";
         hide1();
         hide2();
         hide3();
@@ -112,26 +112,25 @@ function check ()
 }
 
 function hide1() {
-  document.getElementById("display").style.visibility = "hidden";
+  document.getElementById("display").style.display = "none";
 }
 
 function hide2() {
-  document.getElementById("display2").style.visibility = "hidden";
+  document.getElementById("display2").style.display = "none";
 }
 
 function hide3() {
-  document.getElementById("display3").style.visibility = "hidden";
+  document.getElementById("display3").style.display = "none";
 }
 
 function hide4() {
-  document.getElementById("display4").style.visibility = "hidden";
+  document.getElementById("display4").style.display = "none";
 }
 
 function hide5() {
-  document.getElementById("display5").style.visibility = "hidden";
+  document.getElementById("display5").style.display = "none";
 }
 </script>
-
 
 <div class="wrapper" id = "display">
     {% set i = 1 %}
@@ -146,7 +145,7 @@ function hide5() {
       <div style="width:100%;vertical-align:bottom;height:25%">
           <h5 align=center><strong>Rank: {{ i }}</strong></h5>
           <h5 align=center><strong>Name: {{game.title}}</strong></h5>
-          <h5 align=center><strong>Engagement Score: {{ gs }}</strong></h5>
+          <h5 align=center><strong>Score: {{ gs }}</strong></h5>
       </div>
     </div>
   </figure>
@@ -167,7 +166,7 @@ function hide5() {
       <div style="width:100%;vertical-align:bottom;height:25%">
           <h5 align=center><strong>Rank: {{ i }}</strong></h5>
           <h5 align=center><strong>Name: {{game.title}}</strong></h5>
-          <h5 align=center><strong>Engagement Score: {{ gs }}</strong></h5>
+          <h5 align=center><strong>Score: {{ gs }}</strong></h5>
       </div>
     </div>
   </figure>
@@ -187,7 +186,7 @@ function hide5() {
       <div style="width:100%;vertical-align:bottom;height:25%">
           <h5 align=center><strong>Rank: {{ i }}</strong></h5>
           <h5 align=center><strong>Name: {{game.title}}</strong></h5>
-          <h5 align=center><strong>Engagement Score: {{ gs }}</strong></h5>
+          <h5 align=center><strong>Score: {{ gs }}</strong></h5>
       </div>
     </div>
   </figure>
@@ -208,7 +207,7 @@ function hide5() {
       <div style="width:100%;vertical-align:bottom;height:25%">
           <h5 align=center><strong>Rank: {{ i }}</strong></h5>
           <h5 align=center><strong>Name: {{game.title}}</strong></h5>
-          <h5 align=center><strong>Engagement Score: {{ gs }}</strong></h5>
+          <h5 align=center><strong>Score: {{ gs }}</strong></h5>
       </div>
     </div>
   </figure>
@@ -229,7 +228,7 @@ function hide5() {
       <div style="width:100%;vertical-align:bottom;height:25%">
           <h5 align=center><strong>Rank: {{ i }}</strong></h5>
           <h5 align=center><strong>Name: {{game.title}}</strong></h5>
-          <h5 align=center><strong>Engagement Score: {{ gs }}</strong></h5>
+          <h5 align=center><strong>Score: {{ gs }}</strong></h5>
       </div>
     </div>
   </figure>
