@@ -200,26 +200,25 @@ class Controller{
   getTotalCommits(){
     return this.Arjun.getCommit() + this.Rabia.getCommit() + this.Blake.getCommit() + this.Yinghong.getCommit() + this.Wenran.getCommit();
   }
-}
 
-function apiRequest(controller){
+  apiRequest(){
     var api = "https://api.github.com/repos/ArjunSingh1/SoftwareLab/issues";
     console.log("starting api request");
     $.get(api, function (data) {
       $.each(data, function (idx, obj) {
         if(obj.user.login == "rabiakhan713"){
-          controller.Rabia.issues += 1;
+          this.Rabia.issues += 1;
         } else if(obj.user.login == "wenranlu"){
-          controller.Wenran.issues += 1;
+          this.Wenran.issues += 1;
         } else if(obj.user.login == "Bgardner4"){
-          controller.Blake.issues += 1;
+          this.Blake.issues += 1;
         } else if(obj.user.login == "YinghongLIU"){
-          controller.Yinghong.issues += 1;
+          this.Yinghong.issues += 1;
         } else if(obj.user.login == "ArjunSingh1"){
-          controller.Arjun.issues += 1;
+          this.Arjun.issues += 1;
         }
       });
-      var total = controller.getTotalIssues();
+      var total = this.getTotalIssues();
       $("#totalIssues").append(total);
       console.log("finished issues");
     });
@@ -228,19 +227,21 @@ function apiRequest(controller){
     $.get(api, function (data) {
       $.each(data, function (idx, obj) {
         if(obj.login == "rabiakhan713"){
-          controller.Rabia.commits += obj.contributions;
+          this.Rabia.commits += obj.contributions;
         } else if(obj.login == "wenranlu"){
-          controller.Wenran.commits += obj.contributions;
+          this.Wenran.commits += obj.contributions;
         } else if(obj.login == "Bgardner4"){
-          controller.Blake.commits += obj.contributions;
+          this.Blake.commits += obj.contributions;
         } else if(obj.login == "YinghongLIU"){
-          controller.Yinghong.commits += obj.contributions;
+          this.Yinghong.commits += obj.contributions;
         } else if(obj.login == "ArjunSingh1"){
-          controller.Arjun.commits += obj.contributions;
+          this.Arjun.commits += obj.contributions;
         }
       });
-      var totalC = controller.getTotalCommits();
+      var totalC = this.getTotalCommits();
       $("#totalCommits").append(totalC);
       console.log("finished commits");
     });              
   }
+}
+
