@@ -56,11 +56,33 @@ db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square
 def home():
     return render_template('home.html')
 
+
 # easier data parsing for console pages
 class Console_Wrapper:
-    def __init__(self, db=None, num=None):
+
+    _instance = None
+
+    @staticmethod
+    def getInstance():
+
+        if Console_Wrapper._instance == None:
+            Console_Wrapper()
+        return Console_Wrapper._instance
+
+    def __init__(self):
+
+        if Console_Wrapper._instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            Console_Wrapper._instance = self
+
         self.db = db
-        self.num = num
+        self.console_1 = []
+        self.console_2 = []
+        self.console_3 = []
+        self.console_4 = []
+        self.console_5 = []
+        self.console_6 = []
 
 
     def get_data(self):
@@ -70,82 +92,102 @@ class Console_Wrapper:
                 "SELECT * from All_Consoles"
             ).fetchall()
         i = 0
-        console_data = []
         for row in consoles:
-            if i == 1 and i == self.num:
+            if i == 1:
                 for j in range(1, 10):
-                    console_data.append(row[j])
+                    self.console_1.append(row[j])
 
-            if i == 2 and i == self.num:
+            if i == 2:
                 for j in range(1, 13):
-                    console_data.append(row[j])
+                    self.console_2.append(row[j])
 
-            if i == 3 and i == self.num:
+            if i == 3:
                 for j in range(1, 15):
-                    console_data.append(row[j])
+                    self.console_3.append(row[j])
 
-            if i == 4 and i == self.num:
+            if i == 4:
                 for j in range(1, 12):
-                    console_data.append(row[j])
+                    self.console_4.append(row[j])
 
-            if i == 5 and i == self.num:
+            if i == 5:
                 for j in range(1, 12):
-                    console_data.append(row[j])
+                    self.console_5.append(row[j])
 
-            if i == 6 and i == self.num:
+            if i == 6:
                 for j in range(1, 13):
-                    console_data.append(row[j])
+                    self.console_6.append(row[j])
 
             i = i + 1
 
-        return console_data
+    def get_1(self):
+        return self.console_1
+
+    def get_2(self):
+        return self.console_2
+
+    def get_3(self):
+        return self.console_3
+
+    def get_4(self):
+        return self.console_4
+
+    def get_5(self):
+        return self.console_5
+
+    def get_6(self):
+        return self.console_6
+
+
+#Singleton Design Pattern implemented
 
 @app.route("/consoles")
 def consoles():
+    console_data = Console_Wrapper()
+    console_data.get_data()
 
     return render_template('consoles.html')
 
 
 @app.route("/consoles/console1")
 def console1():
-    console_1 = Console_Wrapper(db=db, num=1)
-    data = console_1.get_data()
+    data = Console_Wrapper.getInstance().get_1()
+
     return render_template('console1.html', data=data)
 
 
 @app.route("/consoles/console2")
 def console2():
-    console_2 = Console_Wrapper(db=db, num=2)
-    data2 = console_2.get_data()
+    data2 = Console_Wrapper.getInstance().get_2()
     return render_template('console2.html', data=data2)
 
 
 @app.route("/consoles/console3")
 def console3():
-    console_3 = Console_Wrapper(db=db, num=3)
-    data3 = console_3.get_data()
+    data3 = Console_Wrapper.getInstance().get_3()
+
     return render_template('console3.html', data=data3)
 
 
 @app.route("/consoles/console4")
 def console4():
-    console_4 = Console_Wrapper(db=db, num=4)
-    data4 = console_4.get_data()
+    data4 = Console_Wrapper.getInstance().get_4()
+
     return render_template('console4.html', data=data4)
 
 
 @app.route("/consoles/console5")
 def console5():
-    console_5 = Console_Wrapper(db=db, num=5)
-    data5 = console_5.get_data()
+    data5 = Console_Wrapper.getInstance().get_5()
+
     return render_template('console5.html', data=data5)
 
 
 @app.route("/consoles/console6")
 def console6():
-    console_6 = Console_Wrapper(db=db, num=6)
-    data6 = console_6.get_data()
+    data6 = Console_Wrapper.getInstance().get_6()
+
     return render_template('console6.html', data=data6)
+
 
 
 @app.route("/consoles/compare")
