@@ -6,8 +6,11 @@
     <title>GameSquare-About</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{url_for('static', filename='About.js')}}"></script>
+    <script src="{{url_for('static', filename='navbar.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='basics.css')}}">
     <script>
+
+
         var controller;
 
         function load(){
@@ -56,6 +59,8 @@ hr{
   <a href="{{url_for('rating')}}">Rating</a>
   <a class="active" href="{{url_for('about')}}">About</a>
 </div>
+<br>
+<br>
 
 <div align = "center">
     <h1>About us</h1>

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="{{url_for('static', filename='navbar.js')}}"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{url_for('static', filename='basics.css')}}">
 <style>
@@ -31,7 +32,7 @@ figure:hover{
 </style>
 </head>
 
-
+<body>
 <div class="topnav">
   <a href="{{url_for('home')}}">Home</a>
   <a href="{{url_for('consoles')}}">Consoles</a>
@@ -40,7 +41,7 @@ figure:hover{
   <a href="{{url_for('about')}}">About</a>
 </div>
 
-<body>
+<br><br>
 <div align = "center">
     <h2 id="title">Top 10 Games by Engagement</h2>
   <p>Rating of games based on community engagement!</p>
