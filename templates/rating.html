@@ -20,13 +20,11 @@
 }
 
 figure{
-  background-color: #ddd;
+  padding-top:10px;
+  padding-bottom:5px;
+  background-color: #D2D2D2;
   margin-bottom:30px;
-}
-figure:hover{
-  color:white;
-  background-color: #333;
-  border-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 </style>
@@ -139,7 +137,7 @@ function hide5() {
     {% set i = 1 %}
     {% for game in games: %}
     {% set gs = game.score * 10000 %}
-  <figure style="margin:20px;border-style:solid;border-radius:10px;">
+  <figure style="margin:20px;border-style:none;border-radius:10px;">
 
     <div align="center" style="width:100%;height:100%">
       <div style="height:75%">
@@ -159,8 +157,9 @@ function hide5() {
     {% set i = 1 %}
     {% for game in games2: %}
     {% set gs = game.score * 10000 %}
-  <figure style="margin:20px;border-style:solid;border-radius:10px;">
 
+
+  <figure style="margin:20px;border-style:none;border-radius:10px;">
     <div align="center" style="width:100%;height:100%">
       <div style="height:75%">
         <img style="width:80%;height:100%;vertical-align:middle;" align=center src="{{game.link}}" alt="missing"/>
@@ -179,7 +178,7 @@ function hide5() {
     {% set i = 1 %}
     {% for game in games3: %}
     {% set gs = game.score * 10000 %}
-  <figure style="margin:20px;border-style:solid;border-radius:10px;">
+  <figure style="margin:20px;border-style:none;border-radius:10px;">
 
     <div align="center" style="width:100%;height:100%">
       <div style="height:75%">
@@ -200,7 +199,7 @@ function hide5() {
     {% set i = 1 %}
     {% for game in games4: %}
     {% set gs = game.score * 10000 %}
-  <figure style="margin:20px;border-style:solid;border-radius:10px;">
+  <figure style="margin:20px;border-style:none;border-radius:10px;">
 
     <div align="center" style="width:100%;height:100%">
       <div style="height:75%">
@@ -221,7 +220,7 @@ function hide5() {
     {% set i = 1 %}
     {% for game in games5: %}
     {% set gs = game.score * 10000 %}
-  <figure style="margin:20px;border-style:solid;border-radius:10px;">
+  <figure style="margin:20px;border-style:none;border-radius:10px;">
 
     <div align="center" style="width:100%;height:100%">
       <div style="height:75%">
