@@ -29,26 +29,26 @@ Bootstrap(app)
 # [START cloud_sql_mysql_sqlalchemy_create]
 # The SQLAlchemy engine will help manage interactions, including automatically
 # managing a pool of connections to your database
-#db = sqlalchemy.create_engine(
+db = sqlalchemy.create_engine(
     # Equivalent URL:
     # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>
-#    sqlalchemy.engine.url.URL(
-#        drivername='mysql+pymysql',
-#        username=db_user,
-#        password=db_pass,
-#        database=db_name,
-#        query={
-#            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
-#        }
-#    ),
-#    pool_size=5,
-#    max_overflow=2,
-#    pool_timeout=30,  # 30 seconds
-#    pool_recycle=1800,  # 30 minutes
-#)
+    sqlalchemy.engine.url.URL(
+        drivername='mysql+pymysql',
+        username=db_user,
+        password=db_pass,
+        database=db_name,
+        query={
+            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
+        }
+    ),
+    pool_size=5,
+    max_overflow=2,
+    pool_timeout=30,  # 30 seconds
+    pool_recycle=1800,  # 30 minutes
+)
 
 
-db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
+#db = sqlalchemy.create_engine('mysql+pymysql://root:copper@localhost/Game_Square')
 
 # home page
 @app.route("/")
@@ -277,20 +277,14 @@ def games(page, sortmethod, searchstring):
                     if link == 'unreleased':
                         noimagerows.append(row)
                     else:
-                        append_games(row, link, games, sortmethod)
+                        append_games(row, games, sortmethod)
 
                 for row in noimagerows:
-                    link = row[1].decode('utf-8')
-                    if link == 'unreleased':
-                        link = 'https://www.classicposters.com/images/nopicture.gif'
-                    append_games(row, link, games, sortmethod)
+                    append_games(row, games, sortmethod)
 
             else:
                 for row in top_games:
-                    link = row[1].decode('utf-8')
-                    if link == 'unreleased':
-                        link = 'https://www.classicposters.com/images/nopicture.gif'
-                    append_games(row, link, games, sortmethod)
+                    append_games(row, games, sortmethod)
 
         else:
             if (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
@@ -301,12 +295,15 @@ def games(page, sortmethod, searchstring):
                 link = row[1].decode('utf-8')
                 if link == 'unreleased':
                     link = 'https://www.classicposters.com/images/nopicture.gif'
-                append_games(row, link, games, sortmethod)
+                append_games(row, games, sortmethod)
 
     return render_template('games.html', games=games, page=page, sortmethod=sortmethod, searchstring=searchstring)
 
 
-def append_games(row, link, games, sortmethod):
+def append_games(row, games, sortmethod):
+    link = row[1].decode('utf-8')
+    if link == 'unreleased':
+        link = 'https://www.classicposters.com/images/nopicture.gif'
     if (sortmethod == 'All_Games') or (sortmethod == 'Highest Rated') or (sortmethod == 'Lowest Rated'):
         games.append({
             'title': row[0].decode('utf-8'),
